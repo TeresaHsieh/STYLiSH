@@ -57,8 +57,8 @@ function bannerrender(data) {
 
         // marketing campaign 內文字
         let marketpoetry = document.createElement("div");
-        let poemgurl = items[i].story.replace("/\r\n/g",'</br>');
-        console.log(poemgurl);
+        let poemgurl = items[i].story;
+        console.log(poemgurl.length);
         marketpoetry.setAttribute("src", poemgurl);
         marketpoetry.setAttribute("style", "poetry");
         // marketingCampaignDiv.appendChild(marketingpics);
@@ -66,12 +66,12 @@ function bannerrender(data) {
         slideShow();     
     }
 
-    setInterval(slideShow, 1000);
+    setInterval(slideShow, 10000);
 }
 
     function slideShow() {
-        console.log(bannerPics[index]);
-        document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' width=100% height=100%><span class=poetry> '" + poetryArray[index] + "' </span>";
+        console.log(poetryArray[index].replace(/\r\n/g,"<br/>"))
+        document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' style='width:100%' ><span class=poetry> " + poetryArray[index].replace(/\r\n/g,"<br/>") + " </span>";
         index += 1;
         if(index > bannerPicsLen-1){
             index = 0
