@@ -23,17 +23,14 @@ function apiurl(type) {
 
 function marketing() {
     let marketingurl = API + "/marketing/campaigns"
-    console.log(marketingurl)
     ajax(marketingurl, bannerrender);
 
-     //Remove all child elements of a DOM node
-     let marketingCampaignDiv = document.getElementById("banner");
-     while (marketingCampaignDiv.firstChild) {
-        marketingCampaignDiv.removeChild(marketingCampaignDiv.firstChild);
-     }
-    
+    //Remove all child elements of a DOM node
+    // let marketingCampaignDiv = document.getElementById("banner");
+    // while (marketingCampaignDiv.firstChild) {
+    //     marketingCampaignDiv.removeChild(marketingCampaignDiv.firstChild);
+    // }
 }
-
 
 function bannerrender(data) {
     let items = JSON.parse(data).data;
@@ -41,27 +38,69 @@ function bannerrender(data) {
     for (i = 0; i < items.length; i += 1) {
 
         // marketing campaign 最外層會變動的橫幅
-        let marketingCampaignDiv = document.getElementById("banner");
+        let marketingCampaignDiv = document.getElementById("bannerPic");
         let marketingpics = document.createElement("img");
         let marketingnewurl = "https://api.appworks-school.tw" + items[i].picture;
-        console.log(marketingnewurl);
         marketingpics.setAttribute("src", marketingnewurl);
-        marketingpics.setAttribute("style", "banner");
+        marketingpics.setAttribute("width", "100%");
 
         // // marketing campaign 內文字
         // let marketpoetry = document.createElement("div");
         // let poemgurl = items[i].story;
         // marketpoetry.setAttribute("src", poemgurl);
         // marketpoetry.setAttribute("style", "poetry");
-        marketingCampaignDiv.appendChild(marketingpics);
+        // marketingCampaignDiv.appendChild(marketingpics);
         // marketingpics.appendChild(marketpoetry);
+
+        // let Array = [items[i].picture];
+        let Array = ["https://api.appworks-school.tw/assets/keyvisuals/201807242228.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807242222.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg"]
+        console.log(Array);
+        let bannerPics = Array
+        // let bannerPics = "https://api.appworks-school.tw" + Array
+        let bannerPicsLen = bannerPics.length;
+        console.log (bannerPicsLen);
+
+        setInterval(slideShow, 1000);
+        
+        function slideShow() {
+            document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[i] + "' width=100% height=100%>";
+            i += 1;
+            if (i > bannerPicsLen){ 
+                i = 0 };
+        }
     }
 
+    console.log("123");
+}
+
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("bannerPic");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
 }
 
 
 
 
+// 產品區的資料 render ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 function ajax(src, callback) {
     var xhr = new XMLHttpRequest();
@@ -142,36 +181,36 @@ function render(data) {
 
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
-    if (usersSearch != ""){
+    if (usersSearch != "") {
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
-    
+
         // Remove all child elements of a DOM node
         let allproducts = document.getElementById("genral-container");
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
-    } 
+    }
 }
 
 
 
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
-    if (usersSearch != ""){
+    if (usersSearch != "") {
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
-    
+
         // Remove all child elements of a DOM node
         let allproducts = document.getElementById("genral-container");
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
-    } 
+    }
 }
 
 
@@ -224,7 +263,7 @@ let ticking = false;
 function doSomething() {
     // genral-container 跑完了，可以開始 call ajax
     let rectBottom = generalContainer.getBoundingClientRect().bottom;
-    console.log(rectBottom,window.innerHeight,pagingNumber);
+    console.log(rectBottom, window.innerHeight, pagingNumber);
     if ((rectBottom <= (window.innerHeight || document.body.clientHeight)) && pagingNumber > 0) {
         pagingapi(pagingType, pagingNumber);
     }
