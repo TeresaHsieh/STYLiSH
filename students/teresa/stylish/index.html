@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Stylish Home Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header class="main-header">
+        <div><img src="./images/logo.png" class="logo"></div>
+        <div>
+            <ul class="main-nav">
+                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="topl">｜</li>
+                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="topl">｜</li>
+                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+        <div class="functionbar">
+            <div>
+                <div class="searchbox"
+                    style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
+                    <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
+                        id="searchtyping"> </input>
+                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                        onclick="readSearch()"></img>
+                </div>
+            </div>
+            <div><img src="./images/btn-shopping-cart-01-add@3x.png" class="bag" alt="shopping-cart" height="44"
+                    width="44">
+            </div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
+        </div>
+    </header>
+
+
+    <header class="mobilemain-header">
+        <div class="logoandsearch">
+            
+            <img src="./images/logo.png" class="mobilelogo" id="mobilelogo">
+
+
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox" style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent" class="searchtyping" name="searchtyping" id="mobilesearchtyping" ></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18" id="secondmobilesearch"
+                    onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
+
+
+            <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
+
+        </div>
+        <div class="mobilemain-navdiv">
+            <ul class="mobilemain-nav">
+                <li class="mobilelady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="grey-line"></div>
+
+    <div class="banner" id="banner">
+        <div class="bannerPic" id="bannerPic" src="">
+        <div class="poem" style="background-image:">
+            <span class="poetry" src=""> 於是 <br> 我也想要給你 <br> 一個那麼美好的自己。<br> </span>
+            <span class="writer"> 不朽《與自己和好如初》</span>
+        </div>
+        </div>
+    </div>
+
+    <div class="empty"></div>
+    <div>
+        <div class="genral-container" id="genral-container">
+            <!-- <div  class="pic-container">
+                <img id="picture" src="./images/test.png" class="pic 1"></img>
+                <div class="hextrial">
+                    <div class="color 1" background-color=""></div>
+                </div>
+                <div>
+                    <p class="productsname">後鬆緊牛仔落地寬褲</p>
+                </div>
+                <div>
+                    <p class="price">TWD.590</p>
+                </div>
+            </div>
+            <div class="pic-container">
+                <img  id="picture" src="./images/test.png" class="pic 2"></img>
+                <div class="hextrial">
+                    <div class="color 2" background-color=""></div>
+                    <div class="color 2_2" background-color=""></div>
+                </div>
+                <p class="productsname">前開衩扭結洋裝</p>
+                <p class="price">TWD.690</p>
+            </div>
+            <div class="pic-container">
+                <img id="picture" src="./images/test.png" class="pic 3"></img>
+                <div class="hextrial">
+                    <div class="color 3" background-color=""></div>
+                    <div class="color 3_2" ></div>
+                </div>
+                <p class="productsname">涼感垂墜絲滑寬</p>
+                <p class="price">TWD.430</p>
+            </div>
+            <div class="pic-container">
+                <img id="picture" src="./images/test.png" class="pic 4"></img>
+                <div class="hextrial">
+                    <div class="color 4" background-color=""></div>
+                    <div class="color 4_2" background-color=""></div>
+                </div>
+                <p class="productsname">腰鬆緊棉麻褲裙</p>
+                <p class="price">TWD.590</p>
+            </div>
+            <div class="pic-container">
+                <img id="picture" src="./images/test.png" class="pic 5"></img>
+                <div class="hextrial">
+                    <div class="color 5" background-color=""></div>
+                    <div class="color 5_2" background-color=""></div>
+                </div>
+                <p class="productsname">前開衩扭結洋裝</p>
+                <p class="price">TWD.690</p>
+            </div>
+            <div class="pic-container">
+                <img id="picture" src="./images/test.png" class="pic 6"></img>
+                <div class="hextrial">
+                    <div class="color 6" background-color=""></div>
+                </div>
+                <p class="productsname">透肌澎澎連袖防曬上衣</p>
+                <p class="price">TWD.430</p>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="empty"></div>
+
+    <footer class="footer">
+        <div class="narrowfooter">
+            <div>
+                <ul class="footer-nav">
+                    <li class="aboutStylish">關於 Stylish</li>
+                    <li class="downl">｜</li>
+                    <li class="service">服務條款</li>
+                    <li class="downl">｜</li>
+                    <li class="privacy">隱私政策</li>
+                    <li class="downl">｜</li>
+                    <li class="contact">聯絡我們</li>
+                    <li class="downl">｜</li>
+                    <li class="FAQ">FAQ</li>
+                </ul>
+            </div>
+            <div class="mediadiv">
+                <ul class="social-media">
+                    <li><img class="line" src="./images/line.png" alt="line" height="50" width="50"></li>
+                    <li><img class="twitter" src="./images/twitter.png" alt="twitter" height="50" width="50"></li>
+                    <li><img class="facebook" src="./images/facebook.png" alt="facebook" height="50" width="50"></li>
+                </ul>
+            </div>
+            <div class="copyrightdiv">
+                <span class="copyright"> &copy; 2018. All rights reserved.</span>
+            </div>
+        </div>
+
+
+
+
+
+    </footer>
+    <div class="fixedbar">
+        <div class="cartdescription">
+            <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+            <p class="mobilecart">購物車</p>
+        </div>
+        <div>
+            <p class="mobiletopl">|</p>
+        </div>
+        <div class="memberdescription">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30">
+            <p class="mobilemember">會員</p>
+        </div>
+
+    </div>
+
+
+    <script src="./index.js"></script>
+</body>
+
+
+</html>
+<script>
+    // 開啟頁面後會先跑出所有產品
+    window.addEventListener('load', function () { apiurl("all") });
+    window.addEventListener("load", function(){ marketing() });
+
+
+    // 搜尋 bar 裡按下 enter 鍵，會跟點擊放大鏡圖片有一樣的效果 
+    var input = document.getElementById("searchtyping");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("search").click();
+        }
+    });
+
+    var mobileinput = document.getElementById("mobilesearchtyping");
+    mobileinput.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("secondmobilesearch").click();
+        }
+    });
+
+</script>

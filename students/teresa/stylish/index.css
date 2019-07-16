@@ -1,0 +1,872 @@
+/* ================================= 
+  Base Styles
+==================================== */
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 360px;
+}
+
+body {
+  margin:0;
+}
+
+header {
+  background-color:#ffffff;
+  width: 100%;
+  height: 100px;
+}
+
+
+footer {
+  background-color:#313538;
+  width: 100%;
+  height: 115px;
+
+}
+
+.genral-container {
+  width: 100%;
+  /* height: 1420px; */
+}
+
+.mobilemain-header {
+  display: none;
+}
+
+.fixedbar {
+  display: none;
+}
+
+.empty {
+  width: 100%;
+  height: 30px;
+  background: #ffffff;
+}
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+/* ---- Header ---- */
+
+.main-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+
+.logo {
+  width: 258px;
+  height: 48px;
+  margin-left: 60px; 
+}
+
+.main-nav {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-items: start;
+margin-left: 15px;
+} 
+
+
+
+header ul {
+overflow: hidden;
+}
+
+header li {
+/* list-style-type: none; */
+display: inline-block;
+}
+
+.lady {
+color: #8b572a;
+}
+
+.man,
+.kit {
+color: #3f3a3a;
+}
+
+.lady,
+.man,
+.kit {
+height: 28px;
+font-family: PingFangTC;
+font-size: 20px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 30px;
+text-align: center;
+padding: 0px;
+}
+
+
+.topl {
+height: 28px;
+font-family: PingFangTC;
+font-size: 20px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 30px;
+text-align: center;
+color: #3f3a3a;
+}
+
+.functionbar {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 50px;
+  margin-right: 15px;
+}
+
+.searchbox {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.searchtyping {
+align-self:left;
+color: black;
+border: 0px;
+}
+
+.search {
+align-self:right;
+margin-left: 30px;
+}
+
+.closebtn{
+  align-self:right;
+  margin-left: 20px;
+}
+
+.bag {
+  margin-left: 42px;
+}
+.member {
+margin-left: 42px;
+}
+
+
+
+
+/* ---- Banner ---- */
+.grey-line {
+  width: 100%;
+  height: 40px;
+  background-color:#313538;
+}
+
+.banner {
+  width: 100%;
+  height: 500px;
+  background-color:lightgoldenrodyellow;
+}
+/* .poem {
+  display: grid;
+  grid-template-rows: auto auto ; 
+  justify-content: center;
+  align-content: center;
+} */
+
+.poetry {
+  font-size: 30px;
+}
+
+.writer {
+  font-size: 20px;
+}
+
+.poetry,
+.writer {
+  font-family: PingFangTC;
+  font-weight: 100;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.9;
+  letter-spacing: normal;
+  text-align: left;
+  color: #070707;
+  /* position: absolute; */
+  
+}
+
+.poem {
+  /* width: 100%; */
+  height: 228px;
+  position: absolute;
+  top: 306px;
+  left: 20%;
+}
+
+
+/* ---- Body ---- */
+
+.genral-container {
+  display: grid;
+  /* 放三個照片在同一列，因此會有三個 auto */
+  grid-template-columns: auto auto auto ;
+  grid-template-rows: auto auto ; 
+  /* 三張照片置中 */
+  justify-content: center;
+  align-content: center;
+  /* background-color: lightblue; */
+  grid-row-gap: 50px;
+  grid-column-gap: 40px;
+
+}  
+
+.pic-container {
+  display: grid;
+  /* 放四個物件在同一欄，因此會有四個 auto */
+  /* grid-template-rows: 480px 24px 24px 24px; */
+  grid-row-gap: 10px;
+  width: 100%;
+  /* height: 602px; */
+  /* background-color: lightcoral; */
+  align-items: start;
+  justify-items: start;
+
+}
+
+.productsname {
+    height: 24px;
+    font-family: NotoSansCJKtc;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 4px;
+    text-align: left;
+    color: #3f3a3a;
+    margin:0;
+}
+
+.price{
+    height: 24px;
+    font-family: NotoSansCJKtc;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 4px;
+    text-align: left;
+    color: #3f3a3a;
+    margin:0;
+}
+   
+.pic {
+  background-color: lightgoldenrodyellow;
+  width: 360px;
+  /* height: 480px; */
+  /* margin-left: 40px; */
+  /* margin-right: 40px ; */
+  text-align: center;
+}
+
+.hextrial {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-auto-columns: 24px;
+  justify-content: start;
+  align-content: start;
+  grid-column-gap: 10px;
+
+}
+
+.color {
+  width: 24px ;
+  height: 24px;
+}
+/* 
+
+.color1 {
+  background-color: #9baac2;
+}
+
+.color2 {
+  background-color: #d9d9d9;
+}
+
+.color2_2 {
+  background-color: #8b572a;
+}
+
+.color3 {
+  background-color: #000000;
+}
+
+.color3_2 {
+  background-color: #c49871;
+}
+.color4 {
+  background-color: #000000;
+}
+.color4_2 {
+  background-color: #848484;
+}
+.color5 {
+  background-color: #d9d9d9;
+}
+.color5_2 {
+  background-color: #c0c0b5;
+}
+.color6 {
+  background-color: #d9d9d9;
+} */
+
+
+
+
+/* ---- Footer ---- */
+
+
+.footer {
+  width: 100%;
+  height: 115px;
+  background-color: #313538;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content:center;
+  
+}
+
+.narrowfooter {
+  /* max-width: 2500px;
+  min-width: 1000px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items:stretch;
+  justify-items: stretch;
+  margin-right: 50px;
+  flex-grow: 1;
+}
+
+
+.social-media,
+.copyright {
+  flex-grow:1;
+}
+
+
+.social-media {
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  grid-column-gap: 30px;
+  margin-right: 50px;
+  padding:0;
+}
+
+footer ul {
+  overflow: hidden;
+}
+
+footer li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.aboutStylish,
+.service,
+.privacy,
+.contact,
+.FAQ {
+  font-family: PingFangTC;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  padding: 0px;
+  flex-grow: 1;
+}
+
+.aboutStylish {
+  height: 22px;
+  color: #c49871;
+}
+
+.service,
+.privacy,
+.contact {
+  height: 22px;
+  color: #f5f5f5;
+}
+
+.FAQ {
+  height: 22px;
+  color: #f5f5f5;
+}
+
+.downl {
+  height: 22px;
+  font-family: PingFangTC;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  text-align: center;
+  color: #828282;
+}
+
+.copyright{
+  color: #828282;
+  flex-grow: 1;
+
+}
+
+
+/* =================================================================================
+  Media Queries
+================================================================== */
+
+@media  (max-width: 1200px) {
+
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    width:100%;
+  }
+
+  header {
+    background-color:#ffffff;
+    width: 100%;
+    height: 100px;
+  }
+  
+  
+  footer {
+    background-color:#313538;
+    width: 100%;
+    height: 148px;
+  
+  }
+  
+  .genral-container {
+    width: 100%;
+    /* height: 903px; */
+  }
+
+  .mobilemain-header {
+    display: block;
+  }
+
+  .main-header {
+    display: none;
+  }
+
+
+
+/* ---- Header ---- */
+
+ 
+.mobilemain-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.logoandsearch {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo {
+  align-items: center;
+}
+
+.mobilesearchbox {
+  align-items: center;
+}
+
+.mobilesearch {
+  position: absolute;
+  right: 15px;
+}
+
+.mobilemain-navdiv {
+  width: 100%;
+  margin-top: 44px;
+}
+
+.mobilemain-nav {
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin-left: 44px;
+padding: 0px;
+margin: 0px; 
+} 
+
+.mobilelogo {
+  align-self: center;
+  width: 135.7px;
+  height: 25px;
+  align-items: center;
+  margin-top: 41.3px ;
+  /* margin-left: 115px; */
+  justify-items: center;
+}
+
+header ul {
+overflow: hidden;
+}
+
+header li {
+display: inline-block;
+}
+
+.mobilelady {
+color: #ffffff;
+}
+
+.mobileman,
+.mobilekit {
+color: #828282;
+}
+
+.mobilelady,
+.mobileman,
+.mobilekit {
+height: 28px;
+font-family: PingFangTC;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: normal;
+text-align: center;
+padding: 0px;
+flex-grow: 500;
+}
+
+
+.mobiletopl {
+height: 28px;
+font-family: PingFangTC;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: normal;
+text-align: center;
+color: #828282;
+}
+
+
+.mobilesearchbox,
+.mobilesearchtyping  {
+  display: none;
+} 
+
+
+.mobilesearch {
+margin-left: 60.9px;
+margin-top: 28px;
+}
+
+
+
+
+
+ 
+
+
+
+/* ---- Banner ---- */
+.grey-line {
+  width: 100%;
+  height: 50px;
+  background-color:#313538;
+}
+
+.banner {
+  width: 100%;
+  height: 200px;
+  background-color:lightgoldenrodyellow;
+}
+
+.poetry {
+  font-size: 13px;
+}
+
+.writer {
+  font-size: 10px;
+}
+
+.poetry,
+.writer {
+  font-weight: 100;
+  line-height: 1.9;
+  letter-spacing: normal;
+  text-align: left;
+  color: #070707;
+  /* position: absolute; */
+  
+}
+
+.poem {
+  /* width: 100%; */
+  height: 99px;
+  position: absolute;
+  top: 200px;
+  left: 90px;
+}
+
+/* ---- Body ---- */
+
+.genral-container {
+  display: grid;
+  grid-template-columns: 40% 40% ;
+  grid-template-rows: auto auto auto; 
+  /* background-color: lightblue; */
+  grid-row-gap: 24px;
+  /* grid-column-gap: 6px; */
+
+}  
+
+.pic-container {
+  display: grid;
+  /* 放四個物件在同一欄，因此會有四個 auto */
+  /* grid-template-rows: 204px 12px 14px 14px; */
+  grid-row-gap: 8px;
+  width: 100%;
+  /* height: 270px; */
+  /* background-color: lightcoral; */
+}
+
+.productsname {
+    height: 14px;
+    font-size: 12px;
+    letter-spacing: 2.4px;
+    margin: 0px;
+}
+
+.price{
+    height: 14px;
+    font-size: 12px;
+    letter-spacing: 2.4px;
+    margin: 0px;
+}
+   
+.pic {
+  width: 100%;
+  /* height: 204px; */
+  /* margin-left: 40px; */
+  margin-right: 6px ;
+}
+
+.hextrial {
+  grid-column-gap: 6px;
+}
+
+.color {
+  width: 12px ;
+  height: 12px;
+}
+
+
+/* ---- Footer ---- */
+
+.footer {
+  width: 100%;
+  height: 180px;
+  background-color: #313538;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;
+  
+}
+
+/* 
+.narrowfooter {
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+ */
+
+
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  width: 158px;
+  height: 76px;
+  margin-left: 40px;
+  padding-left: 0px;
+  align-items: center;
+  flex-grow: 3;
+}
+
+
+.mediadiv {
+  width:100px;
+}
+
+.social-media {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  margin: 0px;
+  justify-content: space-around;
+}
+
+
+
+.line,
+.twitter,
+.facebook {
+  width: 20px;
+  height: 20px;
+  justify-content: space-around;
+  flex-grow: 3;
+  
+}
+
+footer li {
+  width: 50%;
+}
+
+.aboutStylish,
+.service,
+.privacy,
+.contact,
+.FAQ {
+  height: 20px;
+  color: #f5f5f5;
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 5px;
+  margin-right:3px;
+  flex-grow: 0;
+
+  
+}
+
+.downl {
+display: none;
+}
+
+
+.copyright{
+  align-content: center;
+  height: 14px;
+  font-size: 10px;
+  align-items:center;
+  margin-left: 117px;
+  margin-bottom: 20px;
+  justify-content: space-evenly;
+  color: #828282;
+  width: 100%;
+}
+
+
+.fixedbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #313538;
+}
+
+.mobilebag {
+  margin-left: 7px;
+
+}
+.mobilemember {
+margin-left: 7px;
+color: #ffffff;
+} 
+
+.mobilecart,
+.mobilemember,
+.mobiletopl {
+  color: #ffffff;
+}
+
+.fixedbar {
+  justify-content: space-around;
+  align-items: center;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 0; /* Stay on top */
+  bottom: 0; /* Stay at the top */
+  margin-top:1px;
+}
+
+.mobilebag,
+.mobilecart,
+.mobiletopl,
+.mobilemember,
+.mobilemember {
+ padding: 0px;
+ margin: 0px;
+flex-grow: 2;
+justify-content: center;
+align-self: center;
+}
+
+.cartdescription,
+.memberdescription {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cartdescription {
+margin-left: 52px;
+}
+
+.memberdescription {
+  margin-right: 52px;
+  }
+
+
+
+}
+
+
+@media (min-width: 1200px) and (max-width: 1920px) {
+}
