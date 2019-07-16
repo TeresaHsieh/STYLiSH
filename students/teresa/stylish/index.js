@@ -32,54 +32,62 @@ function marketing() {
     // }
 }
 
+// let picArray = [items[i].picture];
+let picArray = ["https://api.appworks-school.tw/assets/keyvisuals/201807242228.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807242222.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg"]
+let poetryArray;
+let bannerPics = picArray
+// let bannerPics = "https://api.appworks-school.tw" + picArray
+let bannerPicsLen = bannerPics.length;
+console.log (bannerPicsLen);
+let index = 0
+
+
 function bannerrender(data) {
     let items = JSON.parse(data).data;
+    poetryArray = [items[0].story,items[1].story,items[2].story];
 
     for (i = 0; i < items.length; i += 1) {
 
         // marketing campaign 最外層會變動的橫幅
-        let marketingCampaignDiv = document.getElementById("bannerPic");
+        // let marketingCampaignDiv = document.getElementById("bannerPic");
         let marketingpics = document.createElement("img");
         let marketingnewurl = "https://api.appworks-school.tw" + items[i].picture;
         marketingpics.setAttribute("src", marketingnewurl);
         marketingpics.setAttribute("width", "100%");
 
-        // // marketing campaign 內文字
-        // let marketpoetry = document.createElement("div");
-        // let poemgurl = items[i].story;
-        // marketpoetry.setAttribute("src", poemgurl);
-        // marketpoetry.setAttribute("style", "poetry");
+        // marketing campaign 內文字
+        let marketpoetry = document.createElement("div");
+        let poemgurl = items[i].story.replace("/\r\n/g",'</br>');
+        console.log(poemgurl);
+        marketpoetry.setAttribute("src", poemgurl);
+        marketpoetry.setAttribute("style", "poetry");
         // marketingCampaignDiv.appendChild(marketingpics);
-        // marketingpics.appendChild(marketpoetry);
-
-        // let Array = [items[i].picture];
-        let Array = ["https://api.appworks-school.tw/assets/keyvisuals/201807242228.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807242222.jpg", "https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg"]
-        console.log(Array);
-        let bannerPics = Array
-        // let bannerPics = "https://api.appworks-school.tw" + Array
-        let bannerPicsLen = bannerPics.length;
-        console.log (bannerPicsLen);
-
-        setInterval(slideShow, 1000);
-        
-        function slideShow() {
-            document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[i] + "' width=100% height=100%>";
-            i += 1;
-            if (i > bannerPicsLen){ 
-                i = 0 };
-        }
+        // marketingpics.appendChild(marketpoetry);  
+        slideShow();     
     }
 
-    console.log("123");
+    setInterval(slideShow, 1000);
 }
 
+    function slideShow() {
+        console.log(bannerPics[index]);
+        document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' width=100% height=100%><span class=poetry> '" + poetryArray[index] + "' </span>";
+        index += 1;
+        if(index > bannerPicsLen-1){
+            index = 0
+        }   
+        // document.getElementById("poetry").innerHTML = "<span> '" + poetryArray[index] + "' </span>";
+        // index += 1;
+        // if(index > bannerPicsLen-1){
+        //     index = 0
+        // }      
+    } 
 
-let slideIndex = 1;
-showSlides(slideIndex);
+    function currentSlide(n) {
+        slideShow(index = n);
+    } 
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+
 
 function showSlides(n) {
   let i;
@@ -96,6 +104,9 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
+
+
+
 
 
 
