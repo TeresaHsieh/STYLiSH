@@ -38,6 +38,7 @@
         </div>
     </header>
 
+
     <header class="mobilemain-header">
         <div class="logoandsearch">
             
@@ -67,13 +68,27 @@
         </div>
     </header>
 
+
+
     <div class="grey-line"></div>
+
     <div class="banner" id="banner">
-        <div class="poem">
-            <span class="poetry"> 於是 <br> 我也想要給你 <br> 一個那麼美好的自己。<br> </span>
-            <span class="writer"> 不朽《與自己和好如初》</span>
+        <a class="bannerPic" id="bannerPic" src="">
+            <div class="poem" id="poem">
+                <span class="poetry" id="poetry"> <br> </span>
+                <span class="writer"> </span>
+            </div>
+        </a>
+        <div class="steps">
+                <span class="dot" onclick="currentSlide(0)"></span> 
+                <span class="dot" onclick="currentSlide(1)"></span> 
+                <span class="dot" onclick="currentSlide(2)"></span> 
         </div>
     </div>
+   
+
+    
+
     <div class="empty"></div>
     <div>
         <div class="genral-container" id="genral-container">
@@ -196,6 +211,9 @@
     // 開啟頁面後會先跑出所有產品
     window.addEventListener('load', function () { apiurl("all") });
 
+    window.addEventListener("load", function(){ marketing() });
+
+
 
     // 搜尋 bar 裡按下 enter 鍵，會跟點擊放大鏡圖片有一樣的效果 
     var input = document.getElementById("searchtyping");
@@ -213,4 +231,5 @@
             document.getElementById("secondmobilesearch").click();
         }
     });
+
 </script>
