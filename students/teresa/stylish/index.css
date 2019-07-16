@@ -140,13 +140,18 @@ color: #3f3a3a;
 
 .searchtyping {
 align-self:left;
-color: transparent;
+color: black;
 border: 0px;
 }
 
 .search {
 align-self:right;
-margin-left: 20px;
+margin-left: 30px;
+}
+
+.closebtn{
+  align-self:right;
+  margin-left: 20px;
 }
 
 .bag {
@@ -502,6 +507,10 @@ footer li {
   align-items: center;
 }
 
+.mobilesearchbox {
+  align-items: center;
+}
+
 .mobilesearch {
   position: absolute;
   right: 15px;
@@ -584,15 +593,12 @@ color: #828282;
 .mobilesearchbox,
 .mobilesearchtyping  {
   display: none;
-}
+} 
 
 .mobilesearch {
 margin-left: 60.9px;
 margin-top: 28px;
-
-
 }
-
  
 
 
