@@ -18,6 +18,7 @@ function apiurl(type) {
     }
 }
 
+
 // Marketing Campaigns
 // 一 load 進頁面就可以開始跑這個 function，並用 function 呼叫 ajax，render 照片進來
 
@@ -122,6 +123,7 @@ function ajax(src, callback) {
         } else {
             return "error : Invalid token.";
         }
+
     }
     xhr.open("GET", src);
     xhr.send();
@@ -142,6 +144,7 @@ function render(data) {
         let allcolors = document.createElement("div");
         let productsname = document.createElement("p");
         let productsprice = document.createElement("p");
+
 
         //篩出新的 url，套進、更新到原本的 html src 屬性
         let picsnewurl = items[i].main_image;
@@ -174,6 +177,7 @@ function render(data) {
         products.appendChild(allcolors);
         products.appendChild(productsname);
         products.appendChild(productsprice);
+
     }
 
     let pagingitems = JSON.parse(data).paging;
@@ -192,7 +196,9 @@ function render(data) {
 
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
+
     if (usersSearch != "") {
+
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
@@ -203,14 +209,18 @@ function readSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
+
 }
 
 
 
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
+
     if (usersSearch != "") {
+
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
@@ -221,13 +231,9 @@ function mobilereadSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
 }
-
-
-
-
-
 
 
 
@@ -274,7 +280,9 @@ let ticking = false;
 function doSomething() {
     // genral-container 跑完了，可以開始 call ajax
     let rectBottom = generalContainer.getBoundingClientRect().bottom;
+
     console.log(rectBottom, window.innerHeight, pagingNumber);
+
     if ((rectBottom <= (window.innerHeight || document.body.clientHeight)) && pagingNumber > 0) {
         pagingapi(pagingType, pagingNumber);
     }
