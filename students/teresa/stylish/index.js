@@ -5,7 +5,6 @@
 let API = "https://api.appworks-school.tw/api/1.0"
 
 function apiurl(type) {
-
     let theurl = API + "/products/" + type
     console.log(theurl)
     ajax(theurl, render);
@@ -27,6 +26,7 @@ function ajax(src, callback) {
         } else {
             return "error : Invalid token.";
         }
+
     }
     xhr.open("GET", src);
     xhr.send();
@@ -47,6 +47,7 @@ function render(data) {
         let productsname = document.createElement("p");
         let productsprice = document.createElement("p");
 
+
         //篩出新的 url，套進、更新到原本的 html src 屬性
         let picsnewurl = items[i].main_image;
         pics.setAttribute("src", picsnewurl); //src 換成新的 url
@@ -62,7 +63,6 @@ function render(data) {
             colors.setAttribute("class", "color");
             allcolors.appendChild(colors);
         }
-
         //把新商品名添加到頁面
         productsname.textContent = items[i].title;
         productsname.setAttribute("class", "productsname");
@@ -76,6 +76,7 @@ function render(data) {
         products.appendChild(allcolors);
         products.appendChild(productsname);
         products.appendChild(productsprice);
+
     }
 
     let pagingitems = JSON.parse(data).paging;
@@ -125,14 +126,6 @@ function mobilereadSearch() {
         }
     } 
 }
-
-
-
-
-
-
-
-
 
 //手機版的站內搜尋，原本沒有打字框，點擊放大鏡後才會 show 出來、隱藏 logo 
 
