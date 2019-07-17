@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header class="main-header">
+        <div><img src="./images/logo.png" class="logo"></div>
+        <div>
+            <ul class="main-nav">
+                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="topl">｜</li>
+                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="topl">｜</li>
+                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+        <div class="functionbar">
+            <div>
+                <div class="searchbox"
+                    style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
+                    <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
+                        id="searchtyping"> </input>
+                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                        onclick="readSearch()"></img>
+                </div>
+            </div>
+            <div><img src="./images/btn-shopping-cart-01-add@3x.png" class="bag" alt="shopping-cart" height="44"
+                    width="44">
+            </div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
+        </div>
+    </header>
+
+
+    <header class="mobilemain-header">
+        <div class="logoandsearch">
+
+            <img src="./images/logo.png" class="mobilelogo" id="mobilelogo">
+
+
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                    class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18"
+                    id="secondmobilesearch" onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
+
+
+            <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
+
+        </div>
+        <div class="mobilemain-navdiv">
+            <ul class="mobilemain-nav">
+                <li class="mobilelady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="grey-line"></div>
+
+    <div class="empty"></div>
+
+
+    <div class="product-mainPart">
+        <div class="product-container" id="product-container">
+            <div class="product-mainPic">
+                <img src="./images/demo.png" class="productMainPic"></img>
+            </div>
+            <div class="product-info">
+                <div class="product-name">
+                    <span class="productName">前開衩扭結洋裝</span>
+                    <span class="productID">03040047</span>
+                    <span class="productPrice">TWD.590</span>
+                    <span class="lightgrey_line"></span>
+                </div>
+
+                <div class="product-color">
+                    <span>顏色 |</span>
+                    <div class="product-colorTrial">
+                        <div class="productColor_1"></div>
+                        <div class="productColor_2"></div>
+                    </div>
+                </div>
+
+                <div class="product-size">
+                    <span>尺寸 |</span>
+                    <div class="circleBackGround">
+                        <div>
+                            <div class="circle">
+                            <p class="size1">S</p>
+                            </div>
+                        </div>    
+                        <div>
+                            <div class="circleblack">
+                            <p class="size2">M</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="circle">
+                            <p class="size3">L</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="circle">
+                            <p class="size4">XL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-amount">
+                    <span>數量 |</span>
+                    <div class="amountBox">
+                        <img src="./images/bitmap@3x minus.png" class="minus"></img>
+                        <p class="number">1</p>
+                        <img src="./images/bitmap@3x.png" class="plus"></img>
+                    </div>
+                </div>
+
+                <button class="addToCart">加入購物車</button>
+                <button class="mobileaddToCart">請選擇尺寸</button>
+
+                <div class="product-notice">
+                    <span>*實品顏色依單品照為主</span>
+                    <div class="material">
+                        <span>棉 100%</span>
+                        <span>厚薄:薄</span>
+                        <span>彈性:無</span>
+                    </div>
+                    <div class="country">
+                        <span>素材產地 / 中国</span>
+                        <span>加工產地 / 中国</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="product-details">
+            <div class="detailsContent">
+                <span>細部說明</span>
+                <span class="divide-line"></span>
+            </div>
+            <span class="detailWords">
+                O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
+                jersey, making it even lighter for those who prefer their summer style extra-breezy.
+            </span>
+            <img src="./images/demo.png" class="productPic 1"></img>
+            <span class="detailWords">
+                O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
+                jersey, making it even lighter for those who prefer their summer style extra-breezy.
+            </span>
+            <img src="./images/demo.png" class="productPic 2"></img>
+        </div>
+    </div>
+
+    <div class="empty"></div>
+
+    <footer class="footer">
+        <div class="narrowfooter">
+            <div>
+                <ul class="footer-nav">
+                    <li class="aboutStylish">關於 Stylish</li>
+                    <li class="downl">｜</li>
+                    <li class="service">服務條款</li>
+                    <li class="downl">｜</li>
+                    <li class="privacy">隱私政策</li>
+                    <li class="downl">｜</li>
+                    <li class="contact">聯絡我們</li>
+                    <li class="downl">｜</li>
+                    <li class="FAQ">FAQ</li>
+                </ul>
+            </div>
+            <div class="mediadiv">
+                <ul class="social-media">
+                    <li><img class="line" src="./images/line.png" alt="line" height="50" width="50"></li>
+                    <li><img class="twitter" src="./images/twitter.png" alt="twitter" height="50" width="50"></li>
+                    <li><img class="facebook" src="./images/facebook.png" alt="facebook" height="50" width="50">
+                    </li>
+                </ul>
+            </div>
+            <div class="copyrightdiv">
+                <span class="copyright"> &copy; 2018. All rights reserved.</span>
+            </div>
+        </div>
+
+
+
+
+
+    </footer>
+    <div class="fixedbar">
+        <div class="cartdescription">
+            <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+            <p class="mobilecart">購物車</p>
+        </div>
+        <div>
+            <p class="mobiletopl">|</p>
+        </div>
+        <div class="memberdescription">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30">
+            <p class="mobilemember">會員</p>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+
+</html>
