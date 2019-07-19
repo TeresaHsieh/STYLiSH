@@ -135,14 +135,14 @@
                 <button class="mobileaddToCart">請選擇尺寸</button>
 
                 <div class="product-notice">
-                    <span>實品顏色依單品照為主</span>
+                    <div>實品顏色依單品照為主</div>
                     <div class="material">
-                        <span class="materialtiny">棉 100%</span>
-                        <span class="thick">厚薄:薄</span>
+                        <div class="materialtiny">棉 100%</div>
+                        <div class="thick">厚薄:薄</div>
                     </div>
                     <div class="country">
-                        <span class="method">素材產地 / 中国</span>
-                        <span class="madeFrom">加工產地 / 中国</span>
+                        <div class="method">素材產地 / 中国</div>
+                        <div class="madeFrom">加工產地 / 中国</div>
                     </div>
                 </div>
             </div>
@@ -150,6 +150,7 @@
 
 
         </div>
+        <div class="emptyHeight"></div>
         <div class="product-details" id="product-details">
             <div class="detailsContent">
                 <span>更多產品資訊</span>
@@ -257,6 +258,7 @@ let product_mainPic = document.getElementById("product-mainPic");
 let mainPic = document.createElement("img");
 mainPic.setAttribute("src", productItems.main_image); 
 mainPic.setAttribute("class", "productMainPic");
+mainPic.setAttribute("width", "100%");
 product_mainPic.appendChild(mainPic);
 
 document.getElementsByClassName("productName")[0].innerHTML = productItems.title;
@@ -310,6 +312,7 @@ let PicsItems = productItems.images;
         let Pics = document.createElement("img");
         Pics.setAttribute("src", PicsURL);
         Pics.setAttribute("class", "productPic_1")
+        Pics.setAttribute("width", "100%")
         product_Pics.appendChild(Pics);
     }
 
