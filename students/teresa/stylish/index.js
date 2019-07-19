@@ -89,29 +89,6 @@ function bannerrender(data) {
     } 
 
 
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("bannerPic");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-
-
-
-
-
-
-
 // 產品區的資料 render ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 function ajax(src, callback) {
@@ -135,7 +112,6 @@ function render(data) {
 
     for (i = 0; i < items.length; i += 1) {
 
-
         /*做一個新的 body，最外面是 allproducts，裡面包 pics
         裡面再包 pics、colors、productsname、productsprice*/
         let allproducts = document.getElementById("genral-container");
@@ -150,8 +126,12 @@ function render(data) {
         let picsnewurl = items[i].main_image;
         pics.setAttribute("src", picsnewurl); //src 換成新的 url
         pics.setAttribute("class", "pic"); //把照片本身的樣式套到新的照片（已套入新的 URL）裡
+        let picsID = items[i].id;
+        pics.setAttribute("id", picsID);
+        pics.setAttribute("onclick", "clickToGetDetail("+picsID+")");
+        let picsURL = "product.html?id="+picsID;
+        pics.setAttribute("href", picsURL);
 
-        //篩出新的 hex 碼，套進、更新到原本的 html 屬性
         allcolors.setAttribute("class", "hextrial");
         let coloritems = items[i].colors;
 
@@ -189,6 +169,7 @@ function render(data) {
     }
 
 }
+
 //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // 站內搜尋功能
 /* 在 searchbar 裡面輸入資料後，去讀取 users 在欄位裡輸入了什麼，
@@ -234,9 +215,6 @@ function mobilereadSearch() {
 
     }
 }
-
-
-
 
 //手機版的站內搜尋，原本沒有打字框，點擊放大鏡後才會 show 出來、隱藏 logo 
 
@@ -289,7 +267,6 @@ function doSomething() {
 }
 
 
-
 function addEventhandle() {
     //last_known_scroll_position = window.scrollY;
     if (!ticking) {
@@ -300,3 +277,64 @@ function addEventhandle() {
     }
     ticking = true;
 }
+
+// Take Parameter from Page URL
+
+function clickToGetDetail (id){
+    window.location = "product.html?id="+id;// 跳轉到自己的頁面
+    let productUrl = API + "/products/details?id=" + id;
+    ajax(productUrl, productrender);
+}
+
+function productrender (data){
+   
+    let productItems = JSON.parse(data).data;
+    
+    for (i = 0; i < productItems.length; i += 1) {
+
+    /* 做一個新的 body */
+    let productsDetail = document.getElementById("product-container");
+
+    let product_mainPic = document.createElement("div");
+    let productPics = document.createElement("img");
+
+    let product_info = document.createElement("div");
+    let productsName = document.createElement("p");
+    let productID = document.createElement("p");
+    let productsPrice = document.createElement("p");
+    let productColors = document.createElement("div");
+
+
+    //篩出新的 url，套進、更新到原本的 html src 屬性
+    let productPicsurl = productItems[i].main_image;
+    productPics.setAttribute("src", productPicsurl); //src 換成新的 url
+    productPics.setAttribute("class", "productMainPic"); //把照片本身的樣式套到新的照片（已套入新的 URL）裡
+    
+    //把新商品名添加到頁面
+    productsName.textContent = productItems[i].title;
+    productsName.setAttribute("class", "productName");
+
+    //把新商品價格添加到頁面
+    productsPprice.textContent = "TWD. " + productItems[i].price;
+    productsPrice.setAttribute("class", "productPrice");
+
+    //把新商品顏色添加到頁面
+    for (j = 0; j < coloritems.length; j += 1) {
+        let colorsnewhex = "#" + coloritems[j].code;
+        let colors = document.createElement("div");
+        colors.style.backgroundColor = colorsnewhex;
+        colors.setAttribute("class", "color");
+        allcolors.appendChild(colors);
+        }
+
+    productsDetail.appendChild(product_mainPic);
+    productsDetail.appendChild(product_info);
+    product_mainPic.appendChild(productPics);
+    product_info.appendChild(productsName);
+    product_info.appendChild(productID);
+    product_info.appendChild(productsPrice);
+    product_info.appendChild(productColors);
+    }
+}
+
+        

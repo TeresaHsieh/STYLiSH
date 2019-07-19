@@ -75,10 +75,10 @@
     <div class="empty"></div>
 
 
-    <div class="product-mainPart">
+    <div class="product-mainPart" id="product-mainPart">
         <div class="product-container" id="product-container">
-            <div class="product-mainPic">
-                <img src="./images/demo.png" class="productMainPic"></img>
+            <div class="product-mainPic" id="product-mainPic">
+                <!-- <img src="" class="productMainPic"></img> -->
             </div>
             <div class="product-info">
                 <div class="product-name">
@@ -91,34 +91,34 @@
                 <div class="product-color">
                     <span>顏色 |</span>
                     <div class="product-colorTrial">
-                        <div class="productColor_1"></div>
-                        <div class="productColor_2"></div>
+                        <!-- <div class="productColor"></div>
+                        <div class="productColor"></div> -->
                     </div>
                 </div>
 
                 <div class="product-size">
                     <span>尺寸 |</span>
                     <div class="circleBackGround">
-                        <div>
-                            <div class="circle">
-                            <p class="size1">S</p>
-                            </div>
-                        </div>    
-                        <div>
+                        <div class="circleContainer">
+                            <!-- <div class="circle">
+                                <p class="size">S</p>
+                            </div> -->
+                        </div>
+                        <!-- <div>
                             <div class="circleblack">
-                            <p class="size2">M</p>
+                                <p class="size">M</p>
                             </div>
                         </div>
                         <div>
                             <div class="circle">
-                            <p class="size3">L</p>
+                                <p class="size">L</p>
                             </div>
                         </div>
                         <div>
                             <div class="circle">
-                            <p class="size4">XL</p>
+                                <p class="size">XL</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -135,15 +135,14 @@
                 <button class="mobileaddToCart">請選擇尺寸</button>
 
                 <div class="product-notice">
-                    <span>*實品顏色依單品照為主</span>
+                    <div>實品顏色依單品照為主</div>
                     <div class="material">
-                        <span>棉 100%</span>
-                        <span>厚薄:薄</span>
-                        <span>彈性:無</span>
+                        <div class="materialtiny">棉 100%</div>
+                        <div class="thick">厚薄:薄</div>
                     </div>
                     <div class="country">
-                        <span>素材產地 / 中国</span>
-                        <span>加工產地 / 中国</span>
+                        <div class="method">素材產地 / 中国</div>
+                        <div class="madeFrom">加工產地 / 中国</div>
                     </div>
                 </div>
             </div>
@@ -151,21 +150,22 @@
 
 
         </div>
-        <div class="product-details">
+        <div class="emptyHeight"></div>
+        <div class="product-details" id="product-details">
             <div class="detailsContent">
-                <span>細部說明</span>
+                <span>更多產品資訊</span>
                 <span class="divide-line"></span>
             </div>
             <span class="detailWords">
                 O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.
             </span>
-            <img src="./images/demo.png" class="productPic 1"></img>
-            <span class="detailWords">
-                O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
-                jersey, making it even lighter for those who prefer their summer style extra-breezy.
+            <!-- <img src="./images/demo.png" class="productPic_1"></img> -->
+            <span >
+                <!-- O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
+                jersey, making it even lighter for those who prefer their summer style extra-breezy.Hello Rita! -->
             </span>
-            <img src="./images/demo.png" class="productPic 2"></img>
+            <!-- <img src="./images/demo.png" class="productPic 2"></img> -->
         </div>
     </div>
 
@@ -220,8 +220,104 @@
     </div>
 
 
-
 </body>
 
+<script>
+    // window.addEventListener("load", )
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let myParam = urlParams.get("id");
+    console.log (myParam)
+    let API = "https://api.appworks-school.tw/api/1.0"
+    let productUrl = API + "/products/details?id=" + myParam;
+    ajax(productUrl, productrender);
+
+
+    function ajax(src, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.response;
+            callback(response);
+        } else {
+            return "error : Invalid token.";
+        }
+    }
+    xhr.open("GET", src);
+    xhr.send();
+    console.log("request sent to the server");
+}
+
+
+function productrender (data){
+   
+   let productItems = JSON.parse(data).data;
+   console.log(productItems)
+
+let product_mainPic = document.getElementById("product-mainPic");
+let mainPic = document.createElement("img");
+mainPic.setAttribute("src", productItems.main_image); 
+mainPic.setAttribute("class", "productMainPic");
+mainPic.setAttribute("width", "100%");
+product_mainPic.appendChild(mainPic);
+
+document.getElementsByClassName("productName")[0].innerHTML = productItems.title;
+document.querySelector(".productID").innerHTML = productItems.id;
+document.querySelector(".productPrice").innerHTML = "TWD. " + productItems.price;
+
+
+let product_colorTrial = document.querySelector(".product-colorTrial");
+let colorTrialItems = productItems.colors;
+
+    for (j = 0; j < colorTrialItems.length; j += 1) {
+        let colorsnewHex = "#" + colorTrialItems[j].code;
+        console.log(colorsnewHex)
+        let colorTrial = document.createElement("div");
+        console.log(colorTrial)
+        colorTrial.style.backgroundColor = colorsnewHex;
+        colorTrial.setAttribute("class", "productColor");
+        product_colorTrial.appendChild(colorTrial);
+    }
+
+let circleBackGround = document.querySelector(".circleBackGround");
+let circleContainer = document.querySelector(".circleContainer");
+circleBackGround.appendChild(circleContainer);
+circleContainer.setAttribute("class", "circleBackGround");
+let sizeItems = productItems.sizes;
+
+    for (j = 0; j < sizeItems.length; j += 1) {
+        let circle = document.createElement("div");
+        let circleP = document.createElement("p");
+        circle.setAttribute("class", "circle")
+        circleP.textContent = sizeItems[j];
+        circleP.setAttribute("class" ,"size")
+        circleContainer.appendChild(circle);
+        circleContainer.appendChild(circleP);
+        circle.appendChild(circleP);
+    }   
+
+document.querySelector(".materialtiny").innerHTML = productItems.texture; 
+let thick = productItems.description.replace(/\r\n/g,"<br/>")
+console.log(thick)
+document.querySelector(".thick").innerHTML = thick;  
+document.querySelector(".method").innerHTML = productItems.wash;
+document.querySelector(".madeFrom").innerHTML = "加工產地/ " + productItems.place;
+document.getElementsByClassName("detailWords").innerHTML = productItems.story;
+
+let product_Pics = document.querySelector(".product-details");
+let PicsItems = productItems.images;
+
+    for (j = 0; j < PicsItems.length-2; j += 1) {
+        let PicsURL = PicsItems[j]
+        let Pics = document.createElement("img");
+        Pics.setAttribute("src", PicsURL);
+        Pics.setAttribute("class", "productPic_1")
+        Pics.setAttribute("width", "100%")
+        product_Pics.appendChild(Pics);
+    }
+
+}
+    
+</script>
 
 </html>
