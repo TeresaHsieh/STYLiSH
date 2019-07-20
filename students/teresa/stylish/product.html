@@ -75,59 +75,59 @@
     <div class="empty"></div>
 
 
-    <div class="product-mainPart">
+    <div class="product-mainPart" id="product-mainPart">
         <div class="product-container" id="product-container">
-            <div class="product-mainPic">
-                <img src="./images/demo.png" class="productMainPic"></img>
+            <div class="product-mainPic" id="product-mainPic">
+                <!-- <img src="" class="productMainPic"></img> -->
             </div>
             <div class="product-info">
                 <div class="product-name">
-                    <span class="productName">前開衩扭結洋裝</span>
-                    <span class="productID">03040047</span>
-                    <span class="productPrice">TWD.590</span>
+                    <span class="productName"></span>
+                    <span class="productID"></span>
+                    <span class="productPrice"></span>
                     <span class="lightgrey_line"></span>
                 </div>
 
                 <div class="product-color">
                     <span>顏色 |</span>
                     <div class="product-colorTrial">
-                        <div class="productColor_1"></div>
-                        <div class="productColor_2"></div>
+                        <!-- <div class="productColor"></div>
+                        <div class="productColor"></div> -->
                     </div>
                 </div>
 
                 <div class="product-size">
                     <span>尺寸 |</span>
                     <div class="circleBackGround">
-                        <div>
-                            <div class="circle">
-                            <p class="size1">S</p>
-                            </div>
-                        </div>    
-                        <div>
+                        <div class="circleContainer">
+                            <!-- <div class="circle">
+                                <p class="size">S</p>
+                            </div> -->
+                        </div>
+                        <!-- <div>
                             <div class="circleblack">
-                            <p class="size2">M</p>
+                                <p class="size">M</p>
                             </div>
                         </div>
                         <div>
                             <div class="circle">
-                            <p class="size3">L</p>
+                                <p class="size">L</p>
                             </div>
                         </div>
                         <div>
                             <div class="circle">
-                            <p class="size4">XL</p>
+                                <p class="size">XL</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
                 <div class="product-amount">
                     <span>數量 |</span>
                     <div class="amountBox">
-                        <img src="./images/bitmap@3x minus.png" class="minus"></img>
-                        <p class="number">1</p>
-                        <img src="./images/bitmap@3x.png" class="plus"></img>
+                        <img src="./images/bitmap@3x minus.png" class="minus" onclick="minus()"></img>
+                        <p class="number" id="number" value="0">1</p>
+                        <img src="./images/bitmap@3x.png" class="plus" onclick="plus()"></img>
                     </div>
                 </div>
 
@@ -135,15 +135,14 @@
                 <button class="mobileaddToCart">請選擇尺寸</button>
 
                 <div class="product-notice">
-                    <span>*實品顏色依單品照為主</span>
+                    <div>實品顏色依單品照為主</div>
                     <div class="material">
-                        <span>棉 100%</span>
-                        <span>厚薄:薄</span>
-                        <span>彈性:無</span>
+                        <div class="materialtiny">棉 100%</div>
+                        <div class="thick">厚薄:薄</div>
                     </div>
                     <div class="country">
-                        <span>素材產地 / 中国</span>
-                        <span>加工產地 / 中国</span>
+                        <div class="method">素材產地 / 中国</div>
+                        <div class="madeFrom">加工產地 / 中国</div>
                     </div>
                 </div>
             </div>
@@ -151,21 +150,22 @@
 
 
         </div>
-        <div class="product-details">
+        <div class="emptyHeight"></div>
+        <div class="product-details" id="product-details">
             <div class="detailsContent">
-                <span>細部說明</span>
+                <span>更多產品資訊</span>
                 <span class="divide-line"></span>
             </div>
             <span class="detailWords">
                 O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.
             </span>
-            <img src="./images/demo.png" class="productPic 1"></img>
-            <span class="detailWords">
-                O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
-                jersey, making it even lighter for those who prefer their summer style extra-breezy.
+            <!-- <img src="./images/demo.png" class="productPic_1"></img> -->
+            <span>
+                <!-- O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
+                jersey, making it even lighter for those who prefer their summer style extra-breezy.Hello Rita! -->
             </span>
-            <img src="./images/demo.png" class="productPic 2"></img>
+            <!-- <img src="./images/demo.png" class="productPic 2"></img> -->
         </div>
     </div>
 
@@ -220,8 +220,228 @@
     </div>
 
 
-
 </body>
 
+<script>
+    // window.addEventListener("load", )
+    let urlParams = new URLSearchParams(window.location.search);
+    let myParam = urlParams.get("id");
+    console.log(myParam)
+    let API = "https://api.appworks-school.tw/api/1.0"
+    let productUrl = API + "/products/details?id=" + myParam;
+    ajax(productUrl, productrender);
+
+
+    function ajax(src, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.response;
+                callback(response);
+            } else {
+                return "error : Invalid token.";
+            }
+        }
+        xhr.open("GET", src);
+        xhr.send();
+        console.log("request sent to the server");
+    }
+
+
+    function productrender(data) {
+
+        let productItems = JSON.parse(data).data;
+        console.log(productItems)
+        let product_mainPic = document.getElementById("product-mainPic");
+        let mainPic = document.createElement("img");
+        mainPic.setAttribute("src", productItems.main_image);
+        mainPic.setAttribute("class", "productMainPic");
+        mainPic.setAttribute("width", "100%");
+        product_mainPic.appendChild(mainPic);
+        document.getElementsByClassName("productName")[0].innerHTML = productItems.title;
+        document.querySelector(".productID").innerHTML = productItems.id;
+        document.querySelector(".productPrice").innerHTML = "TWD. " + productItems.price;
+
+        let product_colorTrial = document.querySelector(".product-colorTrial");
+        let colorTrialItems = productItems.colors;
+        for (j = 0; j < colorTrialItems.length; j += 1) {
+            let colorsnewHex = "#" + colorTrialItems[j].code;
+            console.log(colorsnewHex)
+            let colorTrial = document.createElement("div");
+            console.log(colorTrial)
+            colorTrial.style.backgroundColor = colorsnewHex;
+            colorTrial.setAttribute("class", "productColor");
+
+            let colornewHexNOHASH = colorTrialItems[j].code;
+            console.log(colornewHexNOHASH);
+            colorTrial.setAttribute("onclick", "colorSelect ('"+colornewHexNOHASH+"')");
+            product_colorTrial.appendChild(colorTrial);
+        }
+
+        let circleBackGround = document.querySelector(".circleBackGround");
+        let circleContainer = document.querySelector(".circleContainer");
+        circleBackGround.appendChild(circleContainer);
+        circleContainer.setAttribute("class", "circleBackGround");
+        let sizeItems = productItems.sizes;
+        for (j = 0; j < sizeItems.length; j += 1) {
+            let circle = document.createElement("div");
+            let circleP = document.createElement("p");
+            circle.setAttribute("class", "circle")
+            circleP.textContent = sizeItems[j];
+            circleP.setAttribute("class", "size")
+            circleContainer.appendChild(circle);
+            circleContainer.appendChild(circleP);
+            circle.appendChild(circleP);
+        }
+
+        document.querySelector(".materialtiny").innerHTML = productItems.texture;
+        let thick = productItems.description.replace(/\r\n/g, "<br/>")
+        console.log(thick)
+        document.querySelector(".thick").innerHTML = thick;
+        document.querySelector(".method").innerHTML = productItems.wash;
+        document.querySelector(".madeFrom").innerHTML = "加工產地/ " + productItems.place;
+        document.getElementsByClassName("detailWords").innerHTML = productItems.story;
+        let product_Pics = document.querySelector(".product-details");
+        let PicsItems = productItems.images;
+        for (j = 0; j < PicsItems.length - 2; j += 1) {
+            let PicsURL = PicsItems[j]
+            let Pics = document.createElement("img");
+            Pics.setAttribute("src", PicsURL);
+            Pics.setAttribute("class", "productPic_1")
+            Pics.setAttribute("width", "100%")
+            product_Pics.appendChild(Pics);
+        }
+
+        // 剛 load 進頁面時，預設的色塊與尺寸 style
+        document.addEventListener("DOMContentLoaded", defaultColorAndSize());
+
+        // users 開始點選顏色
+        let colorDiv = document.getElementsByClassName("productColor");
+       
+        // 點選什麼顏色，其色塊就會有更深的黑邊
+        for (let i in colorDiv){
+            colorDiv[i].onclick = function(){
+                // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
+                for (j=0; j< colorDiv.length; j++){
+                document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
+                }
+                // 設定最新選擇的顏色編框為深色
+                document.getElementsByClassName("productColor")[i].style["box-shadow"] = "0px 0px 1px #000000";
+            }
+        }
+
+        // users 開始點選尺寸
+        let sizeDiv = document.getElementsByClassName("circle");
+
+        // 點選什麼尺寸，其色塊就會有變成黑底、白字
+        for (let i in sizeDiv){
+            sizeDiv[i].onclick = function(){
+                // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
+                for (j=0; j< sizeDiv.length; j++){
+                document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
+                document.getElementsByClassName("size")[j].style["color"] = "black";
+                }
+                // 設定最新選擇的顏色編框為深色
+                document.getElementsByClassName("circle")[i].style["background-color"] = "black";
+                document.getElementsByClassName("size")[i].style["color"] = "white";
+            }
+        }
+
+
+        // let dataBase = JSON.parse(data).data.variants; // Array
+        // console.log(dataBase);
+        // let color_codeBase = dataBase.filter();
+
+        function colorFilter(color){
+            return color = colornewHexNOHASH;
+        }
+    }
+
+    // Handle Stock of Product Variants
+    // 彭彭：現在選擇的 color 跟 size 是重要資訊，現在 users 是點選什麼，要在 global variable，再來去思考流程，剛載入時有 default 的顏色與尺寸
+    // 資料庫
+
+    let dataBase = JSON.parse 
+
+
+    let currentColor ;
+    let currentSize ;
+
+    
+    // load 進網頁
+        // 給 users：一個預設的顏色、該顏色「有的」第一個 size、數字盒子數量是 1 
+    
+    function defaultColorAndSize (){ // 預設色塊與尺寸的 function
+        document.getElementsByClassName("productColor")[0].style["box-shadow"] = "0px 0px 1px #000000";
+        document.getElementsByClassName("circle")[0].style["background-color"] = "black";
+        document.getElementsByClassName("size")[0].style["color"] = "white";
+    }
+
+    // users 點擊顏色
+        // 點選的框框 border 變黑色
+        // 用全域變數把點擊的狀態存起來
+        // 去 array 把選擇的顏色中，有的尺寸抓出來
+        // 有的尺寸是深色，沒有的尺寸變淺色，點擊中的顏色最深色
+        // 預設值為該顏色「有的」第一個 size
+
+    // users 點擊尺寸
+        // 用全域變數把點擊的狀態存起來
+        // 去 array 把選擇的顏色、尺寸中，有的庫存數量存起來
+        // 有的尺寸是深色，沒有的尺寸變淺色，點擊中的顏色最深色
+        // 預設值為該顏色「有的」第一個 size
+
+    // 點數量方框
+        // 預設是 １
+        // 取得該 顏色 ＋ 尺寸 中有的庫存，為裡面的值的最大數量
+        // 加號按鈕可以加一
+        // 減號按鈕可以減一
+        // 加號按到最大數量就要禁止使用其功能
+        // 減號功能在數量為 1 時就會禁用
+
+    // amount box 的加減功能
+    // 點擊「-」符號，裡面的數字會少一
+
+    
+
+
+
+
+
+
+
+
+
+    // 點擊顏色後跳出有的尺寸，點擊尺寸後，跳出「顏色＋尺寸」條件中，有的庫存，顯示在數字匡中，且按鈕 + 會加一、按鈕減會減一 
+
+    // 確認顏色是哪一種(在點擊顏色的當下，就可以抓到對應的 hex 碼)，知道是某色後，再去 variants 裡面抓相對應的 size 跟 stock
+    // 先選顏色，再選尺寸，最後數量（如果沒有尺寸、庫存就不給選）
+    function colorSelect(hex) {
+        let colorChoose = hex;
+        console.log (colorChoose);
+        ajax(productUrl, checkSizeStatus);
+    }
+
+    function checkSizeStatus(data){
+        let productItems = JSON.parse(data).data;
+        let variants = productItems.variants;
+        for(i=0; i<variants.length; i++){
+            let variantsColorCode = variants[i].color_code;
+            console.log(variantsColorCode);
+            // let variantsSize = variants[i].size;
+            // console.log(variantsSize);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
 
 </html>
