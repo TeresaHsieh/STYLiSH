@@ -232,6 +232,9 @@
     ajax(productUrl, productrender);
 
 
+    
+
+
     function ajax(src, callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -251,7 +254,6 @@
     function productrender(data) {
 
         let productItems = JSON.parse(data).data;
-        console.log(productItems)
         let product_mainPic = document.getElementById("product-mainPic");
         let mainPic = document.createElement("img");
         mainPic.setAttribute("src", productItems.main_image);
@@ -266,16 +268,17 @@
         let colorTrialItems = productItems.colors;
         for (j = 0; j < colorTrialItems.length; j += 1) {
             let colorsnewHex = "#" + colorTrialItems[j].code;
-            console.log(colorsnewHex)
             let colorTrial = document.createElement("div");
-            console.log(colorTrial)
             colorTrial.style.backgroundColor = colorsnewHex;
             colorTrial.setAttribute("class", "productColor");
 
+            // 抓到點擊時的色塊 hex
             let colornewHexNOHASH = colorTrialItems[j].code;
             console.log(colornewHexNOHASH);
-            colorTrial.setAttribute("onclick", "colorSelect ('"+colornewHexNOHASH+"')");
+            colorTrial.setAttribute("id", colornewHexNOHASH);
+            // colorTrial.setAttribute("onclick", "colorSelect('"+colornewHexNOHASH+"')");
             product_colorTrial.appendChild(colorTrial);
+
         }
 
         let circleBackGround = document.querySelector(".circleBackGround");
@@ -296,7 +299,6 @@
 
         document.querySelector(".materialtiny").innerHTML = productItems.texture;
         let thick = productItems.description.replace(/\r\n/g, "<br/>")
-        console.log(thick)
         document.querySelector(".thick").innerHTML = thick;
         document.querySelector(".method").innerHTML = productItems.wash;
         document.querySelector(".madeFrom").innerHTML = "加工產地/ " + productItems.place;
@@ -320,13 +322,16 @@
        
         // 點選什麼顏色，其色塊就會有更深的黑邊
         for (let i in colorDiv){
-            colorDiv[i].onclick = function(){
+            colorDiv[i].onclick = function ColorClick(){
                 // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
                 for (j=0; j< colorDiv.length; j++){
                 document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
+                document.getElementsByClassName("productColor")[j].className = "productColor";
                 }
                 // 設定最新選擇的顏色編框為深色
                 document.getElementsByClassName("productColor")[i].style["box-shadow"] = "0px 0px 1px #000000";
+                document.getElementsByClassName("productColor")[i].className += " selected";
+                colorSelect();// 點擊色塊會觸發不同的 function，所以觸發完第一個 function 後，要在這邊繼續下一個
             }
         }
 
@@ -341,7 +346,7 @@
                 document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
                 document.getElementsByClassName("size")[j].style["color"] = "black";
                 }
-                // 設定最新選擇的顏色編框為深色
+                // 設定最新選擇的顏色邊框為深色
                 document.getElementsByClassName("circle")[i].style["background-color"] = "black";
                 document.getElementsByClassName("size")[i].style["color"] = "white";
             }
@@ -352,9 +357,9 @@
         // console.log(dataBase);
         // let color_codeBase = dataBase.filter();
 
-        function colorFilter(color){
-            return color = colornewHexNOHASH;
-        }
+        // function colorFilter(color){
+        //     return color = colornewHexNOHASH;
+        // }
     }
 
     // Handle Stock of Product Variants
@@ -363,11 +368,6 @@
 
     let dataBase = JSON.parse 
 
-
-    let currentColor ;
-    let currentSize ;
-
-    
     // load 進網頁
         // 給 users：一個預設的顏色、該顏色「有的」第一個 size、數字盒子數量是 1 
     
@@ -380,12 +380,19 @@
     // users 點擊顏色
         // 點選的框框 border 變黑色
         // 用全域變數把點擊的狀態存起來
+    // let currentColor ;
+
+
+    
+
+
         // 去 array 把選擇的顏色中，有的尺寸抓出來
         // 有的尺寸是深色，沒有的尺寸變淺色，點擊中的顏色最深色
         // 預設值為該顏色「有的」第一個 size
 
     // users 點擊尺寸
         // 用全域變數把點擊的狀態存起來
+    let currentSize ;
         // 去 array 把選擇的顏色、尺寸中，有的庫存數量存起來
         // 有的尺寸是深色，沒有的尺寸變淺色，點擊中的顏色最深色
         // 預設值為該顏色「有的」第一個 size
@@ -401,35 +408,34 @@
     // amount box 的加減功能
     // 點擊「-」符號，裡面的數字會少一
 
-    
-
-
-
-
-
-
-
-
 
     // 點擊顏色後跳出有的尺寸，點擊尺寸後，跳出「顏色＋尺寸」條件中，有的庫存，顯示在數字匡中，且按鈕 + 會加一、按鈕減會減一 
 
     // 確認顏色是哪一種(在點擊顏色的當下，就可以抓到對應的 hex 碼)，知道是某色後，再去 variants 裡面抓相對應的 size 跟 stock
     // 先選顏色，再選尺寸，最後數量（如果沒有尺寸、庫存就不給選）
-    function colorSelect(hex) {
-        let colorChoose = hex;
-        console.log (colorChoose);
+    
+    // 抓點擊的顏色的 hexcode
+    function colorSelect() {
+        currentColor = document.getElementsByClassName("productColor selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
+        console.log(currentColor);
         ajax(productUrl, checkSizeStatus);
     }
 
+    // 當下點擊的顏色的尺寸與數量
     function checkSizeStatus(data){
         let productItems = JSON.parse(data).data;
-        let variants = productItems.variants;
-        for(i=0; i<variants.length; i++){
-            let variantsColorCode = variants[i].color_code;
-            console.log(variantsColorCode);
-            // let variantsSize = variants[i].size;
-            // console.log(variantsSize);
-        }
+        let variantsArray = productItems.variants; // 這是一個 array
+        let colorArray = variantsArray.filter(function(colorCode){
+           return colorCode.color_code == currentColor && colorCode.stock != 0; // 到 Array 裡面去找色碼一樣且還有庫存的資料
+        }); 
+        console.log(colorArray);
+        
+        // for(i=0; i<variants.length; i++){
+        //     let variantsColorCode = variants[i].color_code;
+        //     console.log(variantsColorCode);
+        //     // let variantsSize = variants[i].size;
+        //     // console.log(variantsSize);
+        // }
     }
 
 
