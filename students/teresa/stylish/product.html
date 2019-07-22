@@ -324,6 +324,7 @@
                 for (j=0; j< colorDiv.length; j++){
                 document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
                 document.getElementsByClassName("productColor")[j].className = "productColor";
+                document.getElementsByClassName("circle")[j].className = "circle";
                 }
                 // 設定最新選擇的顏色編框為深色
                 document.getElementsByClassName("productColor")[i].style["box-shadow"] = "0px 0px 1px #000000";
@@ -383,7 +384,7 @@
             sizeChoices = document.getElementsByClassName("size")[i].innerText;
             console.log(sizeChoices)
 
-            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disabled，改變 CSS
+            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
             if (sizeChoices === noStock){
             document.getElementsByClassName("circle")[i].disabled = true;
             document.getElementsByClassName("circle")[i].className += " disabled"; 
@@ -400,6 +401,32 @@
         currentSize = document.getElementsByClassName("circle selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
         console.log(currentSize);
         ajax(productUrl, checkStock);
+
+
+        // 再處理一次，不然會有「點擊同色不同尺寸後， disabled 功能歸零、被清掉」
+        // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
+        let variantsArray = productItems.variants; // 這是一個 array
+        console.log(variantsArray);
+        sizeArray = variantsArray.filter(function(variants){
+           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        }); 
+        noStock = sizeArray[0].size; // 沒有庫存的尺寸
+        console.log(sizeArray)
+        console.log(noStock)
+
+        // 抓出該產品有哪些尺寸
+        for (i=0; i< sizeDiv.length; i+=1){
+            sizeChoices = document.getElementsByClassName("size")[i].innerText;
+            console.log(sizeChoices)
+
+            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
+            if (sizeChoices === noStock){
+            document.getElementsByClassName("circle")[i].disabled = true;
+            document.getElementsByClassName("circle")[i].className += " disabled"; 
+            // nowNoStock = document.getElementsByClassName("circle disabled");
+            }
+        }
+
     }
 
     // 求出當下點擊的顏色、尺寸，會有多少庫存
@@ -438,7 +465,7 @@
     }
 
 
-// 缺點擊其他尺寸後， disabled 功能就會被清掉
+// 跳到其他顏色， S 不會恢復
 // 沒有 S 號，預設的 CSS 要套到 M 號
 
 </script>
