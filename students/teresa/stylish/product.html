@@ -82,7 +82,7 @@
             </div>
             <div class="product-info">
                 <div class="product-name">
-                    <span class="productName"></span>
+                    <span class="productName" id="productName"></span>
                     <span class="productID"></span>
                     <span class="productPrice"></span>
                     <span class="lightgrey_line"></span>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-                <button class="addToCart">加入購物車</button>
+                <button class="addToCart" onclick="addToCart()">加入購物車</button>
                 <button class="mobileaddToCart">請選擇尺寸</button>
 
                 <div class="product-notice">
@@ -266,8 +266,10 @@
 
             // 抓到點擊時的色塊 hex
             let colornewHexNOHASH = colorTrialItems[j].code;
+            let colornewHEXName = colorTrialItems[j].name;
             console.log(colornewHexNOHASH);
             colorTrial.setAttribute("id", colornewHexNOHASH);
+            colorTrial.setAttribute("name", colornewHEXName);
             product_colorTrial.appendChild(colorTrial);
 
         }
@@ -353,6 +355,7 @@
                 sizeSelect();// 點擊尺寸會觸發不同的 function，所以觸發完第一個 function 後，要在這邊繼續下一個
             }
         }
+        getDataDetail();
     }
 
     function defaultColorAndSize (){ // 預設色塊與尺寸的 function
@@ -361,11 +364,12 @@
         document.getElementsByClassName("size")[0].style["color"] = "white"; // 尺寸的字
     }
     
-    // 抓點擊的顏色的 hexcode，用全域變數把選擇的顏色存起來
+    // 抓點擊的顏色的 hexcode 與 color name，用全域變數把選擇的顏色存起來
     function colorSelect() {
         document.getElementById("number").textContent = 1; // 文字歸到一的初始值
         buyingNumber = 1; //  buyingNumber 資料歸到一的初始值，如果這邊沒有回歸，它就永遠只會是前面的數字改變，但真正抓到的數字不變
         currentColor = document.getElementsByClassName("productColor selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
+        currentColorName = document.getElementsByClassName("productColor selected")[0].getAttribute("name");
         console.log(currentColor);
         ajax(productUrl, checkStock);
 
@@ -464,9 +468,36 @@
         }
     }
 
-
-// 跳到其他顏色， S 不會恢復
 // 沒有 S 號，預設的 CSS 要套到 M 號
+
+
+// Shopping Cart Implementation 
+// 要滿滿的資料：產品（Product Id）、品名（Product Name）、價錢、顏色名字、顏色 HexCode、尺寸、數量
+ 
+    // 新增之前沒有用到的資訊(Product ID、Product Name、Product main-image、價錢、顏色名字)// render 資料後 call 這個 function，才抓得到資料
+    function getDataDetail(){  
+    // method 1
+    productname = document.getElementsByClassName("productName")[0].innerHTML;
+    productid = document.getElementsByClassName("productID")[0].innerHTML;
+    productimage = document.getElementsByClassName("productMainPic")[0].src;
+    // method 2 // 因為之前的價錢前面有設 “TWD. ”，用 method 1 比較不好求出來，所以剛好可以用 method 2 的方法來存
+    // method 用之前設定好的全域變數，儲存之前 render 進來的 JSON 檔案，所以可以直接抓到資料
+    console.log(productItems.price); // 測試看看是否抓到價格
+    console.log(currentColorName); // 抓 372 行的資料
+    }
+
+    // 點擊「加入購物車」按鈕後，會將選擇的東西的相關資訊記錄在 localStorage
+    function addToCart(){
+        dataStorage = {list:[{id:productid, name:productname, main_image:productimage, price:productItems.price, color:{code:currentColor, name:currentColorName}, qty:buyingNumber, size:currentSize, stock:stockNumber}]};
+        localStorage.setItem("shoppingStatus", JSON.stringify(dataStorage));// 將購買的資料存起來
+    }
+
+    // 如果 users 有買超過一樣東西，list 要能夠一直增加（定義：在一個產品頁面中如果同色同尺寸，數量更新時是調整原本的訂單，如果顏色或是尺寸不相同，視為兩種不同的 list）
+
+// moreDataStorage = {freight:"", list:[{id:"", name:"", main_image:"", price:"", color:{code:currentColor, name:""}, qty:buyingNumber, size:currentSize, stock:""}], payment:"", recipient:{address:"", email:"", name:"", phone:"", time:""}, shipping:"", subtotal:"", total:""};
+
+
+
 
 </script>
 
