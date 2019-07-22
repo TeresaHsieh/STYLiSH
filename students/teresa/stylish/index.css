@@ -75,6 +75,7 @@ justify-items: start;
 margin-left: 15px;
 } 
 
+
 header ul {
 overflow: hidden;
 }
@@ -199,16 +200,20 @@ margin-left: 42px;
   letter-spacing: normal;
   text-align: left;
   color: #070707;
+
   position: absolute;
   left: 100px;
   top:80px;
+
   
 }
 
 .poem {
   /* width: 100%; */
   height: 228px;
+
   position: relative;
+
   top: 306px;
   left: 20%;
 }
@@ -332,23 +337,18 @@ margin-left: 42px;
   height: 24px;
 }
 /* 
-
 .color1 {
   background-color: #9baac2;
 }
-
 .color2 {
   background-color: #d9d9d9;
 }
-
 .color2_2 {
   background-color: #8b572a;
 }
-
 .color3 {
   background-color: #000000;
 }
-
 .color3_2 {
   background-color: #c49871;
 }
@@ -638,10 +638,6 @@ margin-left: 60.9px;
 margin-top: 28px;
 }
 
-
-
-
-
  
 
 
@@ -656,6 +652,7 @@ margin-top: 28px;
 .banner {
   width: 100%;
   height: 200px;
+
 }
 
 .poetry {
@@ -673,16 +670,20 @@ margin-top: 28px;
   letter-spacing: normal;
   text-align: left;
   color: #070707;
+
   position: absolute;
   left: 20px;
   top:20px;
+
   
 }
 
 .poem {
   /* width: 100%; */
   height: 99px;
+
   position: relative;
+
   top: 200px;
   left: 90px;
 }
@@ -1047,7 +1048,10 @@ margin-left: 52px;
   height: 35px;
   margin-right: 20px;
   border-color: lightgrey; 
-  border-style: solid
+  border-style: solid;
+  border: 4px solid #ffffff;
+  box-shadow: 0px 0px 1px #bbbbbb;
+
 }
 
 
@@ -2800,4 +2804,14 @@ margin-left: 52px;
   .size2 {
     color: #000000;
   }
+}
+
+.productColor {
+  cursor: pointer;
+}
+
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;  /* 直接將按鈕的點擊功能關掉 */
 }

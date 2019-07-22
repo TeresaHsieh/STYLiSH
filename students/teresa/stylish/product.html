@@ -82,9 +82,9 @@
             </div>
             <div class="product-info">
                 <div class="product-name">
-                    <span class="productName">前開衩扭結洋裝</span>
-                    <span class="productID">03040047</span>
-                    <span class="productPrice">TWD.590</span>
+                    <span class="productName"></span>
+                    <span class="productID"></span>
+                    <span class="productPrice"></span>
                     <span class="lightgrey_line"></span>
                 </div>
 
@@ -125,9 +125,9 @@
                 <div class="product-amount">
                     <span>數量 |</span>
                     <div class="amountBox">
-                        <img src="./images/bitmap@3x minus.png" class="minus"></img>
-                        <p class="number">1</p>
-                        <img src="./images/bitmap@3x.png" class="plus"></img>
+                        <img src="./images/bitmap@3x minus.png" class="minus" onclick="minus()"></img>
+                        <p class="number" id="number" value="0">1</p>
+                        <img src="./images/bitmap@3x.png" class="plus" onclick="plus()"></img>
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.
             </span>
             <!-- <img src="./images/demo.png" class="productPic_1"></img> -->
-            <span >
+            <span>
                 <!-- O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.Hello Rita! -->
             </span>
@@ -199,10 +199,6 @@
             </div>
         </div>
 
-
-
-
-
     </footer>
     <div class="fixedbar">
         <div class="cartdescription">
@@ -224,100 +220,254 @@
 
 <script>
     // window.addEventListener("load", )
-
     let urlParams = new URLSearchParams(window.location.search);
     let myParam = urlParams.get("id");
-    console.log (myParam)
+    console.log(myParam)
     let API = "https://api.appworks-school.tw/api/1.0"
     let productUrl = API + "/products/details?id=" + myParam;
     ajax(productUrl, productrender);
 
-
     function ajax(src, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.response;
-            callback(response);
-        } else {
-            return "error : Invalid token.";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.response;
+                callback(response);
+            } else {
+                return "error : Invalid token.";
+            }
+        }
+        xhr.open("GET", src);
+        xhr.send();
+        console.log("request sent to the server");
+    }
+
+
+    function productrender(data) {
+
+        productItems = JSON.parse(data).data;
+        let product_mainPic = document.getElementById("product-mainPic");
+        let mainPic = document.createElement("img");
+        mainPic.setAttribute("src", productItems.main_image);
+        mainPic.setAttribute("class", "productMainPic");
+        mainPic.setAttribute("width", "100%");
+        product_mainPic.appendChild(mainPic);
+        document.getElementsByClassName("productName")[0].innerHTML = productItems.title;
+        document.querySelector(".productID").innerHTML = productItems.id;
+        document.querySelector(".productPrice").innerHTML = "TWD. " + productItems.price;
+
+        let product_colorTrial = document.querySelector(".product-colorTrial");
+        let colorTrialItems = productItems.colors;
+        for (j = 0; j < colorTrialItems.length; j += 1) {
+            let colorsnewHex = "#" + colorTrialItems[j].code;
+            let colorTrial = document.createElement("div");
+            colorTrial.style.backgroundColor = colorsnewHex;
+            colorTrial.setAttribute("class", "productColor");
+
+            // 抓到點擊時的色塊 hex
+            let colornewHexNOHASH = colorTrialItems[j].code;
+            console.log(colornewHexNOHASH);
+            colorTrial.setAttribute("id", colornewHexNOHASH);
+            product_colorTrial.appendChild(colorTrial);
+
+        }
+
+        let circleBackGround = document.querySelector(".circleBackGround");
+        let circleContainer = document.querySelector(".circleContainer");
+        circleBackGround.appendChild(circleContainer);
+        circleContainer.setAttribute("class", "circleBackGround");
+        let sizeItems = productItems.sizes;
+        for (j = 0; j < sizeItems.length; j += 1) {
+            let circle = document.createElement("div");
+            let circleP = document.createElement("p");
+            circle.setAttribute("class", "circle")
+            circleP.textContent = sizeItems[j];
+            circleP.setAttribute("class", "size")
+
+            // 抓到點擊時的尺寸
+            circle.setAttribute("id", sizeItems[j]);
+
+            circleContainer.appendChild(circle);
+            circleContainer.appendChild(circleP);
+            circle.appendChild(circleP);
+        }
+
+        document.querySelector(".materialtiny").innerHTML = productItems.texture;
+        let thick = productItems.description.replace(/\r\n/g, "<br/>")
+        document.querySelector(".thick").innerHTML = thick;
+        document.querySelector(".method").innerHTML = productItems.wash;
+        document.querySelector(".madeFrom").innerHTML = "加工產地/ " + productItems.place;
+        document.getElementsByClassName("detailWords").innerHTML = productItems.story;
+        let product_Pics = document.querySelector(".product-details");
+        let PicsItems = productItems.images;
+        for (j = 0; j < PicsItems.length - 2; j += 1) {
+            let PicsURL = PicsItems[j]
+            let Pics = document.createElement("img");
+            Pics.setAttribute("src", PicsURL);
+            Pics.setAttribute("class", "productPic_1")
+            Pics.setAttribute("width", "100%")
+            product_Pics.appendChild(Pics);
+        }
+
+    // Handle Stock of Product Variants
+
+        // 剛 load 進頁面時，預設的色塊與尺寸 style
+        document.addEventListener("DOMContentLoaded", defaultColorAndSize());
+
+        // users 開始點選顏色
+        let colorDiv = document.getElementsByClassName("productColor");
+       
+        // 點選什麼顏色，其色塊就會有更深的黑邊
+        for (let i in colorDiv){
+            colorDiv[i].onclick = function ColorClick(){
+                // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
+                for (j=0; j< colorDiv.length; j++){
+                document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
+                document.getElementsByClassName("productColor")[j].className = "productColor";
+                document.getElementsByClassName("circle")[j].className = "circle";
+                }
+                // 設定最新選擇的顏色編框為深色
+                document.getElementsByClassName("productColor")[i].style["box-shadow"] = "0px 0px 1px #000000";
+                document.getElementsByClassName("productColor")[i].className += " selected";
+                colorSelect();// 點擊色塊會觸發不同的 function，所以觸發完第一個 function 後，要在這邊繼續下一個
+            }
+        }
+
+        // users 開始點選尺寸
+        sizeDiv = document.getElementsByClassName("circle");
+
+        // 點選什麼尺寸，其色塊就會有變成黑底、白字
+        for (let i in sizeDiv){
+            sizeDiv[i].onclick = function(){
+                // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
+                for (j=0; j< sizeDiv.length; j++){
+                document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
+                document.getElementsByClassName("size")[j].style["color"] = "black";
+                document.getElementsByClassName("circle")[j].className = "circle";// 沒有選到的顏色就設回原本的 class
+                }
+                
+                // 設定最新選擇的顏色邊框為深色
+                document.getElementsByClassName("circle")[i].style["background-color"] = "black";
+                document.getElementsByClassName("size")[i].style["color"] = "white";
+                document.getElementsByClassName("circle")[i].className += " selected";// 選擇的 size 的 class 會變成是「」
+                sizeSelect();// 點擊尺寸會觸發不同的 function，所以觸發完第一個 function 後，要在這邊繼續下一個
+            }
         }
     }
-    xhr.open("GET", src);
-    xhr.send();
-    console.log("request sent to the server");
-}
 
-
-function productrender (data){
-   
-   let productItems = JSON.parse(data).data;
-   console.log(productItems)
-
-let product_mainPic = document.getElementById("product-mainPic");
-let mainPic = document.createElement("img");
-mainPic.setAttribute("src", productItems.main_image); 
-mainPic.setAttribute("class", "productMainPic");
-mainPic.setAttribute("width", "100%");
-product_mainPic.appendChild(mainPic);
-
-document.getElementsByClassName("productName")[0].innerHTML = productItems.title;
-document.querySelector(".productID").innerHTML = productItems.id;
-document.querySelector(".productPrice").innerHTML = "TWD. " + productItems.price;
-
-
-let product_colorTrial = document.querySelector(".product-colorTrial");
-let colorTrialItems = productItems.colors;
-
-    for (j = 0; j < colorTrialItems.length; j += 1) {
-        let colorsnewHex = "#" + colorTrialItems[j].code;
-        console.log(colorsnewHex)
-        let colorTrial = document.createElement("div");
-        console.log(colorTrial)
-        colorTrial.style.backgroundColor = colorsnewHex;
-        colorTrial.setAttribute("class", "productColor");
-        product_colorTrial.appendChild(colorTrial);
+    function defaultColorAndSize (){ // 預設色塊與尺寸的 function
+        document.getElementsByClassName("productColor")[0].style["box-shadow"] = "0px 0px 1px #000000"; // 色塊的邊框
+        document.getElementsByClassName("circle")[0].style["background-color"] = "black"; // 尺寸的底色
+        document.getElementsByClassName("size")[0].style["color"] = "white"; // 尺寸的字
     }
-
-let circleBackGround = document.querySelector(".circleBackGround");
-let circleContainer = document.querySelector(".circleContainer");
-circleBackGround.appendChild(circleContainer);
-circleContainer.setAttribute("class", "circleBackGround");
-let sizeItems = productItems.sizes;
-
-    for (j = 0; j < sizeItems.length; j += 1) {
-        let circle = document.createElement("div");
-        let circleP = document.createElement("p");
-        circle.setAttribute("class", "circle")
-        circleP.textContent = sizeItems[j];
-        circleP.setAttribute("class" ,"size")
-        circleContainer.appendChild(circle);
-        circleContainer.appendChild(circleP);
-        circle.appendChild(circleP);
-    }   
-
-document.querySelector(".materialtiny").innerHTML = productItems.texture; 
-let thick = productItems.description.replace(/\r\n/g,"<br/>")
-console.log(thick)
-document.querySelector(".thick").innerHTML = thick;  
-document.querySelector(".method").innerHTML = productItems.wash;
-document.querySelector(".madeFrom").innerHTML = "加工產地/ " + productItems.place;
-document.getElementsByClassName("detailWords").innerHTML = productItems.story;
-
-let product_Pics = document.querySelector(".product-details");
-let PicsItems = productItems.images;
-
-    for (j = 0; j < PicsItems.length-2; j += 1) {
-        let PicsURL = PicsItems[j]
-        let Pics = document.createElement("img");
-        Pics.setAttribute("src", PicsURL);
-        Pics.setAttribute("class", "productPic_1")
-        Pics.setAttribute("width", "100%")
-        product_Pics.appendChild(Pics);
-    }
-
-}
     
+    // 抓點擊的顏色的 hexcode，用全域變數把選擇的顏色存起來
+    function colorSelect() {
+        document.getElementById("number").textContent = 1; // 文字歸到一的初始值
+        buyingNumber = 1; //  buyingNumber 資料歸到一的初始值，如果這邊沒有回歸，它就永遠只會是前面的數字改變，但真正抓到的數字不變
+        currentColor = document.getElementsByClassName("productColor selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
+        console.log(currentColor);
+        ajax(productUrl, checkStock);
+
+        // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
+        let variantsArray = productItems.variants; // 這是一個 array
+        console.log(variantsArray);
+        sizeArray = variantsArray.filter(function(variants){
+           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        }); 
+        noStock = sizeArray[0].size; // 沒有庫存的尺寸
+        console.log(sizeArray)
+        console.log(noStock)
+
+        // 抓出該產品有哪些尺寸
+        for (i=0; i< sizeDiv.length; i+=1){
+            sizeChoices = document.getElementsByClassName("size")[i].innerText;
+            console.log(sizeChoices)
+
+            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
+            if (sizeChoices === noStock){
+            document.getElementsByClassName("circle")[i].disabled = true;
+            document.getElementsByClassName("circle")[i].className += " disabled"; 
+            // nowNoStock = document.getElementsByClassName("circle disabled");
+            }
+        }
+    }
+
+    // 抓點擊的尺寸，用全域變數把選擇的尺寸存起來
+    function sizeSelect(){
+        // nowNoStock.disabled = true;
+        document.getElementById("number").textContent = 1;
+        buyingNumber = 1;
+        currentSize = document.getElementsByClassName("circle selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
+        console.log(currentSize);
+        ajax(productUrl, checkStock);
+
+
+        // 再處理一次，不然會有「點擊同色不同尺寸後， disabled 功能歸零、被清掉」
+        // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
+        let variantsArray = productItems.variants; // 這是一個 array
+        console.log(variantsArray);
+        sizeArray = variantsArray.filter(function(variants){
+           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        }); 
+        noStock = sizeArray[0].size; // 沒有庫存的尺寸
+        console.log(sizeArray)
+        console.log(noStock)
+
+        // 抓出該產品有哪些尺寸
+        for (i=0; i< sizeDiv.length; i+=1){
+            sizeChoices = document.getElementsByClassName("size")[i].innerText;
+            console.log(sizeChoices)
+
+            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
+            if (sizeChoices === noStock){
+            document.getElementsByClassName("circle")[i].disabled = true;
+            document.getElementsByClassName("circle")[i].className += " disabled"; 
+            // nowNoStock = document.getElementsByClassName("circle disabled");
+            }
+        }
+
+    }
+
+    // 求出當下點擊的顏色、尺寸，會有多少庫存
+    function checkStock(data){
+        let productItems = JSON.parse(data).data;
+        let variantsArray = productItems.variants; // 這是一個 array
+        detailArray = variantsArray.filter(function(variants){
+           return variants.color_code == currentColor && variants.size == currentSize && variants.stock != 0; // 到 Array 裡面去找點擊色碼、尺寸且還有庫存的資料
+        }); 
+        console.log(detailArray);
+        stockNumber = detailArray[0].stock;// 如果還沒有定義變數就直接使用，它會直接變成全域變數
+        console.log(stockNumber);
+    }
+
+
+    // 點數量方框
+    let buyingNumber = 1;// 預設的購物數量為 1 
+
+    // 減號按鈕可以減一
+    function minus(){
+        // 不能減低於 0，成為負值，所以先判斷購物車數量是否大於 1 
+        if (buyingNumber > 1){ 
+        buyingNumber -= 1; 
+        document.getElementById("number").textContent = buyingNumber;
+        }
+    }
+
+    // 加號按鈕可以加一
+    function plus(){
+        console.log("buyingNumber", buyingNumber);
+        // 如果都還有庫存，就可以加到庫存數的最大量
+        if (stockNumber > buyingNumber){
+        buyingNumber += 1;
+        document.getElementById("number").textContent = buyingNumber;
+        }
+    }
+
+
+// 跳到其他顏色， S 不會恢復
+// 沒有 S 號，預設的 CSS 要套到 M 號
+
 </script>
 
 </html>

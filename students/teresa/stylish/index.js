@@ -18,6 +18,7 @@ function apiurl(type) {
     }
 }
 
+
 // Marketing Campaigns
 // 一 load 進頁面就可以開始跑這個 function，並用 function 呼叫 ajax，render 照片進來
 
@@ -99,6 +100,7 @@ function ajax(src, callback) {
         } else {
             return "error : Invalid token.";
         }
+
     }
     xhr.open("GET", src);
     xhr.send();
@@ -118,6 +120,7 @@ function render(data) {
         let allcolors = document.createElement("div");
         let productsname = document.createElement("p");
         let productsprice = document.createElement("p");
+
 
         //篩出新的 url，套進、更新到原本的 html src 屬性
         let picsnewurl = items[i].main_image;
@@ -154,6 +157,7 @@ function render(data) {
         products.appendChild(allcolors);
         products.appendChild(productsname);
         products.appendChild(productsprice);
+
     }
 
     let pagingitems = JSON.parse(data).paging;
@@ -173,7 +177,9 @@ function render(data) {
 
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
+
     if (usersSearch != "") {
+
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
@@ -186,12 +192,13 @@ function readSearch() {
         }
     }
 }
-
 
 
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
+
     if (usersSearch != "") {
+
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
         console.log(searchtheurl);
@@ -204,7 +211,6 @@ function mobilereadSearch() {
         }
     }
 }
-
 
 //手機版的站內搜尋，原本沒有打字框，點擊放大鏡後才會 show 出來、隱藏 logo 
 
@@ -248,7 +254,9 @@ let ticking = false;
 function doSomething() {
     // genral-container 跑完了，可以開始 call ajax
     let rectBottom = generalContainer.getBoundingClientRect().bottom;
+
     console.log(rectBottom, window.innerHeight, pagingNumber);
+
     if ((rectBottom <= (window.innerHeight || document.body.clientHeight)) && pagingNumber > 0) {
         pagingapi(pagingType, pagingNumber);
     }
@@ -267,62 +275,11 @@ function addEventhandle() {
 }
 
 // Take Parameter from Page URL
-
 function clickToGetDetail (id){
-    window.location = "product.html?id="+id;// 跳轉到自己的頁面
+    window.location = "product.html?id="+id; // 跳轉到自己的頁面
     let productUrl = API + "/products/details?id=" + id;
+    console.log(productUrl);
     ajax(productUrl, productrender);
+    
 }
 
-function productrender (data){
-   
-    let productItems = JSON.parse(data).data;
-    
-    for (i = 0; i < productItems.length; i += 1) {
-
-    /* 做一個新的 body */
-    let productsDetail = document.getElementById("product-container");
-
-    let product_mainPic = document.createElement("div");
-    let productPics = document.createElement("img");
-
-    let product_info = document.createElement("div");
-    let productsName = document.createElement("p");
-    let productID = document.createElement("p");
-    let productsPrice = document.createElement("p");
-    let productColors = document.createElement("div");
-
-
-    //篩出新的 url，套進、更新到原本的 html src 屬性
-    let productPicsurl = productItems[i].main_image;
-    productPics.setAttribute("src", productPicsurl); //src 換成新的 url
-    productPics.setAttribute("class", "productMainPic"); //把照片本身的樣式套到新的照片（已套入新的 URL）裡
-    
-    //把新商品名添加到頁面
-    productsName.textContent = productItems[i].title;
-    productsName.setAttribute("class", "productName");
-
-    //把新商品價格添加到頁面
-    productsPprice.textContent = "TWD. " + productItems[i].price;
-    productsPrice.setAttribute("class", "productPrice");
-
-    //把新商品顏色添加到頁面
-    for (j = 0; j < coloritems.length; j += 1) {
-        let colorsnewhex = "#" + coloritems[j].code;
-        let colors = document.createElement("div");
-        colors.style.backgroundColor = colorsnewhex;
-        colors.setAttribute("class", "color");
-        allcolors.appendChild(colors);
-        }
-
-    productsDetail.appendChild(product_mainPic);
-    productsDetail.appendChild(product_info);
-    product_mainPic.appendChild(productPics);
-    product_info.appendChild(productsName);
-    product_info.appendChild(productID);
-    product_info.appendChild(productsPrice);
-    product_info.appendChild(productColors);
-    }
-}
-
-        
