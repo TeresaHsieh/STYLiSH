@@ -245,7 +245,7 @@
 
     function productrender(data) {
 
-        let productItems = JSON.parse(data).data;
+        productItems = JSON.parse(data).data;
         let product_mainPic = document.getElementById("product-mainPic");
         let mainPic = document.createElement("img");
         mainPic.setAttribute("src", productItems.main_image);
@@ -333,7 +333,7 @@
         }
 
         // users 開始點選尺寸
-        let sizeDiv = document.getElementsByClassName("circle");
+        sizeDiv = document.getElementsByClassName("circle");
 
         // 點選什麼尺寸，其色塊就會有變成黑底、白字
         for (let i in sizeDiv){
@@ -342,7 +342,9 @@
                 for (j=0; j< sizeDiv.length; j++){
                 document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
                 document.getElementsByClassName("size")[j].style["color"] = "black";
+                document.getElementsByClassName("circle")[j].className = "circle";// 沒有選到的顏色就設回原本的 class
                 }
+                
                 // 設定最新選擇的顏色邊框為深色
                 document.getElementsByClassName("circle")[i].style["background-color"] = "black";
                 document.getElementsByClassName("size")[i].style["color"] = "white";
@@ -360,13 +362,41 @@
     
     // 抓點擊的顏色的 hexcode，用全域變數把選擇的顏色存起來
     function colorSelect() {
+        document.getElementById("number").textContent = 1; // 文字歸到一的初始值
+        buyingNumber = 1; //  buyingNumber 資料歸到一的初始值，如果這邊沒有回歸，它就永遠只會是前面的數字改變，但真正抓到的數字不變
         currentColor = document.getElementsByClassName("productColor selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
         console.log(currentColor);
         ajax(productUrl, checkStock);
+
+        // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
+        let variantsArray = productItems.variants; // 這是一個 array
+        console.log(variantsArray);
+        sizeArray = variantsArray.filter(function(variants){
+           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        }); 
+        noStock = sizeArray[0].size; // 沒有庫存的尺寸
+        console.log(sizeArray)
+        console.log(noStock)
+
+        // 抓出該產品有哪些尺寸
+        for (i=0; i< sizeDiv.length; i+=1){
+            sizeChoices = document.getElementsByClassName("size")[i].innerText;
+            console.log(sizeChoices)
+
+            // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disabled，改變 CSS
+            if (sizeChoices === noStock){
+            document.getElementsByClassName("circle")[i].disabled = true;
+            document.getElementsByClassName("circle")[i].className += " disabled"; 
+            // nowNoStock = document.getElementsByClassName("circle disabled");
+            }
+        }
     }
 
     // 抓點擊的尺寸，用全域變數把選擇的尺寸存起來
     function sizeSelect(){
+        // nowNoStock.disabled = true;
+        document.getElementById("number").textContent = 1;
+        buyingNumber = 1;
         currentSize = document.getElementsByClassName("circle selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
         console.log(currentSize);
         ajax(productUrl, checkStock);
@@ -376,7 +406,7 @@
     function checkStock(data){
         let productItems = JSON.parse(data).data;
         let variantsArray = productItems.variants; // 這是一個 array
-        let detailArray = variantsArray.filter(function(variants){
+        detailArray = variantsArray.filter(function(variants){
            return variants.color_code == currentColor && variants.size == currentSize && variants.stock != 0; // 到 Array 裡面去找點擊色碼、尺寸且還有庫存的資料
         }); 
         console.log(detailArray);
@@ -399,6 +429,7 @@
 
     // 加號按鈕可以加一
     function plus(){
+        console.log("buyingNumber", buyingNumber);
         // 如果都還有庫存，就可以加到庫存數的最大量
         if (stockNumber > buyingNumber){
         buyingNumber += 1;
@@ -407,8 +438,8 @@
     }
 
 
-// 缺 尺寸 的 UI
-// 如果點了新的顏色或尺寸，原先點的數量會有可能超過
+// 缺點擊其他尺寸後， disabled 功能就會被清掉
+// 沒有 S 號，預設的 CSS 要套到 M 號
 
 </script>
 
