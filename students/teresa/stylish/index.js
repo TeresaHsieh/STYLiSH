@@ -190,7 +190,9 @@ function readSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
+
 }
 
 
@@ -209,6 +211,7 @@ function mobilereadSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
 }
 
@@ -282,4 +285,5 @@ function clickToGetDetail (id){
     ajax(productUrl, productrender);
     
 }
+
 

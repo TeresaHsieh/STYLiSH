@@ -161,7 +161,9 @@
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.
             </span>
             <!-- <img src="./images/demo.png" class="productPic_1"></img> -->
+
             <span>
+
                 <!-- O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.Hello Rita! -->
             </span>
@@ -220,9 +222,11 @@
 
 <script>
     // window.addEventListener("load", )
+
     let urlParams = new URLSearchParams(window.location.search);
     let myParam = urlParams.get("id");
     console.log(myParam)
+
     let API = "https://api.appworks-school.tw/api/1.0"
     let productUrl = API + "/products/details?id=" + myParam;
     ajax(productUrl, productrender);
