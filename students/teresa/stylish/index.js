@@ -196,7 +196,6 @@ function readSearch() {
 }
 
 
-
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
 
@@ -279,62 +278,12 @@ function addEventhandle() {
 }
 
 // Take Parameter from Page URL
-
 function clickToGetDetail (id){
-    window.location = "product.html?id="+id;// 跳轉到自己的頁面
+    window.location = "product.html?id="+id; // 跳轉到自己的頁面
     let productUrl = API + "/products/details?id=" + id;
+    console.log(productUrl);
     ajax(productUrl, productrender);
+    
 }
 
-function productrender (data){
-   
-    let productItems = JSON.parse(data).data;
-    
-    for (i = 0; i < productItems.length; i += 1) {
 
-    /* 做一個新的 body */
-    let productsDetail = document.getElementById("product-container");
-
-    let product_mainPic = document.createElement("div");
-    let productPics = document.createElement("img");
-
-    let product_info = document.createElement("div");
-    let productsName = document.createElement("p");
-    let productID = document.createElement("p");
-    let productsPrice = document.createElement("p");
-    let productColors = document.createElement("div");
-
-
-    //篩出新的 url，套進、更新到原本的 html src 屬性
-    let productPicsurl = productItems[i].main_image;
-    productPics.setAttribute("src", productPicsurl); //src 換成新的 url
-    productPics.setAttribute("class", "productMainPic"); //把照片本身的樣式套到新的照片（已套入新的 URL）裡
-    
-    //把新商品名添加到頁面
-    productsName.textContent = productItems[i].title;
-    productsName.setAttribute("class", "productName");
-
-    //把新商品價格添加到頁面
-    productsPprice.textContent = "TWD. " + productItems[i].price;
-    productsPrice.setAttribute("class", "productPrice");
-
-    //把新商品顏色添加到頁面
-    for (j = 0; j < coloritems.length; j += 1) {
-        let colorsnewhex = "#" + coloritems[j].code;
-        let colors = document.createElement("div");
-        colors.style.backgroundColor = colorsnewhex;
-        colors.setAttribute("class", "color");
-        allcolors.appendChild(colors);
-        }
-
-    productsDetail.appendChild(product_mainPic);
-    productsDetail.appendChild(product_info);
-    product_mainPic.appendChild(productPics);
-    product_info.appendChild(productsName);
-    product_info.appendChild(productID);
-    product_info.appendChild(productsPrice);
-    product_info.appendChild(productColors);
-    }
-}
-
-        
