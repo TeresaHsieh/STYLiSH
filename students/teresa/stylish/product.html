@@ -30,8 +30,8 @@
                         onclick="readSearch()"></img>
                 </div>
             </div>
-            <div><img src="./images/btn-shopping-cart-01-add@3x.png" class="bag" alt="shopping-cart" height="44"
-                    width="44">
+            <div><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44">
+                <div id="cart-qty" class="qty">0</div>
             </div>
             <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
         </div>
@@ -82,7 +82,9 @@
             </div>
             <div class="product-info">
                 <div class="product-name">
-                    <span class="productName"></span>
+
+                    <span class="productName" id="productName"></span>
+
                     <span class="productID"></span>
                     <span class="productPrice"></span>
                     <span class="lightgrey_line"></span>
@@ -131,8 +133,8 @@
                     </div>
                 </div>
 
-                <button class="addToCart">加入購物車</button>
-                <button class="mobileaddToCart">請選擇尺寸</button>
+                <button class="addToCart" onclick="addToCart()">加入購物車</button>
+                <button class="mobileaddToCart" onclick="addToCart()">請選擇尺寸</button>
 
                 <div class="product-notice">
                     <div>實品顏色依單品照為主</div>
@@ -205,6 +207,7 @@
     <div class="fixedbar">
         <div class="cartdescription">
             <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+            <div id="cart-qty" class="qty">0</div>
             <p class="mobilecart">購物車</p>
         </div>
         <div>
@@ -217,17 +220,18 @@
 
     </div>
 
-
+    <script src="./index.js"></script>
 </body>
 
 <script>
-    // window.addEventListener("load", )
+     window.addEventListener("load", function(){ addUpQTY() });
 
+    // window.addEventListener("load", )
     let urlParams = new URLSearchParams(window.location.search);
     let myParam = urlParams.get("id");
-    console.log(myParam)
 
-    let API = "https://api.appworks-school.tw/api/1.0"
+    // let API = "https://api.appworks-school.tw/api/1.0"
+
     let productUrl = API + "/products/details?id=" + myParam;
     ajax(productUrl, productrender);
 
@@ -240,10 +244,10 @@
             } else {
                 return "error : Invalid token.";
             }
+
         }
         xhr.open("GET", src);
         xhr.send();
-        console.log("request sent to the server");
     }
 
 
@@ -270,8 +274,9 @@
 
             // 抓到點擊時的色塊 hex
             let colornewHexNOHASH = colorTrialItems[j].code;
-            console.log(colornewHexNOHASH);
+            let colornewHEXName = colorTrialItems[j].name;
             colorTrial.setAttribute("id", colornewHexNOHASH);
+            colorTrial.setAttribute("name", colornewHEXName);
             product_colorTrial.appendChild(colorTrial);
 
         }
@@ -313,22 +318,25 @@
             product_Pics.appendChild(Pics);
         }
 
-    // Handle Stock of Product Variants
+        // 購物車上的數字動態生成
+        // document.getElementById("cart-qty")
+
+        // Handle Stock of Product Variants
 
         // 剛 load 進頁面時，預設的色塊與尺寸 style
         document.addEventListener("DOMContentLoaded", defaultColorAndSize());
 
         // users 開始點選顏色
         let colorDiv = document.getElementsByClassName("productColor");
-       
+
         // 點選什麼顏色，其色塊就會有更深的黑邊
-        for (let i in colorDiv){
-            colorDiv[i].onclick = function ColorClick(){
+        for (let i in colorDiv) {
+            colorDiv[i].onclick = function ColorClick() {
                 // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
-                for (j=0; j< colorDiv.length; j++){
-                document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
-                document.getElementsByClassName("productColor")[j].className = "productColor";
-                document.getElementsByClassName("circle")[j].className = "circle";
+                for (j = 0; j < colorDiv.length; j++) {
+                    document.getElementsByClassName("productColor")[j].style["box-shadow"] = "0px 0px 1px #bbbbbb";
+                    document.getElementsByClassName("productColor")[j].className = "productColor";
+                    // document.getElementsByClassName("circle")[j].className = "circle";
                 }
                 // 設定最新選擇的顏色編框為深色
                 document.getElementsByClassName("productColor")[i].style["box-shadow"] = "0px 0px 1px #000000";
@@ -341,15 +349,15 @@
         sizeDiv = document.getElementsByClassName("circle");
 
         // 點選什麼尺寸，其色塊就會有變成黑底、白字
-        for (let i in sizeDiv){
-            sizeDiv[i].onclick = function(){
+        for (let i in sizeDiv) {
+            sizeDiv[i].onclick = function () {
                 // 關掉原本的預設色塊 // 每次點擊新的色塊前，就先把舊的選擇清掉
-                for (j=0; j< sizeDiv.length; j++){
-                document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
-                document.getElementsByClassName("size")[j].style["color"] = "black";
-                document.getElementsByClassName("circle")[j].className = "circle";// 沒有選到的顏色就設回原本的 class
+                for (j = 0; j < sizeDiv.length; j++) {
+                    document.getElementsByClassName("circle")[j].style["background-color"] = "#ececec";
+                    document.getElementsByClassName("size")[j].style["color"] = "black";
+                    document.getElementsByClassName("circle")[j].className = "circle";// 沒有選到的顏色就設回原本的 class
                 }
-                
+
                 // 設定最新選擇的顏色邊框為深色
                 document.getElementsByClassName("circle")[i].style["background-color"] = "black";
                 document.getElementsByClassName("size")[i].style["color"] = "white";
@@ -357,48 +365,49 @@
                 sizeSelect();// 點擊尺寸會觸發不同的 function，所以觸發完第一個 function 後，要在這邊繼續下一個
             }
         }
+        getDataDetail();
     }
 
-    function defaultColorAndSize (){ // 預設色塊與尺寸的 function
+    function defaultColorAndSize() { // 預設色塊與尺寸的 function
         document.getElementsByClassName("productColor")[0].style["box-shadow"] = "0px 0px 1px #000000"; // 色塊的邊框
         document.getElementsByClassName("circle")[0].style["background-color"] = "black"; // 尺寸的底色
         document.getElementsByClassName("size")[0].style["color"] = "white"; // 尺寸的字
     }
-    
-    // 抓點擊的顏色的 hexcode，用全域變數把選擇的顏色存起來
+
+    // 抓點擊的顏色的 hexcode 與 color name，用全域變數把選擇的顏色存起來
     function colorSelect() {
         document.getElementById("number").textContent = 1; // 文字歸到一的初始值
         buyingNumber = 1; //  buyingNumber 資料歸到一的初始值，如果這邊沒有回歸，它就永遠只會是前面的數字改變，但真正抓到的數字不變
         currentColor = document.getElementsByClassName("productColor selected")[0].getAttribute("id");// 如果還沒有定義變數就直接使用，它會直接變成全域變數
-        console.log(currentColor);
+        currentColorName = document.getElementsByClassName("productColor selected")[0].getAttribute("name");
         ajax(productUrl, checkStock);
 
         // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
         let variantsArray = productItems.variants; // 這是一個 array
         console.log(variantsArray);
-        sizeArray = variantsArray.filter(function(variants){
-           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
-        }); 
+        sizeArray = variantsArray.filter(function (variants) {
+            return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        });
         noStock = sizeArray[0].size; // 沒有庫存的尺寸
         console.log(sizeArray)
         console.log(noStock)
 
         // 抓出該產品有哪些尺寸
-        for (i=0; i< sizeDiv.length; i+=1){
+        for (i = 0; i < sizeDiv.length; i += 1) {
             sizeChoices = document.getElementsByClassName("size")[i].innerText;
             console.log(sizeChoices)
 
             // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
-            if (sizeChoices === noStock){
-            document.getElementsByClassName("circle")[i].disabled = true;
-            document.getElementsByClassName("circle")[i].className += " disabled"; 
-            // nowNoStock = document.getElementsByClassName("circle disabled");
+            if (sizeChoices === noStock) {
+                document.getElementsByClassName("circle")[i].disabled = true;
+                document.getElementsByClassName("circle")[i].className += " disabled";
+                // nowNoStock = document.getElementsByClassName("circle disabled");
             }
         }
     }
 
     // 抓點擊的尺寸，用全域變數把選擇的尺寸存起來
-    function sizeSelect(){
+    function sizeSelect() {
         // nowNoStock.disabled = true;
         document.getElementById("number").textContent = 1;
         buyingNumber = 1;
@@ -411,35 +420,35 @@
         // 開始要找挑選顏色中，沒有庫存的尺寸，處理 UI 問題，沒有庫存就不能點選尺寸
         let variantsArray = productItems.variants; // 這是一個 array
         console.log(variantsArray);
-        sizeArray = variantsArray.filter(function(variants){
-           return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
-        }); 
+        sizeArray = variantsArray.filter(function (variants) {
+            return variants.color_code == currentColor && variants.stock == 0; // 到 Array 裡面去找點擊的色碼，但沒有庫存的尺寸
+        });
         noStock = sizeArray[0].size; // 沒有庫存的尺寸
         console.log(sizeArray)
         console.log(noStock)
 
         // 抓出該產品有哪些尺寸
-        for (i=0; i< sizeDiv.length; i+=1){
+        for (i = 0; i < sizeDiv.length; i += 1) {
             sizeChoices = document.getElementsByClassName("size")[i].innerText;
             console.log(sizeChoices)
 
             // 如果尺寸中剛好有 沒有庫存的尺寸，就要將該按鈕 disable，改變 CSS
-            if (sizeChoices === noStock){
-            document.getElementsByClassName("circle")[i].disabled = true;
-            document.getElementsByClassName("circle")[i].className += " disabled"; 
-            // nowNoStock = document.getElementsByClassName("circle disabled");
+            if (sizeChoices === noStock) {
+                document.getElementsByClassName("circle")[i].disabled = true;
+                document.getElementsByClassName("circle")[i].className += " disabled";
+                // nowNoStock = document.getElementsByClassName("circle disabled");
             }
         }
 
     }
 
     // 求出當下點擊的顏色、尺寸，會有多少庫存
-    function checkStock(data){
+    function checkStock(data) {
         let productItems = JSON.parse(data).data;
         let variantsArray = productItems.variants; // 這是一個 array
-        detailArray = variantsArray.filter(function(variants){
-           return variants.color_code == currentColor && variants.size == currentSize && variants.stock != 0; // 到 Array 裡面去找點擊色碼、尺寸且還有庫存的資料
-        }); 
+        detailArray = variantsArray.filter(function (variants) {
+            return variants.color_code == currentColor && variants.size == currentSize && variants.stock != 0; // 到 Array 裡面去找點擊色碼、尺寸且還有庫存的資料
+        });
         console.log(detailArray);
         stockNumber = detailArray[0].stock;// 如果還沒有定義變數就直接使用，它會直接變成全域變數
         console.log(stockNumber);
@@ -450,28 +459,116 @@
     let buyingNumber = 1;// 預設的購物數量為 1 
 
     // 減號按鈕可以減一
-    function minus(){
+    function minus() {
         // 不能減低於 0，成為負值，所以先判斷購物車數量是否大於 1 
-        if (buyingNumber > 1){ 
-        buyingNumber -= 1; 
-        document.getElementById("number").textContent = buyingNumber;
+        if (buyingNumber > 1) {
+            buyingNumber -= 1;
+            document.getElementById("number").textContent = buyingNumber;
+
         }
+        xhr.open("GET", src);
+        xhr.send();
+        console.log("request sent to the server");
     }
 
     // 加號按鈕可以加一
-    function plus(){
-        console.log("buyingNumber", buyingNumber);
+    function plus() {
         // 如果都還有庫存，就可以加到庫存數的最大量
-        if (stockNumber > buyingNumber){
-        buyingNumber += 1;
-        document.getElementById("number").textContent = buyingNumber;
+        if (stockNumber > buyingNumber) {
+            buyingNumber += 1;
+            document.getElementById("number").textContent = buyingNumber;
         }
     }
 
+    // 沒有 S 號，預設的 CSS 要套到 M 號
 
-// 跳到其他顏色， S 不會恢復
-// 沒有 S 號，預設的 CSS 要套到 M 號
+
+    // Shopping Cart Implementation ============================================================
+    // 要滿滿的資料：產品（Product Id）、品名（Product Name）、價錢、顏色名字、顏色 HexCode、尺寸、數量
+
+    // 新增之前沒有用到的資訊(Product ID、Product Name、Product main-image、價錢、顏色名字)// render 資料後 call 這個 function，才抓得到資料
+    function getDataDetail() {
+        // method 1
+        productname = document.getElementsByClassName("productName")[0].innerHTML;
+        productid = document.getElementsByClassName("productID")[0].innerHTML;
+        productimage = document.getElementsByClassName("productMainPic")[0].src;
+        // method 2 // 因為之前的價錢前面有設 “TWD. ”，用 method 1 比較不好求出來，所以剛好可以用 method 2 的方法來存
+        // method 用之前設定好的全域變數，儲存之前 render 進來的 JSON 檔案，所以可以直接抓到資料
+        // console.log(productItems.price); // 測試看看是否抓到價格
+        // console.log(currentColorName); // 抓 372 行的資料
+    }
+
+
+    // 點擊「加入購物車」按鈕後，會將選擇的東西的相關資訊記錄在 localStorage
+
+    // 如果 users 有買超過一樣東西（一直點擊商品資料 & 加入購物車按鈕），list 要能夠一直增加（定義：在一個產品頁面中如果同色同尺寸，數量更新時是調整原本的訂單，如果顏色或是尺寸不相同，視為兩種不同的 list）            
+    function addToCart() {
+
+        // 刷新頁面時要記住之前的資料
+        // let productArray = []
+        /* 先創一個空的 list array，添加商品時可以把不同的產品資料 object 塞進去
+        (不過在後面添加商品時會有個問題，就是 reload 頁面時，會重跑程式，array 會從新變成空的 array，這樣一直點擊的資料就會每次在 fresh 頁面時被清空)，所以要再加上每次的紀錄，這樣才能一直保有最新的 localStorage 資料 */
+
+
+        let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+
+        // 設定要 push 進去的 object 裡面的 key 要放什麼 value（裡面的 id、name  是 key; productid、productimage 是 value）
+        let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+
+        // 當 Array 裡面沒有東西的時候，可以直接 push 新的 object 進去
+        if (productArray.length == 0) { //條件一定要用兩個或三個「＝」，一個「＝」是用在 assign 變數時
+            productArray.push(productObject);// 增加 object 到 productArray 裡
+            dataStorage = productArray;
+
+            localStorage.setItem("shoppingStatus", JSON.stringify(dataStorage));// 將購買的資料存在 LocalStorage
+
+            // 當 Array 裡面有東西的時候，先檢查同色同尺寸的商品時否存在，如果有的話可以直接換數量
+        } else {
+            // 將 [] 轉型成為 {}，這樣才能查裡面的顏色跟尺寸，也才能跟新點擊的商品去比較：let parsedArray = JSON.parse(localStorage.getItem("shoppingStatus"));（但這邊不適用，因為要統一跟 local 端的 localStorage 比較）
+            //console.log(parsedArray)
+            let sameIndex = -1; // 設一個數字去判斷情況
+            for (let i = 0; i < productArray.length; i += 1) { // 注意：先用 for 迴圈去抓 array 裡面已經有的資料就好，不能把下面的 if & else 包住，不然會一直跑 for loop，新增超多筆資料進 array
+
+                if (productname == productArray[i].name && currentColor == productArray[i].color.code && currentSize == productArray[i].size) { // 同款同色同尺寸
+                    //parsedArray[i].qty == buyingNumber;
+                    //productArray[i]=productObject;
+                    sameIndex = i;
+                }
+            }
+
+            if (sameIndex != -1) {
+                //parsedArray[i].qty == buyingNumber;
+                productArray[sameIndex] = productObject;
+
+            } else { // Ａrray 裡面已經有東西，且新點擊的商品不是「同色同尺寸」，所以直接新增 object 到 productArray 裡
+                productArray.push(productObject);
+
+            }
+
+            dataStorage = productArray;
+            localStorage.setItem("shoppingStatus", JSON.stringify(dataStorage)); // 將購買的資料存在 LocalStorage
+        }
+
+        localStorage.setItem("shoppingStatus", JSON.stringify(productArray));
+        // 把所有有改變過的資料存回 shoppingStatus，這樣下次要去其他 product page 買東西的時候，在某頁訂購的紀錄才不會消失
+
+        addUpQTY();
+        // addUP
+        // let totalQTY = 0;
+        // for (let i = 0; i < productArray.length; i += 1){
+        //     totalQTY += productArray[i].qty;
+        //     console.log(totalQTY);
+        // } 
+
+        // document.querySelectorAll(".qty")[0].textContent = totalQTY;
+        // document.querySelectorAll(".qty")[1].textContent = totalQTY;
+    }
+
+
+// moreDataStorage = {freight:"", list:[{id:"", name:"", main_image:"", price:"", color:{code:currentColor, name:""}, qty:buyingNumber, size:currentSize, stock:""}], payment:"", recipient:{address:"", email:"", name:"", phone:"", time:""}, shipping:"", subtotal:"", total:""};
+
 
 </script>
+
 
 </html>
