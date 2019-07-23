@@ -156,11 +156,29 @@ margin-left: 30px;
 .bag {
   margin-left: 42px;
 }
-.member {
-margin-left: 42px;
+
+.qty {
+  display: inline-block;
+  align-self: right;
+  text-align: center;
+  background-color: #8b572a;
+  font-weight: bold;
+  border-radius: 50%;
+  color: #ffffff;
+  opacity: 0.8;
+  font-size: 0.8em;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  /* margin-left: 10px;
+  margin-top: 15px; */
+  margin: 0;
+  margin-right: 0;
 }
 
-
+.member {
+  margin-left: 42px;
+  }
 
 
 /* ---- Banner ---- */
@@ -2815,3 +2833,5 @@ margin-left: 52px;
   opacity: 0.3;
   pointer-events: none;  /* 直接將按鈕的點擊功能關掉 */
 }
+
+

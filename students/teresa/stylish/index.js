@@ -236,7 +236,7 @@ mobilesearchbtnHide.addEventListener('click', () => {
 // Infinite Scroll
 
 let generalContainer = document.getElementById("genral-container");
-let rect = generalContainer.getBoundingClientRect();
+// let rect = generalContainer.getBoundingClientRect();
 
 let pagingNumber = 0;
 let pagingType = "";
@@ -283,3 +283,16 @@ function clickToGetDetail (id){
     
 }
 
+// Add UP QTY in Cart
+
+function addUpQTY(){
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
+    let totalQTY = 0;
+    for (let i = 0; i < productArray.length; i += 1){
+        totalQTY += productArray[i].qty;
+        console.log(totalQTY);
+    } 
+
+    document.querySelectorAll(".qty")[0].textContent = totalQTY;
+    document.querySelectorAll(".qty")[1].textContent = totalQTY;
+}
