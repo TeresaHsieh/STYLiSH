@@ -190,9 +190,10 @@ function readSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
-    }
-}
 
+    }
+
+}
 
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
@@ -209,6 +210,7 @@ function mobilereadSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
 }
 
@@ -283,6 +285,7 @@ function clickToGetDetail (id){
     
 }
 
+
 // Add UP QTY in Cart
 
 function addUpQTY(){
@@ -296,3 +299,4 @@ function addUpQTY(){
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
     document.querySelectorAll(".qty")[1].textContent = totalQTY;
 }
+
