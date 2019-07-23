@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ShoppingCart Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./ShoppingCart.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body>
+    <header class="main-header">
+        <div><img src="./images/logo.png" class="logo"></div>
+        <div>
+            <ul class="main-nav">
+                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="topl">｜</li>
+                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="topl">｜</li>
+                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+        <div class="functionbar">
+            <div>
+                <div class="searchbox"
+                    style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
+                    <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
+                        id="searchtyping"> </input>
+                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                        onclick="readSearch()"></img>
+                </div>
+            </div>
+            <div><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44">
+                <div id="cart-qty" class="qty">0</div>
+            </div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
+        </div>
+    </header>
+
+
+    <header class="mobilemain-header">
+        <div class="logoandsearch">
+
+            <img src="./images/logo.png" class="mobilelogo" id="mobilelogo">
+
+
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                    class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18"
+                    id="secondmobilesearch" onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
+
+
+            <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
+
+        </div>
+        <div class="mobilemain-navdiv">
+            <ul class="mobilemain-nav">
+                <li class="mobilelady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="grey-line"></div>
+
+    <div class="empty"></div>
+
+    <div class="shoppingCart-mainPart">
+        <div class="InfoTitle">
+                <span class="space1"></span>
+            <span class="shoppingCartQTY">數量</span>
+            <span class="shoppingCartPrice">單價</span>
+            <span class="shoppingCartSubtotal">小計</span>
+            <span class="space2"></span>
+        </div>
+        <div class="orderBox">
+
+            <div class="EachOrderInfo">
+                <div class="ProductSimpleInfo">
+                    <img src="./images/cartDemo.png" class="EachOrderPic"></img>
+                    <div class="EachOrderDetail">
+                        <span class="OrderName">前開衩扭結洋裝</span>
+                        <span class="OrderID">03040047</span>
+                        <span class="OrderColor">顏色｜白</span>
+                        <span class="OrderSize">尺寸｜M</span>
+                    </div>
+                </div>
+                <div class="qtyButton">
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="ItemPrice">
+                    <span>NT.590</span>
+                </div>
+                <div class="subTotal">
+                    <span>NT.590</span>
+                </div>
+                <div class="RemoveItem">
+                    <img src="./images/cart-remove.png"></img>
+                </div>
+            </div>
+            <div class="EachOrderInfo">
+                <div class="ProductSimpleInfo">
+                    <img src="./images/cartDemo.png" class="EachOrderPic"></img>
+                    <div class="EachOrderDetail">
+                        <span class="OrderName">前開衩扭結洋裝</span>
+                        <span class="OrderID">03040047</span>
+                        <span class="OrderColor">顏色｜白</span>
+                        <span class="OrderSize">尺寸｜M</span>
+                    </div>
+                </div>
+                <div class="qtyButton">
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="ItemPrice">
+                    <span>NT.590</span>
+                </div>
+                <div class="subTotal">
+                    <span>NT.590</span>
+                </div>
+                <div class="RemoveItem">
+                    <img src="./images/cart-remove.png"></img>
+                </div>
+            </div>
+            <div class="EachOrderInfo">
+                <div class="ProductSimpleInfo">
+                    <img src="./images/cartDemo.png" class="EachOrderPic"></img>
+                    <div class="EachOrderDetail">
+                        <span class="OrderName">前開衩扭結洋裝</span>
+                        <span class="OrderID">03040047</span>
+                        <span class="OrderColor">顏色｜白</span>
+                        <span class="OrderSize">尺寸｜M</span>
+                    </div>
+                </div>
+                <div class="qtyButton">
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="ItemPrice">
+                    <span>NT.590</span>
+                </div>
+                <div class="subTotal">
+                    <span>NT.590</span>
+                </div>
+                <div class="RemoveItem">
+                    <img src="./images/cart-remove.png"></img>
+                </div>
+            </div>
+
+        </div>
+        <div class="otherInfo">
+            <div class="DeliveryAndPayment">
+                <div class="Delivery">
+                    <span>配送國家</span>
+                    <select>
+                        <option>台灣及離島</option>
+                    </select>
+                </div>
+                <div class="Payment">
+                    <span>付款方式</span>
+                    <select>
+                        <option>台灣及離島</option>
+                    </select>
+                </div>
+            </div>
+            <div class="DeliverNote">
+                <div class="mention">※ 提醒您：</div>
+                <div> ● 選擇宅配-請填寫正確收件人資訊，避免包裹配送不達</div>
+                <div> ● 選擇超商-請填寫正確收件人姓名(與證件相符)，避免無法領取</div>
+
+            </div>
+
+            <div class="BuyerInfo">
+                <span class="orderInfo">訂購資料</span>
+                <div class="BuyerInfoLine"></div>
+                <div class="BuyerInfoForm">
+                    <div class="BuyerData">
+                        <span class="BuyerName">收件人姓名</span>
+                        <input type="text" class="BuyerInfoInput"></input>
+                    </div>
+                    <span>務必填寫完整收件人姓名，避免包裹無法順利簽收</span>
+                    <div class="BuyerData">
+                        <span class="BuyerEmail">Email</span>
+                        <input type="text" class="BuyerInfoInput"></input>
+                    </div>
+                    <div class="BuyerData">
+                        <span class="BuyerPhone">手機號碼</span>
+                        <input type="text" class="BuyerInfoInput"></input>
+                    </div>
+                    <div class="BuyerData">
+                        <span class="BuyerAddress">收件地址</span>
+                        <input type="text" class="BuyerInfoInput"></input>
+                    </div>
+                    <div class="BuyerData">
+                        <span class="BuyerTime">配送時間</span>
+                        <form class="checkBox">
+                            <input type="checkbox"> 08:00 - 12:00 </input>
+                            <input type="checkbox"> 14:00 - 18:00 </input>
+                            <input type="checkbox" checked> 不指定 </input>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="PaymentInfo">
+                <span>付款資料</span>
+                <div class="PaymentInfoLine"></div>
+                <div class="PaymentInfoForm">
+                    <div class="PaymentData">
+                        <span class="PaymentNumber">信用卡號碼</span>
+                        <input type="text" class="PaymentInfoInput" value="**** **** **** ****"></input>
+                    </div>
+                    <div class="PaymentData">
+                        <span class="PaymentDDL">有效期限</span>
+                        <input type="text" class="PaymentInfoInput" value="ＭＭ / YY"></input>
+                    </div>
+                    <div class="PaymentData">
+                        <span class="PaymentCCV">安全碼</span>
+                        <input type="text" class="PaymentInfoInput" value="ＣＣＶ"></input>
+                    </div>
+                </div>
+
+            </div>
+            <div class="totalCost">
+                <div class="dollarCheck">
+                    <div class="TotalCost">總金額</div>
+
+                    <span class="dollar">
+                        <span class="NT"> NT. </span>
+                        <span class="Price"> 1770 </span>
+                    </span>
+
+                </div>
+                <div class="dollarCheck">
+                    <div class="DeliveryCost">運費</div>
+
+                    <span class="dollar">
+                        <span class="NT"> NT. </span>
+                        <span class="Price"> 30 </span>
+                    </span>
+
+                </div>
+                <div></div>
+                <div class="dollarCheck">
+                    <div class="ShouldPay">應付金額</div>
+
+                    <span class="dollar">
+                        <span class="NT"> NT. </span>
+                        <span class="Price"> 1800 </span>
+                    </span>
+
+                </div>
+                <button class="SureToPay">確認付款</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty"></div>
+
+    <footer class="footer">
+        <div class="narrowfooter">
+            <div>
+                <ul class="footer-nav">
+                    <li class="aboutStylish">關於 Stylish</li>
+                    <li class="downl">｜</li>
+                    <li class="service">服務條款</li>
+                    <li class="downl">｜</li>
+                    <li class="privacy">隱私政策</li>
+                    <li class="downl">｜</li>
+                    <li class="contact">聯絡我們</li>
+                    <li class="downl">｜</li>
+                    <li class="FAQ">FAQ</li>
+                </ul>
+            </div>
+            <div class="mediadiv">
+                <ul class="social-media">
+                    <li><img class="line" src="./images/line.png" alt="line" height="50" width="50"></li>
+                    <li><img class="twitter" src="./images/twitter.png" alt="twitter" height="50" width="50"></li>
+                    <li><img class="facebook" src="./images/facebook.png" alt="facebook" height="50" width="50">
+                    </li>
+                </ul>
+            </div>
+            <div class="copyrightdiv">
+                <span class="copyright"> &copy; 2018. All rights reserved.</span>
+            </div>
+        </div>
+
+    </footer>
+    <div class="fixedbar">
+        <div class="cartdescription">
+            <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+            <div id="cart-qty" class="qty">0</div>
+            <p class="mobilecart">購物車</p>
+        </div>
+        <div>
+            <p class="mobiletopl">|</p>
+        </div>
+        <div class="memberdescription">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30">
+            <p class="mobilemember">會員</p>
+        </div>
+
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+
+
+
+</html>
