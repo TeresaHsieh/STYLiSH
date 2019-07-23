@@ -64,6 +64,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .ProductSimpleInfo {
@@ -145,12 +147,17 @@ body {
 }
 
 .DeliverNote{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-family: NotoSansCJKtc;
     font-size: 18px;
     line-height: 1.63;
     text-align: left;
     color: #3f3a3a;
+}
+
+.BuyerInfo,
+.PaymentInfo {
+    margin-bottom: 30px;
 }
 
 .BuyerInfoLine,
@@ -243,3 +250,52 @@ body {
   color: #ffffff;
   margin-top: 35px;
 }
+
+@media  (max-width: 950px) {
+    .totalCost {
+      width: 40%;
+    }
+}
+
+@media  (max-width: 735px) {
+    .orderBox,
+    .otherInfo {
+       width:95%
+    }
+
+    .InfoTitle {
+        margin-top :10px;
+        width: 85.5%;
+    }
+
+    .space1 {
+        width: 50%;  
+    }
+    
+    .shoppingCartQTY {
+        width: 11%;   
+    }
+
+    .space2 {
+        width: 1%;   
+    }
+    
+    .shoppingCartPrice {
+        width: 16%;   
+    }
+    
+    .shoppingCartSubtotal {
+        width: 16%;
+    }
+
+    .checkBox {
+       margin-left: 30px;
+    }
+
+}
+
+@media  (max-width: 675px) {
+    .checkBox {
+        margin-left: 30px;
+    }
+   }
