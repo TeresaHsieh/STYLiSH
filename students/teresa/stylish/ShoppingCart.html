@@ -84,10 +84,10 @@
             <span class="shoppingCartSubtotal">小計</span>
             <span class="space2"></span>
         </div>
-        <div class="orderBox">
+        <div class="orderBox" id="orderBox">
 
-            <div class="EachOrderInfo">
-                <div class="ProductSimpleInfo">
+            <div class="EachOrderInfo" id="EachOrderInfo">
+                <div class="ProductSimpleInfo" id="ProductSimpleInfo">
                     <img src="./images/cartDemo.png" class="EachOrderPic"></img>
                     <div class="EachOrderDetail">
                         <span class="OrderName">前開衩扭結洋裝</span>
@@ -97,24 +97,24 @@
                     </div>
                 </div>
                 <div class="qtyButton">
-                    <select>
+                    <select class="selection">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                     </select>
                 </div>
                 <div class="ItemPrice">
-                    <span>NT.590</span>
+                    <span class="singlePrice">NT.590</span>
                 </div>
                 <div class="subTotal">
-                    <span>NT.590</span>
+                    <span class="subTotalPrice">NT.590</span>
                 </div>
                 <div class="RemoveItem">
-                    <img src="./images/cart-remove.png"></img>
+                    <img class="trashcan" src="./images/cart-remove.png"></img>
                 </div>
             </div>
-            <div class="EachOrderInfo">
-                <div class="ProductSimpleInfo">
+            <div class="EachOrderInfo" id="EachOrderInfo">
+                <div class="ProductSimpleInfo" id="ProductSimpleInfo">
                     <img src="./images/cartDemo.png" class="EachOrderPic"></img>
                     <div class="EachOrderDetail">
                         <span class="OrderName">前開衩扭結洋裝</span>
@@ -124,24 +124,24 @@
                     </div>
                 </div>
                 <div class="qtyButton">
-                    <select>
+                    <select class="selection">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                     </select>
                 </div>
                 <div class="ItemPrice">
-                    <span>NT.590</span>
+                    <span class="singlePrice">NT.590</span>
                 </div>
                 <div class="subTotal">
-                    <span>NT.590</span>
+                    <span class="subTotalPrice">NT.590</span>
                 </div>
                 <div class="RemoveItem">
-                    <img src="./images/cart-remove.png"></img>
+                    <img class="trashcan" src="./images/cart-remove.png"></img>
                 </div>
             </div>
-            <div class="EachOrderInfo">
-                <div class="ProductSimpleInfo">
+            <div class="EachOrderInfo" id="EachOrderInfo">
+                <div class="ProductSimpleInfo" id="ProductSimpleInfo">
                     <img src="./images/cartDemo.png" class="EachOrderPic"></img>
                     <div class="EachOrderDetail">
                         <span class="OrderName">前開衩扭結洋裝</span>
@@ -151,20 +151,20 @@
                     </div>
                 </div>
                 <div class="qtyButton">
-                    <select>
+                    <select class="selection">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                     </select>
                 </div>
                 <div class="ItemPrice">
-                    <span>NT.590</span>
+                    <span class="singlePrice">NT.590</span>
                 </div>
                 <div class="subTotal">
-                    <span>NT.590</span>
+                    <span class="subTotalPrice">NT.590</span>
                 </div>
                 <div class="RemoveItem">
-                    <img src="./images/cart-remove.png"></img>
+                    <img class="trashcan" src="./images/cart-remove.png"></img>
                 </div>
             </div>
 
@@ -224,7 +224,7 @@
                         <div class="Mobile-ProductSimpleInfo">
                             <img src="./images/cartDemo.png" class="Mobile-EachOrderPic"></img>
                             <div class="Mobile-EachOrderDetail">
-                                <span class="Mobile-OrderName">前開衩扭結洋裝</span>
+                                <span class="Mobile-OrderName" id="Mobile-OrderName">前開衩扭結洋裝</span>
                                 <span class="Mobile-OrderID">03040047</span>
                                 <span class="Mobile-OrderColor">顏色｜白</span>
                                 <span class="Mobile-OrderSize">尺寸｜M</span>
@@ -465,6 +465,11 @@
     </div>
 
     <script src="./index.js"></script>
+    <script src="./ShoppingCart.js"></script>
+    <script>
+    window.addEventListener("load", function(){ addUpQTY() });
+
+    </script>
 </body>
 
 

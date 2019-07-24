@@ -39,7 +39,6 @@ let poetryArray;
 let bannerPics = picArray
 // let bannerPics = "https://api.appworks-school.tw" + picArray
 let bannerPicsLen = bannerPics.length;
-console.log (bannerPicsLen);
 let index = 0
 
 
@@ -290,7 +289,6 @@ function addUpQTY(){
     let totalQTY = 0;
     for (let i = 0; i < productArray.length; i += 1){
         totalQTY += productArray[i].qty;
-        console.log(totalQTY);
     } 
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
