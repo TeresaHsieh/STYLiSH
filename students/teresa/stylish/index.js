@@ -178,7 +178,7 @@ function render(data) {
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
 
-    if (usersSearch != "") {
+    if (usersSearch != "") { 
 
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
