@@ -236,7 +236,9 @@ body {
     flex-grow: 1;
 }
 
-.Price {
+#PriceTotal,
+#PriceDelivery,
+#PriceShouldPay {
     font-size: 30px;
 }
 
