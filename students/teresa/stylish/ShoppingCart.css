@@ -1,6 +1,6 @@
 /* ShoppingCart-Page ===========================================================================================*/
-
-.Mobile-shoppingCart-mainPart {
+.Mobile-Line,
+.Mobile-InfoTitle {
     display: none;
 }
 
@@ -31,7 +31,7 @@ body {
 }
 
 .space1 {
-    width: 45%; 
+    width: 43%; 
 }
 
 .shoppingCartQTY,
@@ -234,6 +234,10 @@ body {
     margin-left: 10px;
     width: 50%;
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
 }
 
 #PriceTotal,
@@ -242,7 +246,11 @@ body {
     font-size: 30px;
 }
 
-
+.sperateLine {
+    border-bottom: 1px solid black;
+    margin-top:10px;
+    margin-bottom: 20px;
+}
 .SureToPay{
     background-color: #000000;
   color:#ffffff;
@@ -276,7 +284,7 @@ body {
     }
 
     .space1 {
-        width: 50%;  
+        width: 47%;  
     }
     
     .shoppingCartQTY {
@@ -306,103 +314,53 @@ body {
 }
 
 @media  (max-width: 675px) {
-    .InfoTitle,
-    .orderBox {
+    
+    .InfoTitle {
         display: none;
     }
 
-    .Mobile-shoppingCart-mainPart {
+    .Mobile-InfoTitle {
         display: flex;
         flex-direction: row;
-        width: 95%;
-    }
-
-    .Mobile-orderBox {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        border: 1px #979797 solid;
         margin-top: 20px;
+        width: 100%;
+    }
+
+    .Mobile-Line {
+        display: block;
+        border-bottom: 1px solid black;
+        margin-top:10px;
         margin-bottom: 20px;
-        justify-content: center;
-       
-    }
-
-    .Mobile-EachOrderInfo {
-        display: flex;
-        flex-direction: column;
-        /* width: 90%; */
-       
-    }
-
-    .Mobile-topSpace {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .Mobile-ProductSimpleInfo {
-        display: flex;
-        flex-direction: row;
-        width: 90%;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 15px;
-    }
-
-    .Mobile-EachOrderDetail {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin-left: 5px;
-    }
-    
-    .Mobile-OrderName {
-        flex-grow: 1;
-    }
-    
-    .Mobile-OrderID {
-        flex-grow: 2;
-    }
-    
-    .Mobile-OrderColor {
-        flex-grow: 1;
-    }
-    
-    .Mobile-OrderSize {
-        flex-grow: 1;
-    }
-
-    .Mobile-InfoTitle,
-    .Mobile-qtyAndCost {
-        display: flex;
-        flex-direction: row;
     }
 
     .Mobile-shoppingCartQTY,
     .Mobile-shoppingCartPrice,
-    .Mobile-shoppingCartSubtotal,
-    .Mobile-qtyButton,
-    .Mobile-ItemPrice,
-    .Mobile-subTotal {
+    .Mobile-shoppingCartSubtotal {
         flex-grow: 1;
         text-align: center;
     }
 
-    .Mobile-Line {
-        border-bottom: 1px solid black;
-    margin-top:20px;
-    margin-bottom: 20px;
+    .EachOrderInfo {
+        position: relative;
     }
 
-    .Mobile-downSpace {
+    .shoppingCart-mainPart {
         display: flex;
-        flex-direction: column;
+        margin-top: 30px;
+    } 
+
+    .orderBox {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+    } 
+
+    .trashcan {
+        position: absolute;
+        top: 10px;
+        right: 5px;
     }
 
-    .Mobile-qtyAndCost {
-        display: flex;
-        flex-direction: row;
-    }
 }
 
 @media  (max-width: 545px) {

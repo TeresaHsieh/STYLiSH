@@ -31,7 +31,7 @@ function renderDataFromLocalStorage (){
 
         let ItemsPicUrl = productArray[i].main_image;// 從 localStorage 裡面抓資料
         EachOrderPic.setAttribute("src", ItemsPicUrl);
-        EachOrderPic.setAttribute("width", "20%");
+        EachOrderPic.setAttribute("width", "105px");
         EachOrderPic.setAttribute("class", "EachOrderPic");
         ProductSimpleInfo.appendChild(EachOrderPic); 
 
@@ -66,6 +66,39 @@ function renderDataFromLocalStorage (){
         OrderSize.setAttribute("class", "OrderSize")
 
         EachOrderDetail.appendChild(OrderSize);
+
+
+        // 商品資訊 bar 
+        let Mobile_InfoTitle = document.createElement("div");
+        Mobile_InfoTitle.setAttribute("class", "Mobile-InfoTitle")
+        EachOrderInfo.appendChild(Mobile_InfoTitle);
+
+        let Mobile_space1 = document.createElement("span");
+        Mobile_space1.setAttribute("class", "Mobile-space1")
+        Mobile_InfoTitle.appendChild(Mobile_space1);
+
+        let Mobile_shoppingCartQTY = document.createElement("span");
+        Mobile_shoppingCartQTY.setAttribute("class", "Mobile-shoppingCartQTY")
+        Mobile_shoppingCartQTY.textContent = "數量";
+        Mobile_InfoTitle.appendChild(Mobile_shoppingCartQTY);
+
+        let Mobile_shoppingCartPrice = document.createElement("span");
+        Mobile_shoppingCartPrice.setAttribute("class", "Mobile-shoppingCartPrice")
+        Mobile_shoppingCartPrice.textContent = "單價";
+        Mobile_InfoTitle.appendChild(Mobile_shoppingCartPrice);
+
+        let Mobile_shoppingCartSubtotal = document.createElement("span");
+        Mobile_shoppingCartSubtotal.setAttribute("class", "Mobile-shoppingCartSubtotal")
+        Mobile_shoppingCartSubtotal.textContent = "小計";
+        Mobile_InfoTitle.appendChild(Mobile_shoppingCartSubtotal);
+
+
+        // 商品分割線
+        let Mobile_Line =  document.createElement("div");
+        Mobile_Line.setAttribute("class", "Mobile-Line");
+
+        orderBox.appendChild(Mobile_Line);
+        
 
         // 商品數量(處理 qtyButton 裡的 option 數量)
 
