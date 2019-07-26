@@ -39,7 +39,6 @@ let poetryArray;
 let bannerPics = picArray
 // let bannerPics = "https://api.appworks-school.tw" + picArray
 let bannerPicsLen = bannerPics.length;
-console.log (bannerPicsLen);
 let index = 0
 
 
@@ -178,7 +177,7 @@ function render(data) {
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
 
-    if (usersSearch != "") {
+    if (usersSearch != "") { 
 
         console.log(usersSearch)
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
@@ -290,11 +289,19 @@ function clickToGetDetail (id){
 
 function addUpQTY(){
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
+    console.log(productArray)
     let totalQTY = 0;
-    for (let i = 0; i < productArray.length; i += 1){
-        totalQTY += productArray[i].qty;
-        console.log(totalQTY);
-    } 
+
+    totalQTY = productArray.length
+
+
+
+    // for (let i = 0; i < productArray.length; i += 1){
+    //    totalQTY += productArray[i].qty;
+    // } 
+
+
+
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
     document.querySelectorAll(".qty")[1].textContent = totalQTY;
