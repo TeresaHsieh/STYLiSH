@@ -287,11 +287,11 @@ function clickToGetDetail (id){
 
 function addUpQTY(){
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
-    let totalQTY = 0;
-    for (let i = 0; i < productArray.length; i += 1){
-        totalQTY += productArray[i].qty;
-        console.log(totalQTY);
-    } 
+    let totalQTY = productArray.length;
+    // for (let i = 0; i < productArray.length; i += 1){
+    //     totalQTY += productArray[i].qty;
+    //     console.log(totalQTY);
+    // } 
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
     document.querySelectorAll(".qty")[1].textContent = totalQTY;

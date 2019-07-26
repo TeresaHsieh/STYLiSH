@@ -30,7 +30,7 @@
                         onclick="readSearch()"></img>
                 </div>
             </div>
-            <div><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44">
+            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44"></a>
                 <div id="cart-qty" class="qty">0</div>
             </div>
             <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
@@ -202,7 +202,7 @@
     </footer>
     <div class="fixedbar">
         <div class="cartdescription">
-            <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30"></a>
             <div id="cart-qty" class="qty">0</div>
             <p class="mobilecart">購物車</p>
         </div>
@@ -507,9 +507,9 @@
         // 當 Array 裡面沒有東西的時候，可以直接 push 新的 object 進去
         if (productArray.length == 0) { //條件一定要用兩個或三個「＝」，一個「＝」是用在 assign 變數時
             productArray.push(productObject);// 增加 object 到 productArray 裡
-            dataStorage = productArray;
+            // dataStorage = productArray;
 
-            localStorage.setItem("shoppingStatus", JSON.stringify(dataStorage));// 將購買的資料存在 LocalStorage
+            localStorage.setItem("shoppingStatus", JSON.stringify(productArray));// 將購買的資料存在 LocalStorage
 
             // 當 Array 裡面有東西的時候，先檢查同色同尺寸的商品時否存在，如果有的話可以直接換數量
         } else {
@@ -531,11 +531,10 @@
 
             } else { // Ａrray 裡面已經有東西，且新點擊的商品不是「同色同尺寸」，所以直接新增 object 到 productArray 裡
                 productArray.push(productObject);
-
             }
 
-            dataStorage = productArray;
-            localStorage.setItem("shoppingStatus", JSON.stringify(dataStorage)); // 將購買的資料存在 LocalStorage
+            // dataStorage = productArray;
+            localStorage.setItem("shoppingStatus", JSON.stringify(productArray)); // 將購買的資料存在 LocalStorage
         }
 
         localStorage.setItem("shoppingStatus", JSON.stringify(productArray));
