@@ -3,7 +3,7 @@
 
 // 到 LocalStorage 裡面抓已放在購物車裡面的資料
 function getLocalStorageData() {
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
     console.log(productArray);
 }
 
@@ -11,7 +11,7 @@ getLocalStorageData();// 先定義 function 內容，再呼叫
 
 // render and appendchild 讓資訊列成為動態變動
 function renderDataFromLocalStorage() {
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
 
     for (let i = 0; i < productArray.length; i += 1) {
 
@@ -189,7 +189,8 @@ function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知
     /* 如果保持預設，就可以不理會，因為使用的是 onchange 事件，所以只有在值改變的時候事件才會發生。
     如果使用者結帳前改變了之前點選的數量，就要把新的數量傳回 productArray 再傳回 localStorage */
 
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"));
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
 
     let newNumber = selectOption.value;// 點擊 select 裡新的數字（不同於預設、有 onchange 事件發生時）
     console.log(newNumber)
@@ -205,7 +206,8 @@ function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知
 
     productArray[ParentID].qty = newNumber; // assign 新的數量給原本購買的數量  part 2（真正將新的數字配給 productArray，這樣才可以調整到 productArray）
 
-    localStorage.setItem("shoppingStatus", JSON.stringify(productArray)); // 將新的 productArray 上傳回 localStorage，更新上面的數量
+    AllObject.list = productArray
+    localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 將新的 productArray 上傳回 localStorage，更新上面的數量
 
     console.log(ObjectNeedToChange); // 測試一下新的 localStorage 裡的數量是不是有調整了
 
@@ -226,23 +228,23 @@ function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知
 
 // remove 垃圾桶按鈕的移除功能
 function removeItem(elem) {
-
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"));
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
     let RemoveItemID = elem.parentNode.id; // 用抓 parent ID 的方式，知道按了哪一行的按鈕，要刪掉哪行，上面有在動態產生按鈕時，順便嵌入這個 function(id 也剛好等於 index 的位置，所以可以用 splice method)
     console.log(RemoveItemID);
 
     productArray.splice(RemoveItemID, 1); // 在 index 值為 RemoveItemID 的地方，刪掉一個物件，e.g. 如果 RemoveItemID 是 1，就會在 index 為 1 的地方刪掉一個物件
     console.log(productArray);
-
-    localStorage.setItem("shoppingStatus", JSON.stringify(productArray));// 把刪除的更新存回 localStorage
+    
+    AllObject.list = productArray
+    localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把刪除的更新存回 localStorage
     window.location.reload(); // 重新 loading，發現如果沒有重新 loading 的話，更新不會馬上反映在頁面上，就會有點奇怪 ＱＱ
 }
 
 // 總金額、應付金額調整
 
 function checkAddUpPrice() {
-
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
 
     // 總金額再跑一次
     let allSubTotal = 0;
@@ -259,23 +261,24 @@ function checkAddUpPrice() {
 
     // 應付金額再跑一次
     document.getElementById("PriceShouldPay").textContent = allSubTotal + DeliveryTotal;
+
 }
 
 // 除了訂購的商品，到了 ShoppingCart 頁面要儲存更多資訊在 LocalStorage，方便未來去抓資料
 productfreight = Number(document.getElementById("PriceDelivery").textContent);
+console.log(productfreight)
+
+// // productname = document.getElementsByClassName("productName")[0].innerHTML;
+// // // productid = document.getElementsByClassName("productID")[0].innerHTML;
+// // // productimage = document.getElementsByClassName("productMainPic")[0].src;
+// // let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+
+// productsubtotal = Number(document.getElementById("PriceTotal").textContent);
+// producttotal = Number(document.getElementById("PriceShouldPay").textContent);
 
 
-// productname = document.getElementsByClassName("productName")[0].innerHTML;
-// // productid = document.getElementsByClassName("productID")[0].innerHTML;
-// // productimage = document.getElementsByClassName("productMainPic")[0].src;
-// let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
-
-productsubtotal = Number(document.getElementById("PriceTotal").textContent);
-producttotal = Number(document.getElementById("PriceShouldPay").textContent);
-
-
-let recipientObject = { address: "", email: "", name: "", phone: "", time: "anytime" }
-let AllObject = { freight: productfreight, list: [], payment: "credit_card", recipient: recipientObject, shipping: "delivery", subtotal: productsubtotal, total: producttotal};
+// let recipientObject = { address: "", email: "", name: "", phone: "", time: "anytime" }
+// let AllObject = { freight: productfreight, list: [], payment: "credit_card", recipient: recipientObject, shipping: "delivery", subtotal: productsubtotal, total: producttotal};
 
 // localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));
 

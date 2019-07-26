@@ -30,7 +30,8 @@
                         onclick="readSearch()"></img>
                 </div>
             </div>
-            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44"></a>
+            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
+                        width="44"></a>
                 <div id="cart-qty" class="qty">0</div>
             </div>
             <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
@@ -202,7 +203,8 @@
     </footer>
     <div class="fixedbar">
         <div class="cartdescription">
-            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30"></a>
+            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
+                    height="30" width="30"></a>
             <div id="cart-qty" class="qty">0</div>
             <p class="mobilecart">購物車</p>
         </div>
@@ -220,7 +222,7 @@
 </body>
 
 <script>
-     window.addEventListener("load", function(){ addUpQTY() });
+    window.addEventListener("load", function () { addUpQTY() });
 
     // window.addEventListener("load", )
     let urlParams = new URLSearchParams(window.location.search);
@@ -499,45 +501,69 @@
         (不過在後面添加商品時會有個問題，就是 reload 頁面時，會重跑程式，array 會從新變成空的 array，這樣一直點擊的資料就會每次在 fresh 頁面時被清空)，所以要再加上每次的紀錄，這樣才能一直保有最新的 localStorage 資料 */
 
 
-        let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
 
-        // 設定要 push 進去的 object 裡面的 key 要放什麼 value（裡面的 id、name  是 key; productid、productimage 是 value）
-        let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+        // ====================================== test
+        // let AllObject = { list: [] };
+        // localStorage.setItem("test", JSON.stringify(AllObject)); // 初始化 LocalStorage
+        // let yeah = JSON.parse(localStorage.getItem("test")).list || [];
 
-        // 當 Array 裡面沒有東西的時候，可以直接 push 新的 object 進去
-        if (productArray.length == 0) { //條件一定要用兩個或三個「＝」，一個「＝」是用在 assign 變數時
-            productArray.push(productObject);// 增加 object 到 productArray 裡
-            // dataStorage = productArray;
+        // console.log(yeah)
 
-            localStorage.setItem("shoppingStatus", JSON.stringify(productArray));// 將購買的資料存在 LocalStorage
+        // let test2 = 3;
+        // AllObject.list = [test2];
+        // localStorage.setItem("test", JSON.stringify(AllObject));
+        // // let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+        // ====================================== test
 
-            // 當 Array 裡面有東西的時候，先檢查同色同尺寸的商品時否存在，如果有的話可以直接換數量
-        } else {
-            // 將 [] 轉型成為 {}，這樣才能查裡面的顏色跟尺寸，也才能跟新點擊的商品去比較：let parsedArray = JSON.parse(localStorage.getItem("shoppingStatus"));（但這邊不適用，因為要統一跟 local 端的 localStorage 比較）
-            //console.log(parsedArray)
-            let sameIndex = -1; // 設一個數字去判斷情況
-            for (let i = 0; i < productArray.length; i += 1) { // 注意：先用 for 迴圈去抓 array 裡面已經有的資料就好，不能把下面的 if & else 包住，不然會一直跑 for loop，新增超多筆資料進 array
+        let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"));
+        // 這邊的 AllObject 是指包在最外面的 object >>> let AllObject = { list: productArray }，未來裡面還要塞更多 key 跟 value
+        if (AllObject == null) { // 這等於 localStorage 裡面完全沒有東西，可以塞 user 點選的第一個商品進去
+            // 設定最小單位的架構裡，key 有哪些 // 設定要 push 進去的 object 裡面的 key 要放什麼 value（裡面的 id、name  是 key; productid、productimage 是 value）
+            let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+            let productArray = [productObject];
+            AllObject = { list: productArray }
 
-                if (productname == productArray[i].name && currentColor == productArray[i].color.code && currentSize == productArray[i].size) { // 同款同色同尺寸
-                    //parsedArray[i].qty == buyingNumber;
-                    //productArray[i]=productObject;
-                    sameIndex = i;
+        } else { // localStorage 裡面有東西！但也可能是空的 []，所以要再確認 [] 裡面有沒有東西
+            let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+            let productArray = AllObject.list
+            // 當 Array 裡面沒有東西的時候，可以直接 push 新的 object 進去
+            if (productArray.length == 0) { //條件一定要用兩個或三個「＝」，一個「＝」是用在 assign 變數時
+                productArray.push(productObject);// 增加 object 到 productArray 裡
+                // dataStorage = productArray;
+
+                localStorage.setItem("shoppingStatus.list", JSON.stringify(AllObject.list));// 將購買的新資料存在 LocalStorage.list
+               
+
+                // 當 Array 裡面有東西的時候，先檢查同色同尺寸的商品時否存在，如果有的話可以直接換數量
+            } else {
+                // 將 [] 轉型成為 {}，這樣才能查裡面的顏色跟尺寸，也才能跟新點擊的商品去比較：let parsedArray = JSON.parse(localStorage.getItem("shoppingStatus"));（但這邊不適用，因為要統一跟 local 端的 localStorage 比較）
+                //console.log(parsedArray)
+                let sameIndex = -1; // 設一個數字去判斷情況
+                for (let i = 0; i < productArray.length; i += 1) { // 注意：先用 for 迴圈去抓 array 裡面已經有的資料就好，不能把下面的 if & else 包住，不然會一直跑 for loop，新增超多筆資料進 array
+
+                    if (productname == productArray[i].name && currentColor == productArray[i].color.code && currentSize == productArray[i].size) { // 同款同色同尺寸
+                        //parsedArray[i].qty == buyingNumber;
+                        //productArray[i]=productObject;
+                        sameIndex = i;
+                    }
                 }
+
+                if (sameIndex != -1) {
+                    //parsedArray[i].qty == buyingNumber;
+                    productArray[sameIndex] = productObject;
+
+                } else { // Ａrray 裡面已經有東西，且新點擊的商品不是「同色同尺寸」，所以直接新增 object 到 productArray 裡
+                    productArray.push(productObject);
+                }
+
+                // 因為現在在操作、調整的都是從 localstorage.list 裡面拉下來的 array，叫做 productArray，所以要再將資料上傳回 localStorage.list 去更新遠端的資訊
+                localStorage.setItem("shoppingStatus", JSON.stringify(AllObject.list));// 將購買的新資料存在 LocalStorage.list
+            
             }
 
-            if (sameIndex != -1) {
-                //parsedArray[i].qty == buyingNumber;
-                productArray[sameIndex] = productObject;
-
-            } else { // Ａrray 裡面已經有東西，且新點擊的商品不是「同色同尺寸」，所以直接新增 object 到 productArray 裡
-                productArray.push(productObject);
-            }
-
-            // dataStorage = productArray;
-            localStorage.setItem("shoppingStatus", JSON.stringify(productArray)); // 將購買的資料存在 LocalStorage
         }
 
-        localStorage.setItem("shoppingStatus", JSON.stringify(productArray));
+        localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));
         // 把所有有改變過的資料存回 shoppingStatus，這樣下次要去其他 product page 買東西的時候，在某頁訂購的紀錄才不會消失
 
         addUpQTY();
@@ -550,6 +576,86 @@
 
         // document.querySelectorAll(".qty")[0].textContent = totalQTY;
         // document.querySelectorAll(".qty")[1].textContent = totalQTY;
+
+
+
+
+
+
+
+
+
+
+        // ============================test=================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+
+        // // 設定要 push 進去的 object 裡面的 key 要放什麼 value（裡面的 id、name  是 key; productid、productimage 是 value）
+        // let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+
+        // // 當 Array 裡面沒有東西的時候，可以直接 push 新的 object 進去
+        // if (productArray.length == 0) { //條件一定要用兩個或三個「＝」，一個「＝」是用在 assign 變數時
+        //     productArray.push(productObject);// 增加 object 到 productArray 裡
+        //     // dataStorage = productArray;
+
+        //     localStorage.setItem("shoppingStatus", JSON.stringify(productArray));// 將購買的資料存在 LocalStorage
+
+        //     // 當 Array 裡面有東西的時候，先檢查同色同尺寸的商品時否存在，如果有的話可以直接換數量
+        // } else {
+        //     // 將 [] 轉型成為 {}，這樣才能查裡面的顏色跟尺寸，也才能跟新點擊的商品去比較：let parsedArray = JSON.parse(localStorage.getItem("shoppingStatus"));（但這邊不適用，因為要統一跟 local 端的 localStorage 比較）
+        //     //console.log(parsedArray)
+        //     let sameIndex = -1; // 設一個數字去判斷情況
+        //     for (let i = 0; i < productArray.length; i += 1) { // 注意：先用 for 迴圈去抓 array 裡面已經有的資料就好，不能把下面的 if & else 包住，不然會一直跑 for loop，新增超多筆資料進 array
+
+        //         if (productname == productArray[i].name && currentColor == productArray[i].color.code && currentSize == productArray[i].size) { // 同款同色同尺寸
+        //             //parsedArray[i].qty == buyingNumber;
+        //             //productArray[i]=productObject;
+        //             sameIndex = i;
+        //         }
+        //     }
+
+        //     if (sameIndex != -1) {
+        //         //parsedArray[i].qty == buyingNumber;
+        //         productArray[sameIndex] = productObject;
+
+        //     } else { // Ａrray 裡面已經有東西，且新點擊的商品不是「同色同尺寸」，所以直接新增 object 到 productArray 裡
+        //         productArray.push(productObject);
+        //     }
+
+        //     // dataStorage = productArray;
+        //     localStorage.setItem("shoppingStatus", JSON.stringify(productArray)); // 將購買的資料存在 LocalStorage
+        // }
+
+        // localStorage.setItem("shoppingStatus", JSON.stringify(productArray));
+        // // 把所有有改變過的資料存回 shoppingStatus，這樣下次要去其他 product page 買東西的時候，在某頁訂購的紀錄才不會消失
+
+        // addUpQTY();
+        // // addUP
+        // // let totalQTY = 0;
+        // // for (let i = 0; i < productArray.length; i += 1){
+        // //     totalQTY += productArray[i].qty;
+        // //     console.log(totalQTY);
+        // // } 
+
+        // // document.querySelectorAll(".qty")[0].textContent = totalQTY;
+        // // document.querySelectorAll(".qty")[1].textContent = totalQTY;
     }
 
 
