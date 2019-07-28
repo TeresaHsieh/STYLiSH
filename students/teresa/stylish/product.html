@@ -471,9 +471,6 @@
         }
     }
 
-    // 沒有 S 號，預設的 CSS 要套到 M 號
-
-
     // Shopping Cart Implementation ============================================================
     // 要滿滿的資料：產品（Product Id）、品名（Product Name）、價錢、顏色名字、顏色 HexCode、尺寸、數量
 
@@ -558,9 +555,7 @@
 
                 // 因為現在在操作、調整的都是從 localstorage.list 裡面拉下來的 array，叫做 productArray，所以要再將資料上傳回 localStorage.list 去更新遠端的資訊
                 localStorage.setItem("shoppingStatus", JSON.stringify(AllObject.list));// 將購買的新資料存在 LocalStorage.list
-            
             }
-
         }
 
         localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));
@@ -657,10 +652,6 @@
         // // document.querySelectorAll(".qty")[0].textContent = totalQTY;
         // // document.querySelectorAll(".qty")[1].textContent = totalQTY;
     }
-
-
-// moreDataStorage = {freight:"", list:[{id:"", name:"", main_image:"", price:"", color:{code:currentColor, name:""}, qty:buyingNumber, size:currentSize, stock:""}], payment:"", recipient:{address:"", email:"", name:"", phone:"", time:""}, shipping:"", subtotal:"", total:""};
-
 
 
 

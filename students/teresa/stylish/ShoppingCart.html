@@ -238,20 +238,20 @@
                 <div class="BuyerInfoForm">
                     <div class="BuyerData">
                         <span class="BuyerName">收件人姓名</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerNameInput"></input>
                     </div>
                     <span>務必填寫完整收件人姓名，避免包裹無法順利簽收</span>
                     <div class="BuyerData">
                         <span class="BuyerEmail">Email</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerEmailInput"></input>
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerPhone">手機號碼</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerPhoneInput"></input>
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerAddress">收件地址</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerAddressInput"></input>
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerTime">配送時間</span>
@@ -314,7 +314,7 @@
                     </span>
 
                 </div>
-                <button class="SureToPay" id="SureToPay" onClick="onSubmit(event)">確認付款</button>
+                <button class="SureToPay" id="SureToPay" onClick="onSubmit(event)" disabled>確認付款</button>
             </div>
         </div>
     </div>

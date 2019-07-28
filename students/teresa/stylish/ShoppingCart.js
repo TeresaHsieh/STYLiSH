@@ -235,7 +235,7 @@ function removeItem(elem) {
 
     productArray.splice(RemoveItemID, 1); // 在 index 值為 RemoveItemID 的地方，刪掉一個物件，e.g. 如果 RemoveItemID 是 1，就會在 index 為 1 的地方刪掉一個物件
     console.log(productArray);
-    
+
     AllObject.list = productArray
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把刪除的更新存回 localStorage
     window.location.reload(); // 重新 loading，發現如果沒有重新 loading 的話，更新不會馬上反映在頁面上，就會有點奇怪 ＱＱ
@@ -265,28 +265,32 @@ function checkAddUpPrice() {
 }
 
 // 除了訂購的商品，到了 ShoppingCart 頁面要儲存更多資訊在 LocalStorage，方便未來去抓資料
-productfreight = Number(document.getElementById("PriceDelivery").textContent);
-console.log(productfreight)
 
-// // productname = document.getElementsByClassName("productName")[0].innerHTML;
-// // // productid = document.getElementsByClassName("productID")[0].innerHTML;
-// // // productimage = document.getElementsByClassName("productMainPic")[0].src;
-// // let productObject = { id: productid, name: productname, main_image: productimage, price: productItems.price, color: { code: currentColor, name: currentColorName }, qty: buyingNumber, size: currentSize, stock: stockNumber };
+let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
+console.log(AllObject)
 
-// productsubtotal = Number(document.getElementById("PriceTotal").textContent);
-// producttotal = Number(document.getElementById("PriceShouldPay").textContent);
+let recipient = { address: "", email: "", name: "", phone: "", time: "" }
+AllObject.recipient = recipient;
 
+productfreight = Number(document.getElementById("PriceDelivery").textContent); // 新增運費 key 跟 value
+AllObject.freight = productfreight;
 
-// let recipientObject = { address: "", email: "", name: "", phone: "", time: "anytime" }
-// let AllObject = { freight: productfreight, list: [], payment: "credit_card", recipient: recipientObject, shipping: "delivery", subtotal: productsubtotal, total: producttotal};
+productsubtotal = Number(document.getElementById("PriceTotal").textContent); // 新增小記 key 跟 value
+AllObject.subtotal = productsubtotal;
 
-// localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));
+producttotal = Number(document.getElementById("PriceShouldPay").textContent); // 新增總計 key 跟 value
+AllObject.total = producttotal;
 
+AllObject.payment = "credit_card"; // 新增付款方式、運送的 key 跟 value
+AllObject.shipping = "delivery";
+
+localStorage.setItem("shoppingStatus", JSON.stringify(AllObject)); // 將更改好的 localStorage 傳回、更新
 
 // 利用 TPDirect.setupSDK 設定參數
 TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
 
 // 使用 TPDirect.card.setup 設定外觀
+// Initialize TapPay SDK.
 TPDirect.card.setup({
     fields: {
         number: {
@@ -352,6 +356,7 @@ TPDirect.card.onUpdate(function (update) {
         TPDirect.card.getPrime(update); // true = 全部欄位皆為正確，呼叫 getPrime callback function
     } else {
         // Disable submit Button to get prime.
+        let submitButton = document.getElementById("SureToPay")
         submitButton.setAttribute('disabled', true)
     }
 
@@ -386,15 +391,15 @@ TPDirect.card.onUpdate(function (update) {
     // }
 })
 
-TPDirect.card.getTappayFieldsStatus();
+TPDirect.card.getTappayFieldsStatus(); // 此方法可得到 TapPay Fields 卡片資訊的輸入狀態
 
 
 // 使用 TPDirect.card.getPrime 取得 Prime
-// call TPDirect.card.getPrime when user submit form to get tappay prime
-// $('form').on('submit', onSubmit)
-
 function onSubmit(event) {
     event.preventDefault()
+
+    // 要取得 Prime 之前，確認使用者是否已經輸入個人資料
+    CheckUsersInput();
 
     // 取得 TapPay Fields 的 status
     const tappayStatus = TPDirect.card.getTappayFieldsStatus()
@@ -412,12 +417,83 @@ function onSubmit(event) {
             return
         }
         alert('get prime 成功，prime: ' + result.card.prime)
+        console.log(result.card.prime);
 
         // send prime to your server, to pay with Pay by Prime API .
         // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
     })
 }
 
+function CheckUsersInput() {
+
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
+
+    // 處理 user 姓名
+    // let UsersNameInput = document.getElementsByClassName("BuyerInfoInput")[0];
+    let BuyerNameInput = document.getElementById("BuyerNameInput").value; // 講使用者姓名存進 localStorage
+
+    if (typeof BuyerNameInput == "string") {
+        AllObject.recipient.name = BuyerNameInput;
+    } else {
+        alert("Please Fill Your Name :)");
+    }
+
+    // 處理 user Email
+    let BuyerEmailInput = document.getElementById("BuyerEmailInput").value;
+
+    if (typeof BuyerEmailInput == "string") {
+        AllObject.recipient.email = BuyerEmailInput;
+    } else {
+        alert("Please Fill Your Email :)");
+    }
+
+    // 處理 user 電話
+    let BuyerPhoneInput = document.getElementById("BuyerPhoneInput").value;
+
+    if (typeof BuyerPhoneInput == "string") {
+        AllObject.recipient.phone = BuyerPhoneInput;
+    } else {
+        alert("Please Fill Your Phone :)");
+    }
+
+    // 處理 user 地址
+    let BuyerAddressInput = document.getElementById("BuyerAddressInput").value;
+
+    if (typeof BuyerAddressInput == "string") {
+        AllObject.recipient.address = BuyerAddressInput;
+    } else {
+        alert("Please Fill Your Address :)");
+    }
+
+    let BuyerTimeInput = "anytime";
+    AllObject.recipient.time = BuyerTimeInput; // 先預設 users 的送達時間為「不指定」
+
+    localStorage.setItem("shoppingStatus", JSON.stringify(AllObject)); // 將 user 輸入好的個資存進 localStorage
+
+
+}
+
 TPDirect.getFraudId()
+
+
+function SendPrimeAndOrderInformation() {
+    let checkOutUrl = API + "/order/checkout"
+    SendPrimeAndOrderAjax(checkOutUrl, bannerrender);
+}
+
+function SendPrimeAndOrderAjax(src, callback) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = xhr.response;
+            callback(response);
+        } else {
+            return "error : Invalid token.";
+            }
+    };
+    xhttp.open("POST", src);
+    xhttp.send();
+  }
+
 
 
