@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ShoppingCart Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./ShoppingCart.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body>
+    <header class="main-header">
+        <div><img src="./images/logo.png" class="logo"></div>
+        <div>
+            <ul class="main-nav">
+                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="topl">｜</li>
+                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="topl">｜</li>
+                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+        <div class="functionbar">
+            <div>
+                <div class="searchbox"
+                    style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
+                    <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
+                        id="searchtyping"> </input>
+                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                        onclick="readSearch()"></img>
+                </div>
+            </div>
+            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
+                        width="44"></a>
+                <div id="cart-qty" class="qty">0</div>
+            </div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
+        </div>
+    </header>
+
+
+    <header class="mobilemain-header">
+        <div class="logoandsearch">
+
+            <img src="./images/logo.png" class="mobilelogo" id="mobilelogo">
+
+
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                    class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18"
+                    id="secondmobilesearch" onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
+
+
+            <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
+
+        </div>
+        <div class="mobilemain-navdiv">
+            <ul class="mobilemain-nav">
+                <li class="mobilelady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="grey-line"></div>
+
+    <div class="empty"></div>
+<div class="thankYouPage">
+    <div class="thankyou-main">
+        <div class="thankyou-words">
+            <div class="thankyou">Thank You</div>
+            <div class="thankyou-divideLine"></div>
+            <div class="sendASAP">訂單已成立，我們會盡快將商品送達！</div>
+            <div class="Order">請記住以下訂單編號，以便查詢：</div>
+            <div class="OrderNumber"></div>
+            <a href="index.html"><button class="keepShopping">繼續購物</button></a>
+        </div>
+        <img src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" class="thankyou-pic">
+        </img>
+    </div>
+</div>
+
+    <div class="empty"></div>
+
+    <footer class="footer">
+        <div class="narrowfooter">
+            <div>
+                <ul class="footer-nav">
+                    <li class="aboutStylish">關於 Stylish</li>
+                    <li class="downl">｜</li>
+                    <li class="service">服務條款</li>
+                    <li class="downl">｜</li>
+                    <li class="privacy">隱私政策</li>
+                    <li class="downl">｜</li>
+                    <li class="contact">聯絡我們</li>
+                    <li class="downl">｜</li>
+                    <li class="FAQ">FAQ</li>
+                </ul>
+            </div>
+            <div class="mediadiv">
+                <ul class="social-media">
+                    <li><img class="line" src="./images/line.png" alt="line" height="50" width="50"></li>
+                    <li><img class="twitter" src="./images/twitter.png" alt="twitter" height="50" width="50"></li>
+                    <li><img class="facebook" src="./images/facebook.png" alt="facebook" height="50" width="50">
+                    </li>
+                </ul>
+            </div>
+            <div class="copyrightdiv">
+                <span class="copyright"> &copy; 2018. All rights reserved.</span>
+            </div>
+        </div>
+
+    </footer>
+    <div class="fixedbar">
+        <div class="cartdescription">
+            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
+                    height="30" width="30"></a>
+            <div id="cart-qty" class="qty">0</div>
+            <p class="mobilecart">購物車</p>
+        </div>
+        <div>
+            <p class="mobiletopl">|</p>
+        </div>
+        <div class="memberdescription">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30">
+            <p class="mobilemember">會員</p>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
