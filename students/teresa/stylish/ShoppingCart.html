@@ -12,7 +12,9 @@
 
 <body>
     <header class="main-header">
-        <div><img src="./images/logo.png" class="logo"></div>
+
+        <div><a href="index.html"><img src="./images/logo.png" class="logo"></a></div>
+
         <div>
             <ul class="main-nav">
                 <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
@@ -32,7 +34,10 @@
                         onclick="readSearch()"></img>
                 </div>
             </div>
-            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44"></a>
+
+            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
+                        width="44"></a>
+
                 <div id="cart-qty" class="qty">0</div>
             </div>
             <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
@@ -237,20 +242,24 @@
                 <div class="BuyerInfoForm">
                     <div class="BuyerData">
                         <span class="BuyerName">收件人姓名</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+
+                        <input type="text" class="BuyerInfoInput" id="BuyerNameInput"></input>
+
                     </div>
                     <span>務必填寫完整收件人姓名，避免包裹無法順利簽收</span>
                     <div class="BuyerData">
                         <span class="BuyerEmail">Email</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+
+                        <input type="text" class="BuyerInfoInput" id="BuyerEmailInput"></input>
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerPhone">手機號碼</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerPhoneInput"></input>
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerAddress">收件地址</span>
-                        <input type="text" class="BuyerInfoInput"></input>
+                        <input type="text" class="BuyerInfoInput" id="BuyerAddressInput"></input>
+
                     </div>
                     <div class="BuyerData">
                         <span class="BuyerTime">配送時間</span>
@@ -269,15 +278,19 @@
                 <div class="PaymentInfoForm">
                     <div class="PaymentData">
                         <span class="PaymentNumber">信用卡號碼</span>
-                        <input type="text" class="PaymentInfoInput" value="**** **** **** ****"></input>
+
+                        <div class="tpfield" id="card-number" type="text" class="PaymentInfoInput"
+                            value="**** **** **** ****"></div>
                     </div>
                     <div class="PaymentData">
                         <span class="PaymentDDL">有效期限</span>
-                        <input type="text" class="PaymentInfoInput" value="ＭＭ / YY"></input>
+                        <div class="tpfield" id="card-expiration-date" type="text" class="PaymentInfoInput"
+                            value="ＭＭ / YY"></div>
                     </div>
                     <div class="PaymentData">
                         <span class="PaymentCCV">安全碼</span>
-                        <input type="text" class="PaymentInfoInput" value="ＣＣＶ"></input>
+                        <div class="tpfield" id="card-ccv" type="text" class="PaymentInfoInput" value="ＣＣＶ"></div>
+
                     </div>
                 </div>
 
@@ -311,7 +324,9 @@
                     </span>
 
                 </div>
-                <button class="SureToPay">確認付款</button>
+
+                <button class="SureToPay" id="SureToPay" onClick="onSubmit(event)" disabled>確認付款</button>
+
             </div>
         </div>
     </div>
@@ -349,7 +364,10 @@
     </footer>
     <div class="fixedbar">
         <div class="cartdescription">
-            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30"></a>
+
+            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
+                    height="30" width="30"></a>
+
             <div id="cart-qty" class="qty">0</div>
             <p class="mobilecart">購物車</p>
         </div>
@@ -364,13 +382,15 @@
     </div>
 
     <script src="./index.js"></script>
+
+
+    <!-- Load TapPay SDK. -->
+    <script src="https://js.tappaysdk.com/tpdirect/v5.1.0"></script>
+
     <script src="./ShoppingCart.js"></script>
-    <script>
-    window.addEventListener("load", function(){ addUpQTY() });
+    <script> window.addEventListener("load", function () { addUpQTY() });</script>
 
-    </script>
 </body>
-
 
 
 </html>

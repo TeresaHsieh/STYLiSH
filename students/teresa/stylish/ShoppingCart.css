@@ -195,8 +195,10 @@ body {
 }
 
 .BuyerInfoInput,
-.PaymentInfoInput {
+
+.tpfield {
   width: 60%;
+  height: 35px;
   padding: 5px 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -386,4 +388,77 @@ body {
     .totalCost {
         width: 60%;
     }
+
+}
+
+.thankYouPage {
+    display: flex;
+    justify-content: center;
+}
+
+.thankyou-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+/* .thankyou-words {
+    display: flex;
+    flex-direction: column;
+} */
+
+.thankyou {
+    font-size: 28px;
+}
+
+.thankyou-divideLine {
+    display: block;
+    border-bottom: 1px solid black;
+    margin-top:10px;
+    margin-bottom: 20px;
+}
+
+.keepShopping {
+    background-color: #000000;
+    color:#ffffff;
+    border: solid 1px #979797;
+    width: 50;
+    height: 10%;
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: 4px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 35px;
+}
+
+.thankyou-pic {
+    width: 60%;
+}
+
+@media  (max-width: 1000px) {
+    .thankyou-main{
+        flex-direction: column ;
+        align-items: center;
+    }
+
+    .thankyou {
+        margin-top: 30px;
+    }
+
+    .thankyou-pic {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        width: 70%;
+    }
+}
+
+@media  (max-width: 555px) {
+
+    .thankyou-pic {
+        width: 100%;
+    }
+
 }

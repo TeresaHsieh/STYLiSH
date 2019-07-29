@@ -288,19 +288,17 @@ function clickToGetDetail (id){
 // Add UP QTY in Cart
 
 function addUpQTY(){
-    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")) || [];
-    console.log(productArray)
-    let totalQTY = 0;
 
-    totalQTY = productArray.length
-
-
-
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"))
+    let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
+    let totalQTY = productArray.length;
     // for (let i = 0; i < productArray.length; i += 1){
-    //    totalQTY += productArray[i].qty;
+    //     totalQTY += productArray[i].qty;
+    //     console.log(totalQTY);
     // } 
-
-
+    AllObject.list = productArray
+    localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把更新存回 localStorage
+    
 
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
