@@ -39,13 +39,13 @@ let poetryArray;
 let bannerPics = picArray
 // let bannerPics = "https://api.appworks-school.tw" + picArray
 let bannerPicsLen = bannerPics.length;
-console.log (bannerPicsLen);
+console.log(bannerPicsLen);
 let index = 0
 
 
 function bannerrender(data) {
     let items = JSON.parse(data).data;
-    poetryArray = [items[0].story,items[1].story,items[2].story];
+    poetryArray = [items[0].story, items[1].story, items[2].story];
 
     for (i = 0; i < items.length; i += 1) {
 
@@ -64,29 +64,29 @@ function bannerrender(data) {
         marketpoetry.setAttribute("style", "poetry");
         // marketingCampaignDiv.appendChild(marketingpics);
         // marketingpics.appendChild(marketpoetry);  
-        slideShow();     
+        slideShow();
     }
 
     setInterval(slideShow, 10000);
 }
 
-    function slideShow() {
-        console.log(poetryArray[index].replace(/\r\n/g,"<br/>"))
-        document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' style='width:100%' ><span class=poetry> " + poetryArray[index].replace(/\r\n/g,"<br/>") + " </span>";
-        index += 1;
-        if(index > bannerPicsLen-1){
-            index = 0
-        }   
-        // document.getElementById("poetry").innerHTML = "<span> '" + poetryArray[index] + "' </span>";
-        // index += 1;
-        // if(index > bannerPicsLen-1){
-        //     index = 0
-        // }      
-    } 
+function slideShow() {
+    console.log(poetryArray[index].replace(/\r\n/g, "<br/>"))
+    document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' style='width:100%' ><span class=poetry> " + poetryArray[index].replace(/\r\n/g, "<br/>") + " </span>";
+    index += 1;
+    if (index > bannerPicsLen - 1) {
+        index = 0
+    }
+    // document.getElementById("poetry").innerHTML = "<span> '" + poetryArray[index] + "' </span>";
+    // index += 1;
+    // if(index > bannerPicsLen-1){
+    //     index = 0
+    // }      
+}
 
-    function currentSlide(n) {
-        slideShow(index = n);
-    } 
+function currentSlide(n) {
+    slideShow(index = n);
+}
 
 
 // 產品區的資料 render ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -128,8 +128,8 @@ function render(data) {
         pics.setAttribute("class", "pic"); //把照片本身的樣式套到新的照片（已套入新的 URL）裡
         let picsID = items[i].id;
         pics.setAttribute("id", picsID);
-        pics.setAttribute("onclick", "clickToGetDetail("+picsID+")");
-        let picsURL = "product.html?id="+picsID;
+        pics.setAttribute("onclick", "clickToGetDetail(" + picsID + ")");
+        let picsURL = "product.html?id=" + picsID;
         pics.setAttribute("href", picsURL);
 
         allcolors.setAttribute("class", "hextrial");
@@ -275,17 +275,17 @@ function addEventhandle() {
 }
 
 // Take Parameter from Page URL
-function clickToGetDetail (id){
-    window.location = "product.html?id="+id; // 跳轉到自己的頁面
+function clickToGetDetail(id) {
+    window.location = "product.html?id=" + id; // 跳轉到自己的頁面
     let productUrl = API + "/products/details?id=" + id;
     console.log(productUrl);
     ajax(productUrl, productrender);
-    
+
 }
 
 // Add UP QTY in Cart
 
-function addUpQTY(){
+function addUpQTY() {
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"))
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
     let totalQTY = productArray.length;
@@ -295,7 +295,7 @@ function addUpQTY(){
     // } 
     AllObject.list = productArray
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把更新存回 localStorage
-    
+
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
     document.querySelectorAll(".qty")[1].textContent = totalQTY;

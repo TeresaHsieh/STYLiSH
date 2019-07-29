@@ -525,7 +525,7 @@ function SendPrimeAndOrderAjax(src) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.setRequestHeader("Authorization", "Bearer");
 
-    
+
     console.log(CheckOutDetail);
 
     xhttp.send(CheckOutDetail);
@@ -533,6 +533,6 @@ function SendPrimeAndOrderAjax(src) {
 }
 
 
-function GoToThankYouPage(){
+function GoToThankYouPage() {
     window.location = "ThankYou.html";// 如果資訊都沒有錯的話，跳轉到 thankyou page
 }

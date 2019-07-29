@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Stylish Home Page</title>
+    <title>Profile Page</title>
     <link rel="stylesheet" href="./index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -13,25 +13,22 @@
 
     <!-- FB Login Starts -->
     <script>
-        // 初始化 // 指派給 window.fbAsyncInit 的函數會在 SDK 完成載入後馬上執行
+        //初始化
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '1385555128262108',
                 cookie: true,
                 xfbml: true,
-                /* xfbml 設為 true 時，SDK 會剖析頁面的 DOM，以尋找並初始化任何新增且使用 XFBML 的社交外掛程式
-                如果頁面沒有使用社交外掛程式，將 xfbml 設為 false 就會改善頁面載入時間 */
                 version: 'v3.3'
             });
 
             //記錄用戶行為資料 可在後台查看用戶資訊
             FB.AppEvents.logPageView();
 
+
             FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
-
-
 
         };
 
@@ -113,82 +110,10 @@
 
     <div class="grey-line"></div>
 
-    <div class="banner" id="banner">
-        <a class="bannerPic" id="bannerPic" src="">
-            <div class="poem" id="poem">
-                <span class="poetry" id="poetry"> <br> </span>
-                <span class="writer"> </span>
-            </div>
-        </a>
-        <div class="steps">
-            <span class="dot" onclick="currentSlide(0)"></span>
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-        </div>
-    </div>
 
 
     <div class="empty"></div>
-    <div>
-        <div class="genral-container" id="genral-container">
-            <!-- <div  class="pic-container">
-                <img id="picture" src="./images/test.png" class="pic 1"></img>
-                <div class="hextrial">
-                    <div class="color 1" background-color=""></div>
-                </div>
-                <div>
-                    <p class="productsname">後鬆緊牛仔落地寬褲</p>
-                </div>
-                <div>
-                    <p class="price">TWD.590</p>
-                </div>
-            </div>
-            <div class="pic-container">
-                <img  id="picture" src="./images/test.png" class="pic 2"></img>
-                <div class="hextrial">
-                    <div class="color 2" background-color=""></div>
-                    <div class="color 2_2" background-color=""></div>
-                </div>
-                <p class="productsname">前開衩扭結洋裝</p>
-                <p class="price">TWD.690</p>
-            </div>
-            <div class="pic-container">
-                <img id="picture" src="./images/test.png" class="pic 3"></img>
-                <div class="hextrial">
-                    <div class="color 3" background-color=""></div>
-                    <div class="color 3_2" ></div>
-                </div>
-                <p class="productsname">涼感垂墜絲滑寬</p>
-                <p class="price">TWD.430</p>
-            </div>
-            <div class="pic-container">
-                <img id="picture" src="./images/test.png" class="pic 4"></img>
-                <div class="hextrial">
-                    <div class="color 4" background-color=""></div>
-                    <div class="color 4_2" background-color=""></div>
-                </div>
-                <p class="productsname">腰鬆緊棉麻褲裙</p>
-                <p class="price">TWD.590</p>
-            </div>
-            <div class="pic-container">
-                <img id="picture" src="./images/test.png" class="pic 5"></img>
-                <div class="hextrial">
-                    <div class="color 5" background-color=""></div>
-                    <div class="color 5_2" background-color=""></div>
-                </div>
-                <p class="productsname">前開衩扭結洋裝</p>
-                <p class="price">TWD.690</p>
-            </div>
-            <div class="pic-container">
-                <img id="picture" src="./images/test.png" class="pic 6"></img>
-                <div class="hextrial">
-                    <div class="color 6" background-color=""></div>
-                </div>
-                <p class="productsname">透肌澎澎連袖防曬上衣</p>
-                <p class="price">TWD.430</p>
-            </div> -->
-        </div>
-    </div>
+
 
     <div class="empty"></div>
 
@@ -248,28 +173,3 @@
 
 
 </html>
-<script>
-    // 開啟頁面後會先跑出所有產品
-    window.addEventListener('load', function () { apiurl("all") });
-    window.addEventListener("load", function () { marketing() });
-    window.addEventListener("load", function () { addUpQTY() });
-
-
-    // 搜尋 bar 裡按下 enter 鍵，會跟點擊放大鏡圖片有一樣的效果 
-    var input = document.getElementById("searchtyping");
-    input.addEventListener("keyup", function (event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById("search").click();
-        }
-    });
-
-    var mobileinput = document.getElementById("mobilesearchtyping");
-    mobileinput.addEventListener("keyup", function (event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById("secondmobilesearch").click();
-        }
-    });
-
-</script>
