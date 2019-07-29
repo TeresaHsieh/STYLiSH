@@ -12,9 +12,17 @@ function statusChangeCallback(response) {
     } else {
         console.log("123");
         // The person is not logged into your app or we are unable to tell.
-        FB.login(function(response){ // 用「登入」對話方塊將用戶登入
+        FB.login(function (response) { // 用「登入」對話方塊將用戶登入
+            if (response.authResponse) {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function (response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
             // Handle the response object, like in statusChangeCallback() in our demo code.
-            }, {scope: 'public_profile,email'});// 要求 users 授權
+        }, { scope: 'public_profile,email' });// 要求 users 授權
     }
 }
 
