@@ -289,8 +289,7 @@ localStorage.setItem("shoppingStatus", JSON.stringify(AllObject)); // 將更改�
 // 利用 TPDirect.setupSDK 設定參數
 TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
 
-// 使用 TPDirect.card.setup 設定外觀
-// Initialize TapPay SDK.
+// 使用 TPDirect.card.setup 設定外觀 Initialize TapPay SDK.
 TPDirect.card.setup({
     fields: {
         number: {
@@ -398,102 +397,173 @@ TPDirect.card.getTappayFieldsStatus(); // 此方法可得到 TapPay Fields 卡�
 function onSubmit(event) {
     event.preventDefault()
 
-    // 要取得 Prime 之前，確認使用者是否已經輸入個人資料
+    // 按下按鈕後、要取得 Prime 之前，確認使用者是否已經輸入個人資料
     CheckUsersInput();
 
-    // 取得 TapPay Fields 的 status
-    const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+    let input1 = document.getElementsByClassName("BuyerInfoInput")[0].value;
+    let input2 = document.getElementsByClassName("BuyerInfoInput")[1].value;
+    let input3 = document.getElementsByClassName("BuyerInfoInput")[2].value;
+    let input4 = document.getElementsByClassName("BuyerInfoInput")[3].value;
 
-    // 確認是否可以 getPrime
-    if (tappayStatus.canGetPrime === false) {
-        alert('can not get prime')
-        return
-    }
+    if (input1 !== "" && input2 !== "" && input3 !== "" && input4 !== "") {
 
-    // Get prime
-    TPDirect.card.getPrime((result) => {
-        if (result.status !== 0) {
-            alert('get prime error ' + result.msg)
+        // 取得 TapPay Fields 的 status
+        const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+        // 確認是否可以 getPrime
+        if (tappayStatus.canGetPrime === false) {
+            alert('can not get prime')
             return
         }
-        alert('get prime 成功，prime: ' + result.card.prime)
-        console.log(result.card.prime);
 
-        // send prime to your server, to pay with Pay by Prime API .
-        // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
-    })
+        // Get prime
+        TPDirect.card.getPrime((result) => {
+            if (result.status !== 0) {
+                alert('get prime error ' + result.msg)
+                return
+            }
+            alert('get prime 成功，prime: ' + result.card.prime)
+            console.log(result.card.prime);
+            Prime = result.card.prime;
+
+            // get prime 完後，執行將資料打包、用 post 方法傳給後端的動作
+            SendPrimeAndOrderInformation();
+            // send prime to your server, to pay with Pay by Prime API .
+            // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+        })
+
+ 
+
+
+    } else {
+        alert("Please Check If Your Info Are All Filled!")
+    }
 }
 
-function CheckUsersInput() {
 
+
+function CheckUsersInput() {
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
 
     // 處理 user 姓名
     // let UsersNameInput = document.getElementsByClassName("BuyerInfoInput")[0];
     let BuyerNameInput = document.getElementById("BuyerNameInput").value; // 講使用者姓名存進 localStorage
 
-    if (typeof BuyerNameInput == "string") {
+    if (BuyerNameInput.trim() !== "") { // trim 是較嚴謹的做法，會去刪除 string 前後面的空白，也可以防止他人只打了一個空白
         AllObject.recipient.name = BuyerNameInput;
-    } else {
-        alert("Please Fill Your Name :)");
-    }
+
+    } //else {
+    //     alert("Please Fill Your Name :)");
+
+    // }
 
     // 處理 user Email
     let BuyerEmailInput = document.getElementById("BuyerEmailInput").value;
 
-    if (typeof BuyerEmailInput == "string") {
+    if (BuyerEmailInput.trim() !== "") {
         AllObject.recipient.email = BuyerEmailInput;
-    } else {
-        alert("Please Fill Your Email :)");
-    }
+
+    } //else {
+    //     alert("Please Fill Your Email :)");
+
+    // }
 
     // 處理 user 電話
     let BuyerPhoneInput = document.getElementById("BuyerPhoneInput").value;
 
-    if (typeof BuyerPhoneInput == "string") {
+    if (BuyerPhoneInput.trim() !== "") {
         AllObject.recipient.phone = BuyerPhoneInput;
-    } else {
-        alert("Please Fill Your Phone :)");
-    }
+
+    } //else {
+    //     alert("Please Fill Your Phone :)");
+    // }
 
     // 處理 user 地址
     let BuyerAddressInput = document.getElementById("BuyerAddressInput").value;
 
-    if (typeof BuyerAddressInput == "string") {
+    if (BuyerAddressInput.trim() !== "") {
         AllObject.recipient.address = BuyerAddressInput;
-    } else {
-        alert("Please Fill Your Address :)");
-    }
+
+    } //else {
+    //     alert("Please Fill Your Address :)");
+    // }
 
     let BuyerTimeInput = "anytime";
     AllObject.recipient.time = BuyerTimeInput; // 先預設 users 的送達時間為「不指定」
 
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject)); // 將 user 輸入好的個資存進 localStorage
-
-
 }
+
+
+
 
 TPDirect.getFraudId()
 
 
+
+// Send prime and other order information to Check Out API to complete payment.
 function SendPrimeAndOrderInformation() {
     let checkOutUrl = API + "/order/checkout"
-    SendPrimeAndOrderAjax(checkOutUrl, bannerrender);
+    SendPrimeAndOrderAjax(checkOutUrl);
 }
 
-function SendPrimeAndOrderAjax(src, callback) {
+
+
+
+function SendPrimeAndOrderAjax(src) {
+
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
+    let PrimeAndAllObject = { prime: Prime, order: AllObject };
+    let CheckOutDetail = JSON.stringify(PrimeAndAllObject);
+
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = xhr.response;
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log("yeah") // 這邊是拿到資料後，才會做的事情
+        } else {
+            return "error : Invalid token.";
+        }
+    };
+    xhttp.open("POST", src);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.setRequestHeader("Authorization", "Bearer");
+
+    
+    console.log(CheckOutDetail);
+
+    xhttp.send(CheckOutDetail);
+    console.log("sent users data to the server");
+}
+
+
+
+// 清空 localStorage  
+function ClearLocalStorage() {
+    localStorage.clear();
+}
+
+
+function ConnectToCheckOutAPI() {
+    let checkOutUrl = API + "/order/checkout"
+    CheckOutResultAjax(checkOutUrl, callback);
+}
+
+
+function CheckOutResultAjax(src) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = xhr.response;
             callback(response);
         } else {
             return "error : Invalid token.";
-            }
+        }
     };
-    xhttp.open("POST", src);
-    xhttp.send();
-  }
+    xhr.open("GET", src);
+    xhr.send();
+    console.log("sent users data to the server");
+}
+
 
 
 
