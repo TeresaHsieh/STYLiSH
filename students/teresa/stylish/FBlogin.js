@@ -7,8 +7,10 @@ function statusChangeCallback(response) {
         // 如果已經 Logged into app 跟 Facebook，跳轉到 login.html
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
-        window.location = "login.html";
         testAPI();
+        window.location = "login.html";
+
+
     } else {
         console.log("123");
         // The person is not logged into your app or we are unable to tell.
@@ -20,8 +22,7 @@ function statusChangeCallback(response) {
                 });
             } else {
                 window.location = "index.html";
-                alert("You cancelled login or did not fully authorize!")
-                console.log('User cancelled login or did not fully authorize.');
+                alert("You cancelled login or did not fully authorize!");
             }
             // Handle the response object, like in statusChangeCallback() in our demo code.
         }, { scope: 'public_profile,email' });// 要求 users 授權
