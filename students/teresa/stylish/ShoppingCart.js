@@ -430,10 +430,8 @@ function onSubmit(event) {
             SendPrimeAndOrderInformation();
             // send prime to your server, to pay with Pay by Prime API .
             // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+
         })
-
- 
-
 
     } else {
         alert("Please Check If Your Info Are All Filled!")
@@ -495,8 +493,6 @@ function CheckUsersInput() {
 }
 
 
-
-
 TPDirect.getFraudId()
 
 
@@ -507,9 +503,6 @@ function SendPrimeAndOrderInformation() {
     SendPrimeAndOrderAjax(checkOutUrl);
 }
 
-
-
-
 function SendPrimeAndOrderAjax(src) {
 
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
@@ -519,7 +512,11 @@ function SendPrimeAndOrderAjax(src) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            // console.log("yeah") // 這邊是拿到資料後，才會做的事情
+            // 這邊是拿到資料後，才會做的事情
+            OrderNumberFromServer = JSON.parse(xhttp.responseText).data.number // 取得 server 回傳的 order number
+            console.log(OrderNumberFromServer);
+            localStorage.setItem("number", OrderNumberFromServer); // 將回吐的 order number 存在 localStorage，否則跳轉到 thankYou page 時會消失
+            GoToThankYouPage();
         } else {
             return "error : Invalid token.";
         }
@@ -536,34 +533,6 @@ function SendPrimeAndOrderAjax(src) {
 }
 
 
-
-// 清空 localStorage  
-function ClearLocalStorage() {
-    localStorage.clear();
+function GoToThankYouPage(){
+    window.location = "ThankYou.html";// 如果資訊都沒有錯的話，跳轉到 thankyou page
 }
-
-
-function ConnectToCheckOutAPI() {
-    let checkOutUrl = API + "/order/checkout"
-    CheckOutResultAjax(checkOutUrl, callback);
-}
-
-
-function CheckOutResultAjax(src) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var response = xhr.response;
-            callback(response);
-        } else {
-            return "error : Invalid token.";
-        }
-    };
-    xhr.open("GET", src);
-    xhr.send();
-    console.log("sent users data to the server");
-}
-
-
-
-

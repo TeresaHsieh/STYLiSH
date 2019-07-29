@@ -437,6 +437,10 @@ body {
     width: 60%;
 }
 
+.OrderNumber {
+    color: black;
+}
+
 @media  (max-width: 1000px) {
     .thankyou-main{
         flex-direction: column ;

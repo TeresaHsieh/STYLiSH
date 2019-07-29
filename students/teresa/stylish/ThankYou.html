@@ -83,7 +83,7 @@
             <div class="thankyou-divideLine"></div>
             <div class="sendASAP">訂單已成立，我們會盡快將商品送達！</div>
             <div class="Order">請記住以下訂單編號，以便查詢：</div>
-            <div class="OrderNumber"></div>
+            <div class="OrderNumber" id="OrderNumber"></div>
             <a href="index.html"><button class="keepShopping">繼續購物</button></a>
         </div>
         <img src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" class="thankyou-pic">
@@ -139,6 +139,11 @@
 
     </div>
 
+    <script>
+    let OrderNumberinPage = localStorage.getItem("number");
+    document.getElementById("OrderNumber").textContent = OrderNumberinPage;
+    localStorage.clear(); // 清空 LocalStorage
+    </script>
 
 </body>
 
