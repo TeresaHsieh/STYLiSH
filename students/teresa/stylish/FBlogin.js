@@ -9,7 +9,7 @@ function statusChangeCallback(response) {
         let accessToken = response.authResponse.accessToken;
         testAPI();
         window.location = "login.html";
-
+        return;
 
     } else {
         console.log("123");
