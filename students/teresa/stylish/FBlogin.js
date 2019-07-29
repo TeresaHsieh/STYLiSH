@@ -9,16 +9,9 @@ function statusChangeCallback(response) {
         let accessToken = response.authResponse.accessToken;
         window.location = "login.html";
         testAPI();
-    } else if (response.status === 'not_authorized') {
-        FB.login(function(response){ // 用「登入」對話方塊將用戶登入
-            // Handle the response object, like in statusChangeCallback() in our demo code.
-            }, {scope: 'public_profile,email'});// 要求 users 授權
-
     } else {
         console.log("123");
         // The person is not logged into your app or we are unable to tell.
-       
-
         FB.login(function(response){ // 用「登入」對話方塊將用戶登入
             // Handle the response object, like in statusChangeCallback() in our demo code.
             }, {scope: 'public_profile,email'});// 要求 users 授權
