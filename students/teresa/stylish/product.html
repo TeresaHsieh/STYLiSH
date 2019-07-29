@@ -30,8 +30,10 @@
                         onclick="readSearch()"></img>
                 </div>
             </div>
+
             <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
                         width="44"></a>
+
                 <div id="cart-qty" class="qty">0</div>
             </div>
             <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
@@ -83,7 +85,9 @@
             </div>
             <div class="product-info">
                 <div class="product-name">
+
                     <span class="productName" id="productName"></span>
+
                     <span class="productID"></span>
                     <span class="productPrice"></span>
                     <span class="lightgrey_line"></span>
@@ -162,7 +166,9 @@
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.
             </span>
             <!-- <img src="./images/demo.png" class="productPic_1"></img> -->
+
             <span>
+
                 <!-- O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen
                 jersey, making it even lighter for those who prefer their summer style extra-breezy.Hello Rita! -->
             </span>
@@ -203,8 +209,10 @@
     </footer>
     <div class="fixedbar">
         <div class="cartdescription">
+
             <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
                     height="30" width="30"></a>
+
             <div id="cart-qty" class="qty">0</div>
             <p class="mobilecart">購物車</p>
         </div>
@@ -227,7 +235,9 @@
     // window.addEventListener("load", )
     let urlParams = new URLSearchParams(window.location.search);
     let myParam = urlParams.get("id");
+
     // let API = "https://api.appworks-school.tw/api/1.0"
+
     let productUrl = API + "/products/details?id=" + myParam;
     ajax(productUrl, productrender);
 
@@ -240,6 +250,7 @@
             } else {
                 return "error : Invalid token.";
             }
+
         }
         xhr.open("GET", src);
         xhr.send();
@@ -459,7 +470,11 @@
         if (buyingNumber > 1) {
             buyingNumber -= 1;
             document.getElementById("number").textContent = buyingNumber;
+
         }
+        xhr.open("GET", src);
+        xhr.send();
+        console.log("request sent to the server");
     }
 
     // 加號按鈕可以加一
@@ -571,6 +586,7 @@
 
         // document.querySelectorAll(".qty")[0].textContent = totalQTY;
         // document.querySelectorAll(".qty")[1].textContent = totalQTY;
+
 
 
 
