@@ -19,6 +19,8 @@ function statusChangeCallback(response) {
                     console.log('Good to see you, ' + response.name + '.');
                 });
             } else {
+                window.location = "index.html";
+                alert("You cancelled login or did not fully authorize!")
                 console.log('User cancelled login or did not fully authorize.');
             }
             // Handle the response object, like in statusChangeCallback() in our demo code.
