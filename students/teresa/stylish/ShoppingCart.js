@@ -2,18 +2,22 @@
 /* 到 LocalStorage 裡面抓資料出來，解析後去 ajax 裡面找相關的資料，動態把資訊 render 出來，每一個 object 都是一條資訊列 */
 
 // 到 LocalStorage 裡面抓已放在購物車裡面的資料
+
 function getLocalStorageData() {
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+
     console.log(productArray);
 }
 
 getLocalStorageData();// 先定義 function 內容，再呼叫
 
 // render and appendchild 讓資訊列成為動態變動
+
 function renderDataFromLocalStorage() {
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
 
     for (let i = 0; i < productArray.length; i += 1) {
+
 
         // 先建立一個最大的外框 orderBox 去包裡面的東西
         let orderBox = document.getElementById("orderBox");
@@ -33,7 +37,9 @@ function renderDataFromLocalStorage() {
         EachOrderPic.setAttribute("src", ItemsPicUrl);
         EachOrderPic.setAttribute("width", "105px");
         EachOrderPic.setAttribute("class", "EachOrderPic");
+
         ProductSimpleInfo.appendChild(EachOrderPic);
+
 
         // 品名
         let EachOrderDetail = document.createElement("div");
@@ -94,6 +100,7 @@ function renderDataFromLocalStorage() {
 
 
         // 商品分割線
+
         let Mobile_Line = document.createElement("div");
         Mobile_Line.setAttribute("class", "Mobile-Line");
 
@@ -107,9 +114,11 @@ function renderDataFromLocalStorage() {
         qtyButton.setAttribute("class", "qtyButton")
         EachOrderInfo.appendChild(qtyButton);
         let qtyButtonSelect = document.createElement("select");
+
         qtyButtonSelect.setAttribute("class", "selection");
         qtyButtonSelect.setAttribute("onchange", "clickToChooseNumber(this)");// 用 onchange 的方式，不是 onclick
         qtyButton.appendChild(qtyButtonSelect);
+
 
         // 抓庫存數量
         let StockInBtn = productArray[i].stock;
@@ -123,6 +132,7 @@ function renderDataFromLocalStorage() {
             // 處理 load 進 cart 頁面時要以 users 點選的數量為 default 的問題，如果點選的數量等於 option 的值，就給它一個 selected 的 value
             let UsersDefaultNumber = productArray[i].qty;
             if (j == UsersDefaultNumber) {
+
                 qtyButtonOptions.setAttribute("selected", "selected"); // selected = "selected" 就可以直接讓選項秀出來了
             }
 
@@ -155,6 +165,7 @@ function renderDataFromLocalStorage() {
         // 移除 icon
         let RemoveItem = document.createElement("div");
         RemoveItem.setAttribute("class", "RemoveItem");
+
         RemoveItem.setAttribute("onclick", "removeItem(this)");
         EachOrderInfo.appendChild(RemoveItem);
 
@@ -167,8 +178,10 @@ function renderDataFromLocalStorage() {
 
     // 總金額
     // 先求出加總再帶入 textContent
+
     let allSubTotal = 0;
     for (let i = 0; i < productArray.length; i += 1) {
+
         allSubTotal += productArray[i].price * productArray[i].qty; // 每項小計的加總
     }
 
@@ -185,12 +198,14 @@ function renderDataFromLocalStorage() {
 
 renderDataFromLocalStorage();
 
+
 function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知道它的值，讓「小計」可以乘上「單價」做計算
     /* 如果保持預設，就可以不理會，因為使用的是 onchange 事件，所以只有在值改變的時候事件才會發生。
     如果使用者結帳前改變了之前點選的數量，就要把新的數量傳回 productArray 再傳回 localStorage */
 
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"));
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];// 從 shoppingStatus  裡面抓出之前的資料，並轉換成 object 格式，但也有可能裡面什麼都沒有，所以會是空 array
+
 
     let newNumber = selectOption.value;// 點擊 select 裡新的數字（不同於預設、有 onchange 事件發生時）
     console.log(newNumber)
@@ -201,6 +216,7 @@ function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知
 
     let ObjectNeedToChange = productArray[ParentID].qty; // 可以求出原本的 qty，知道 user 原本買了幾件
     console.log(ObjectNeedToChange);
+
 
     ObjectNeedToChange = newNumber; // assign 新的數量給原本購買的數量 part 1（這句話其實沒什麼意思，但可以更清楚知道舊的數字跟新的數字分別是什麼）
 
@@ -218,30 +234,37 @@ function clickToChooseNumber(selectOption) { // 點每一個 option 要馬上知
 
     let subTotalNumber = productArray[ParentID].price * productArray[ParentID].qty;
 
+
     console.log(subTotalNumber);
 
     document.getElementsByClassName("subTotalPrice")[ParentID].textContent = subTotalNumber
 
     checkAddUpPrice();// 如果更改了其中產品的數量，就一定要再跑一個 function 去改總金額與應付金額
+
 }
 
 
 // remove 垃圾桶按鈕的移除功能
+
 function removeItem(elem) {
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"));
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
+
     let RemoveItemID = elem.parentNode.id; // 用抓 parent ID 的方式，知道按了哪一行的按鈕，要刪掉哪行，上面有在動態產生按鈕時，順便嵌入這個 function(id 也剛好等於 index 的位置，所以可以用 splice method)
     console.log(RemoveItemID);
 
     productArray.splice(RemoveItemID, 1); // 在 index 值為 RemoveItemID 的地方，刪掉一個物件，e.g. 如果 RemoveItemID 是 1，就會在 index 為 1 的地方刪掉一個物件
     console.log(productArray);
 
+
     AllObject.list = productArray
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把刪除的更新存回 localStorage
+
     window.location.reload(); // 重新 loading，發現如果沒有重新 loading 的話，更新不會馬上反映在頁面上，就會有點奇怪 ＱＱ
 }
 
 // 總金額、應付金額調整
+
 
 function checkAddUpPrice() {
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
@@ -249,6 +272,7 @@ function checkAddUpPrice() {
     // 總金額再跑一次
     let allSubTotal = 0;
     for (let i = 0; i < productArray.length; i += 1) {
+
         allSubTotal += productArray[i].price * productArray[i].qty; // 每項小計的加總
     }
 
@@ -258,6 +282,7 @@ function checkAddUpPrice() {
     let DeliveryTotal = document.getElementById("PriceDelivery").textContent;
     DeliveryTotal = 60;
     document.getElementById("PriceDelivery").textContent = 60;
+
 
     // 應付金額再跑一次
     document.getElementById("PriceShouldPay").textContent = allSubTotal + DeliveryTotal;
@@ -563,7 +588,6 @@ function CheckOutResultAjax(src) {
     xhr.send();
     console.log("sent users data to the server");
 }
-
 
 
 

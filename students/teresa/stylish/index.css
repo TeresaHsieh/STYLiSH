@@ -1317,6 +1317,7 @@ margin-left: 52px;
   
   .product-mainPic {
     flex-grow: 0.8;
+
   }
 
   .product-info {
@@ -1338,6 +1339,7 @@ margin-left: 52px;
   .country {
     margin-bottom: 0;
   }
+
 
   .country {
     margin-top: -30%;
@@ -2833,5 +2835,4 @@ margin-left: 52px;
   opacity: 0.3;
   pointer-events: none;  /* 直接將按鈕的點擊功能關掉 */
 }
-
 

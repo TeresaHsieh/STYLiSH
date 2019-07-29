@@ -28,6 +28,7 @@
                         id="searchtyping"> </input>
                     <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
                         onclick="readSearch()"></img>
+
                 </div>
             </div>
             <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
@@ -69,6 +70,7 @@
     </header>
 
 
+
     <div class="grey-line"></div>
 
     <div class="banner" id="banner">
@@ -89,6 +91,7 @@
     <div class="empty"></div>
     <div>
         <div class="genral-container" id="genral-container">
+
             <!-- <div  class="pic-container">
                 <img id="picture" src="./images/test.png" class="pic 1"></img>
                 <div class="hextrial">
@@ -198,8 +201,8 @@
 
     </div>
 
-
     <script src="./index.js"></script>
+
 </body>
 
 
@@ -207,8 +210,10 @@
 <script>
     // 開啟頁面後會先跑出所有產品
     window.addEventListener('load', function () { apiurl("all") });
+
     window.addEventListener("load", function(){ marketing() });
     window.addEventListener("load", function(){ addUpQTY() });
+
 
 
     // 搜尋 bar 裡按下 enter 鍵，會跟點擊放大鏡圖片有一樣的效果 
