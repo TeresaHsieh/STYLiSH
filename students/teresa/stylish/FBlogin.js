@@ -1,3 +1,10 @@
+// 當使用者點擊 member icon 時，先 check 登入狀態
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
+}
+
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
     console.log(response);
@@ -5,8 +12,10 @@ function statusChangeCallback(response) {
     // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
     if (response.status === 'connected') {
         // 如果已經 Logged into app 跟 Facebook，跳轉到 login.html
-        let uid = response.authResponse.userID;
-        let accessToken = response.authResponse.accessToken;
+        uid = response.authResponse.userID;
+        accessToken = response.authResponse.accessToken;
+        localStorage.setItem("memberUID", response.authResponse.userID);
+        localStorage.setItem("memberaccessToken", response.authResponse.accessToken);
         console.log(uid);
         console.log(accessToken);
         alert("yeah! 我們拿到了！");
@@ -34,12 +43,6 @@ function statusChangeCallback(response) {
     }
 }
 
-// 當使用者結束使用 login button 時，要 check 登入狀態
-function checkLoginState() {
-    FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-    });
-}
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
