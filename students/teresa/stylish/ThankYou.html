@@ -185,7 +185,7 @@
 
         let OrderNumberinPage = localStorage.getItem("number");
         document.getElementById("OrderNumber").textContent = OrderNumberinPage;
-        localStorage.clear(); // 清空 LocalStorage
+        localStorage.removeItem("shoppingStatus"); // 清空有購買記錄的 LocalStorage
     </script>
 
 </body>
