@@ -14,8 +14,8 @@ function statusChangeCallback(response) {
         // 如果已經 Logged into app 跟 Facebook(狀態為 connected 時)，執行以下動作
 
         // 存所有要存的資料在 localStorage，以供未來 profile page 使用
-        console.log('Good to see you, ' + response.name + '.');
-        memberName = response.name;
+        console.log('Good to see you, ' + response.authResponse.name + '.');
+        memberName = response.authResponse.name;
         localStorage.setItem("memberName", memberName);
 
         uid = response.authResponse.userID;
