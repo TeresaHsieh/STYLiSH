@@ -58,35 +58,9 @@ function statusChangeCallback(response) {
 }
 
 
-// 當使用者點擊按鈕登出時，要將 access token 儲存下來，post 到 checkout API
-function SendTokenInformation(){
+// 當使用者點擊按鈕登出時，登出
 
-    let checkOutUrl = API + "/order/checkout"
-    SendTokenAjax(checkOutUrl);    
-}
-
-function SendTokenAjax(src){
-
-    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
-    let Access_Token = localStorage.getItem("member AccessToken");
-    let TokenAndPrimeAndAllObject = { token: Access_Token, prime: Prime, order: AllObject };
-    let CheckOutDetails = JSON.stringify(TokenAndPrimeAndAllObject);
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // 這邊是拿到資料後，才會做的事情
-        } else {
-            return "error : Invalid token.";
-        }
-    };
-    xhttp.open("POST", src);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.setRequestHeader("Authorization", "Bearer");
-
-    xhttp.send(CheckOutDetails);
-
-    // 搜集好資料後，讓用戶登出～
+function FBlogOut(){
     FB.logout(function(response) {
         // Person is now logged out
      });
