@@ -11,6 +11,46 @@
 
 
 <body>
+
+    <!-- FB Login Starts -->
+    <script>
+        //初始化
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1385555128262108',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.3'
+            });
+
+            //記錄用戶行為資料 可在後台查看用戶資訊
+            FB.AppEvents.logPageView();
+
+            // FB.getLoginStatus(function (response) {
+            //     statusChangeCallback(response);
+            // });
+
+        };
+
+        //嵌入臉書sdk
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+
+
+
+
+
+
+
+
+
     <header class="main-header">
         <div><a href="index.html"><img src="./images/logo.png" class="logo"></a></div>
         <div>
@@ -36,7 +76,8 @@
                         width="44"></a>
                 <div id="cart-qty" class="qty">0</div>
             </div>
-            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"></div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44" onclick="checkLoginState()">
+            </div>
         </div>
     </header>
 
@@ -44,7 +85,7 @@
     <header class="mobilemain-header">
         <div class="logoandsearch">
 
-            <img src="./images/logo.png" class="mobilelogo" id="mobilelogo">
+            <a href="index.html"><img src="./images/logo.png" class="mobilelogo" id="mobilelogo"></a>
 
 
             <!-- 未點擊之前會先隱藏的欄位 -->
@@ -76,20 +117,20 @@
     <div class="grey-line"></div>
 
     <div class="empty"></div>
-<div class="thankYouPage">
-    <div class="thankyou-main">
-        <div class="thankyou-words">
-            <div class="thankyou">Thank You</div>
-            <div class="thankyou-divideLine"></div>
-            <div class="sendASAP">訂單已成立，我們會盡快將商品送達！</div>
-            <div class="Order">請記住以下訂單編號，以便查詢：</div>
-            <div class="OrderNumber" id="OrderNumber"></div>
-            <a href="index.html"><button class="keepShopping">繼續購物</button></a>
+    <div class="thankYouPage">
+        <div class="thankyou-main">
+            <div class="thankyou-words">
+                <div class="thankyou">Thank You</div>
+                <div class="thankyou-divideLine"></div>
+                <div class="sendASAP">訂單已成立，我們會盡快將商品送達！</div>
+                <div class="Order">請記住以下訂單編號，以便查詢：</div>
+                <div class="OrderNumber" id="OrderNumber"></div>
+                <a href="index.html"><button class="keepShopping">繼續購物</button></a>
+            </div>
+            <img src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" class="thankyou-pic">
+            </img>
         </div>
-        <img src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" class="thankyou-pic">
-        </img>
     </div>
-</div>
 
     <div class="empty"></div>
 
@@ -133,16 +174,18 @@
             <p class="mobiletopl">|</p>
         </div>
         <div class="memberdescription">
-            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30">
-            <p class="mobilemember">會員</p>
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30" onclick="checkLoginState()">
+            <p class="mobilemember" onclick="checkLoginState()">會員</p>
         </div>
 
     </div>
 
+    <script src="./FBlogin.js"></script>
     <script>
-    let OrderNumberinPage = localStorage.getItem("number");
-    document.getElementById("OrderNumber").textContent = OrderNumberinPage;
-    localStorage.clear(); // 清空 LocalStorage
+
+        let OrderNumberinPage = localStorage.getItem("number");
+        document.getElementById("OrderNumber").textContent = OrderNumberinPage;
+        localStorage.removeItem("shoppingStatus"); // 清空有購買記錄的 LocalStorage
     </script>
 
 </body>

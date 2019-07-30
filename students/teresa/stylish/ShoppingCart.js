@@ -506,7 +506,8 @@ function SendPrimeAndOrderInformation() {
 function SendPrimeAndOrderAjax(src) {
 
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
-    let PrimeAndAllObject = { prime: Prime, order: AllObject };
+    let Access_Token = localStorage.getItem("memberAccessToken");
+    let PrimeAndAllObject = { token: Access_Token, prime: Prime, order: AllObject };
     let CheckOutDetail = JSON.stringify(PrimeAndAllObject);
 
     var xhttp = new XMLHttpRequest();
@@ -525,7 +526,7 @@ function SendPrimeAndOrderAjax(src) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.setRequestHeader("Authorization", "Bearer");
 
-    
+
     console.log(CheckOutDetail);
 
     xhttp.send(CheckOutDetail);
@@ -533,6 +534,6 @@ function SendPrimeAndOrderAjax(src) {
 }
 
 
-function GoToThankYouPage(){
+function GoToThankYouPage() {
     window.location = "ThankYou.html";// 如果資訊都沒有錯的話，跳轉到 thankyou page
 }
