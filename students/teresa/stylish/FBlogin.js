@@ -14,8 +14,8 @@ function statusChangeCallback(response) {
         // 如果已經 Logged into app 跟 Facebook，跳轉到 login.html
         uid = response.authResponse.userID;
         accessToken = response.authResponse.accessToken;
-        localStorage.setItem("memberUID", response.authResponse.userID);
-        localStorage.setItem("memberaccessToken", response.authResponse.accessToken);
+        localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
+        localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將 accessToken 存在 localStorage
         console.log(uid);
         console.log(accessToken);
         alert("yeah! 我們拿到了！");
@@ -32,8 +32,18 @@ function statusChangeCallback(response) {
                 FB.api('/me', function (response) {
                     console.log('Good to see you, ' + response.name + '.');
                 });
+                
+                uid = response.authResponse.userID;
+                accessToken = response.authResponse.accessToken;
+                localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
+                localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
+                console.log(uid);
+                console.log(accessToken);
+                alert("yeah! 我們拿到了！");
+                testAPI();
                 window.location = "login.html";
                 return; // 結束這裡～
+
             } else {
                 window.location = "index.html";
                 alert("You cancelled login or did not fully authorize!");
@@ -52,7 +62,5 @@ function testAPI() {
         console.log('Successful login for: ' + response.name);
         memberName = response.name;
         localStorage.setItem("memberName", memberName);
-        document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
     });
 }
