@@ -40,8 +40,8 @@ function statusChangeCallback(response) {
                 console.log('Welcome!  Fetching your information.... ');
                 
                 // 存所有要存的資料在 localStorage，以供未來 profile page 使用
-                console.log('Successful login for: ' + response.name);
-                memberName = response.name;
+                console.log('Successful login for: ' + response.authResponse.name);
+                memberName = response.authResponse.name;
                 localStorage.setItem("memberName", memberName);
 
                 uid = response.authResponse.userID;
