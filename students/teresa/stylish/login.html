@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./member.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+
+    <!-- FB Login Starts -->
+    <script>
+        //初始化
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1385555128262108',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.3'
+            });
+
+            //記錄用戶行為資料 可在後台查看用戶資訊
+            FB.AppEvents.logPageView();
+
+
+            // FB.getLoginStatus(function (response) {
+            //     statusChangeCallback(response);
+            // });
+
+        };
+
+        //嵌入臉書 sdk
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        
+
+    </script>
+
+
+    <header class="main-header">
+        <div><a href="index.html"><img src="./images/logo.png" class="logo"></a></div>
+        <div>
+            <ul class="main-nav">
+                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="topl">｜</li>
+                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="topl">｜</li>
+                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+        <div class="functionbar">
+            <div>
+                <div class="searchbox"
+                    style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
+                    <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
+                        id="searchtyping"> </input>
+                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                        onclick="readSearch()"></img>
+                </div>
+            </div>
+            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
+                        width="44"></a>
+                <div id="cart-qty" class="qty">0</div>
+            </div>
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"
+                    onclick="checkLoginState()">
+            </div>
+        </div>
+    </header>
+
+
+    <header class="mobilemain-header">
+        <div class="logoandsearch">
+
+            <a href="index.html"><img src="./images/logo.png" class="mobilelogo" id="mobilelogo"></a>
+
+
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                    class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18"
+                    id="secondmobilesearch" onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
+
+
+            <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
+
+        </div>
+        <div class="mobilemain-navdiv">
+            <ul class="mobilemain-nav">
+                <li class="mobilelady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobiletopl">｜</li>
+                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="grey-line"></div>
+
+
+
+    <div class="empty"></div>
+
+    <div class="ProfileBody">
+        <div class="memberProfile">
+            <img class="memberPics" id="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg"
+                width="300px"></img>
+            <div class="PersonalData">
+                <div class="memberData">Stylish 會員資訊</div>
+                <div class="member-divideLine"></div>
+                <div class="memberName" id="memberName"></div>
+                <div class="memberEmail" id="memberEmail"></div>
+                <button class="signOut" onclick="FBlogOut()">登出帳戶</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="empty"></div>
+
+    <footer class="footer">
+        <div class="narrowfooter">
+            <div>
+                <ul class="footer-nav">
+                    <li class="aboutStylish">關於 Stylish</li>
+                    <li class="downl">｜</li>
+                    <li class="service">服務條款</li>
+                    <li class="downl">｜</li>
+                    <li class="privacy">隱私政策</li>
+                    <li class="downl">｜</li>
+                    <li class="contact">聯絡我們</li>
+                    <li class="downl">｜</li>
+                    <li class="FAQ">FAQ</li>
+                </ul>
+            </div>
+            <div class="mediadiv">
+                <ul class="social-media">
+                    <li><img class="line" src="./images/line.png" alt="line" height="50" width="50"></li>
+                    <li><img class="twitter" src="./images/twitter.png" alt="twitter" height="50" width="50"></li>
+                    <li><img class="facebook" src="./images/facebook.png" alt="facebook" height="50" width="50"></li>
+                </ul>
+            </div>
+            <div class="copyrightdiv">
+                <span class="copyright"> &copy; 2018. All rights reserved.</span>
+            </div>
+        </div>
+
+
+
+
+
+    </footer>
+    <div class="fixedbar">
+        <div class="cartdescription">
+            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
+                    height="30" width="30"></a>
+            <div id="cart-qty" class="qty">0</div>
+            <p class="mobilecart">購物車</p>
+        </div>
+        <div>
+            <p class="mobiletopl">|</p>
+        </div>
+        <div class="memberdescription">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30"
+                onclick="checkLoginState()">
+            <p class="mobilemember" onclick="checkLoginState()">會員</p>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        // 將存在 localStorage 裡的資料取下來、嵌入 HTML
+        let memberName = localStorage.getItem("memberName");
+        let memberEmail = localStorage.getItem("memberEmail");
+        let memberPicture = localStorage.getItem("memberPicture");
+
+        document.getElementById("memberName").textContent = memberName;
+        document.getElementById("memberEmail").textContent = memberEmail;
+
+        let picturePlace = document.getElementById("memberPics");
+        picturePlace.setAttribute("src", memberPicture);
+
+
+        
+
+
+
+
+
+    </script>
+    <script src="./ShoppingCart.js"></script>
+    <script> window.addEventListener("load", function () { addUpQTY() });</script>
+
+    <script src="./index.js"></script>
+    <script src="./FBlogin.js"></script>
+
+</body>
+
+
+</html>
