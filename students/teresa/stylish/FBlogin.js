@@ -61,6 +61,10 @@ function statusChangeCallback(response) {
 // 當使用者點擊按鈕登出時，登出
 
 function FBlogOut(){
+
+    FB.getLoginStatus(function (response) {
+        
+    });
     FB.logout(function(response) {
         // Person is now logged out
      });
