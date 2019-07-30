@@ -32,7 +32,7 @@
 
         };
 
-        //嵌入臉書sdk
+        //嵌入臉書 sdk
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
@@ -44,21 +44,6 @@
     </script>
     <script src="./index.js"></script>
     <script src="./FBlogin.js"></script>
-
-    <script>
-        // 將存在 localStorage 裡的資料取下來、嵌入 HTML
-        let memberName = localStorage.getItem("memberName");
-        let memberEmail = localStorage.getItem("memberEmail");
-        let memberPicture = localStorage.getItem("memberPicture");
-
-        document.getElementById("memberName").textContent = memberName;
-        document.getElementById("memberEmail").textContent = memberEmail;
-
-        let picturePlace = document.getElementById("memberEmail");
-        picturePlace.setAttribute("src", memberPicture);
-
-    </script>
-
 
 
     <header class="main-header">
@@ -194,6 +179,22 @@
         </div>
 
     </div>
+
+
+
+    <script>
+            // 將存在 localStorage 裡的資料取下來、嵌入 HTML
+            let memberName = localStorage.getItem("memberName");
+            let memberEmail = localStorage.getItem("memberEmail");
+            let memberPicture = localStorage.getItem("memberPicture");
+    
+            document.getElementById("memberName").textContent = memberName;
+            document.getElementById("memberEmail").textContent = memberEmail;
+    
+            let picturePlace = document.getElementById("memberEmail");
+            picturePlace.setAttribute("src", memberPicture);
+    
+        </script>
 
 </body>
 
