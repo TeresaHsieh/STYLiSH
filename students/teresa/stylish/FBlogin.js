@@ -40,11 +40,6 @@ function statusChangeCallback(response) {
             if (response.authResponse) { // users 乖乖登入臉書時
                 console.log('Welcome!  Fetching your information.... ');
                 
-                // 存所有要存的資料在 localStorage，以供未來 profile page 使用
-                console.log('Successful login for: ' + response.authResponse.name);
-                memberName = response.authResponse.name;
-                localStorage.setItem("memberName", memberName);
-
                 uid = response.authResponse.userID;
                 accessToken = response.authResponse.accessToken;
                 localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
@@ -52,6 +47,10 @@ function statusChangeCallback(response) {
                 console.log(uid);
                 console.log(accessToken);
                 alert("yeah! 我們拿到了！");
+
+                /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
+                以供未來 profile page 使用 */
+                CallScopeAPI();
                 
                 window.location = "login.html";
                 return; // 強制將流程結束～
@@ -74,5 +73,15 @@ function testAPI() {
         console.log('Successful login for: ' + response.name);
         memberName = response.name;
         localStorage.setItem("memberName", memberName);
+    });
+}
+
+function CallScopeAPI() {
+    FB.api('/me', function (response) {
+        console.log('Successful login for: ' + response.name);
+        memberName = response.name;
+        memberEmail = response.email;
+        localStorage.setItem("memberName", memberName);
+        localStorage.setItem("memberEmail", memberEmail);
     });
 }
