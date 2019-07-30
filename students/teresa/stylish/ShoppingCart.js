@@ -506,7 +506,7 @@ function SendPrimeAndOrderInformation() {
 function SendPrimeAndOrderAjax(src) {
 
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
-    let Access_Token = localStorage.getItem("member AccessToken");
+    let Access_Token = localStorage.getItem("memberAccessToken");
     let PrimeAndAllObject = { token: Access_Token, prime: Prime, order: AllObject };
     let CheckOutDetail = JSON.stringify(PrimeAndAllObject);
 

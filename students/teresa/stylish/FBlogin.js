@@ -27,8 +27,8 @@ function statusChangeCallback(response) {
 
                 uid = response.authResponse.userID;
                 accessToken = response.authResponse.accessToken;
-                localStorage.setItem("member UID", response.authResponse.userID); // 將資料存在 localStorage
-                localStorage.setItem("member AccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
+                localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
+                localStorage.setItem("memberAccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
 
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
@@ -38,9 +38,9 @@ function statusChangeCallback(response) {
                     memberName = response.name;
                     memberEmail = response.email;
                     memberPicture = response.picture;
-                    localStorage.setItem("member Name", response.name);
-                    localStorage.setItem("member Email", response.email);
-                    localStorage.setItem("member Picture", response.picture.data.url);
+                    localStorage.setItem("memberName", response.name);
+                    localStorage.setItem("memberEmail", response.email);
+                    localStorage.setItem("memberPicture", response.picture.data.url);
                     
                     // 拿到資料、存回 localStorage 後，跳轉到 profile 的頁面
                     window.location = "login.html";
