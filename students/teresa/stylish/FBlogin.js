@@ -11,21 +11,22 @@ function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the app know the current login status of the person.
     // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
     if (response.status === 'connected') {
-        // 如果已經 Logged into app 跟 Facebook(狀態為 connected 時)，執行以下動作
+        /* 如果已經 Logged into app 跟 Facebook(狀態為 connected 時)，代表之前已經執行過「登入」的動作，
+        也代表之前已經儲存我們要的資料在 localStorage 裡面了，所以可以直接跳轉 login.html */
 
         // 存所有要存的資料在 localStorage，以供未來 profile page 使用
-        console.log('Good to see you, ' + response.authResponse.name + '.');
-        memberName = response.authResponse.name;
-        localStorage.setItem("memberName", memberName);
+            // console.log('Good to see you, ' + response.name + '.');
+            // memberName = response.name;
+            // localStorage.setItem("memberName", memberName);
 
-        uid = response.authResponse.userID;
-        accessToken = response.authResponse.accessToken;
-        localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
-        localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將 accessToken 存在 localStorage
-        console.log(uid);
-        console.log(accessToken);
-        alert("yeah! 我們拿到了！");
-        // testAPI();
+            // uid = response.authResponse.userID;
+            // accessToken = response.authResponse.accessToken;
+            // localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
+            // localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將 accessToken 存在 localStorage
+            // console.log(uid);
+            // console.log(accessToken);
+            // alert("yeah! 我們拿到了！");
+        
 
         // 跳轉到 login.html，show 出 profile
         window.location = "login.html";
@@ -51,7 +52,7 @@ function statusChangeCallback(response) {
                 console.log(uid);
                 console.log(accessToken);
                 alert("yeah! 我們拿到了！");
-                // testAPI();
+                
                 window.location = "login.html";
                 return; // 強制將流程結束～
 
