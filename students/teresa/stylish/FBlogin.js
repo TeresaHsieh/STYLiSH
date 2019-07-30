@@ -50,11 +50,18 @@ function statusChangeCallback(response) {
 
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
-                CallScopeAPI();
-                localStorage.setItem("memberName", response.name);
-                localStorage.setItem("memberEmail", response.email);
-                localStorage.setItem("memberPicture", response.picture);
+                // CallScopeAPI();
 
+                FB.api('/me?fields=id,name,email,picture.width(300)', function (response) {
+                    console.log(response);
+                    console.log('Successful login for: ' + response.name);
+                    memberName = response.name;
+                    memberEmail = response.email;
+                    memberPicture = response.picture;
+                    localStorage.setItem("memberName", response.name);
+                    localStorage.setItem("memberEmail", response.email);
+                    localStorage.setItem("memberPicture", response.picture);
+                });
 
 
                 alert("yeah! 我們拿到了！");
