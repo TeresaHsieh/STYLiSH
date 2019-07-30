@@ -7,6 +7,8 @@ function statusChangeCallback(response) {
         // 如果已經 Logged into app 跟 Facebook，跳轉到 login.html
         let uid = response.authResponse.userID;
         let accessToken = response.authResponse.accessToken;
+        console.log(uid);
+        console.log(accessToken);
         testAPI();
         window.location = "login.html";
         return; // 結束這裡～
