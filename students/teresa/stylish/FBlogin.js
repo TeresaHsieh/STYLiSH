@@ -9,6 +9,7 @@ function statusChangeCallback(response) {
         let accessToken = response.authResponse.accessToken;
         console.log(uid);
         console.log(accessToken);
+        alert("yeah! 我們拿到了！");
         testAPI();
         window.location = "login.html";
         return; // 結束這裡～
