@@ -34,7 +34,7 @@ function statusChangeCallback(response) {
                 以供未來 profile page 使用 */
 
                 // 在圖形 API 測試工具裡設定下方資料
-                FB.api('/me?fields=id,name,email,picture.width(300)', function (response) {
+                FB.api('/me?fields=id,name,email,picture.width(150)', function (response) {
                     memberName = response.name;
                     memberEmail = response.email;
                     memberPicture = response.picture;
