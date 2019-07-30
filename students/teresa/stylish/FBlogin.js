@@ -27,8 +27,8 @@ function statusChangeCallback(response) {
 
                 uid = response.authResponse.userID;
                 accessToken = response.authResponse.accessToken;
-                localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
-                localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
+                localStorage.setItem("member UID", response.authResponse.userID); // 將資料存在 localStorage
+                localStorage.setItem("member AccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
 
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
@@ -38,9 +38,9 @@ function statusChangeCallback(response) {
                     memberName = response.name;
                     memberEmail = response.email;
                     memberPicture = response.picture;
-                    localStorage.setItem("memberName", response.name);
-                    localStorage.setItem("memberEmail", response.email);
-                    localStorage.setItem("memberPicture", response.picture.data.url);
+                    localStorage.setItem("member Name", response.name);
+                    localStorage.setItem("member Email", response.email);
+                    localStorage.setItem("member Picture", response.picture.data.url);
                     
                     // 拿到資料、存回 localStorage 後，跳轉到 profile 的頁面
                     window.location = "login.html";
@@ -56,4 +56,41 @@ function statusChangeCallback(response) {
         }, { scope: 'public_profile,email' });// 要求 users 授權個人照片跟 email
     }
 }
+
+
+// 當使用者點擊按鈕登出時，要將 access token 儲存下來，post 到 checkout API
+function SendTokenInformation(){
+
+    let checkOutUrl = API + "/order/checkout"
+    SendTokenAjax(checkOutUrl);    
+}
+
+function SendTokenAjax(src){
+
+    let AllObject = JSON.parse(localStorage.getItem("shoppingStatus")); // 先抓 localStorage 到資料下來做處理
+    let Access_Token = localStorage.getItem("member AccessToken");
+    let TokenAndPrimeAndAllObject = { token: Access_Token, prime: Prime, order: AllObject };
+    let CheckOutDetails = JSON.stringify(TokenAndPrimeAndAllObject);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // 這邊是拿到資料後，才會做的事情
+        } else {
+            return "error : Invalid token.";
+        }
+    };
+    xhttp.open("POST", src);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.setRequestHeader("Authorization", "Bearer");
+
+    xhttp.send(CheckOutDetails);
+
+    // 搜集好資料後，讓用戶登出～
+    FB.logout(function(response) {
+        // Person is now logged out
+     });
+}
+
+
 
