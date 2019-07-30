@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Profile Page</title>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./member.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -116,12 +117,16 @@
 
     <div class="empty"></div>
 
-    <div class="memberProfile">
-        <img class="memberPics"></img>
-        <div class="PersonalData">
-            <div class="memberName" id="memberName"></div>
-            <div class="memberEmail" id="memberEmail"></div>
-        </div>
+    <div class="ProfileBody">
+        <div class="memberProfile">
+            <img class="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" width="300px"></img>
+            <div class="PersonalData">
+                <div class="memberData">Stylish 會員資訊</div>
+                <div class="member-divideLine"></div>
+                <div class="memberName" id="memberName"></div>
+                <div class="memberEmail" id="memberEmail"></div>
+            </div>
+         </div>
 
     </div>
 
@@ -182,21 +187,19 @@
 
 
 
-    <script>
+    <!-- <script>
             // 將存在 localStorage 裡的資料取下來、嵌入 HTML
             let memberName = localStorage.getItem("memberName");
             let memberEmail = localStorage.getItem("memberEmail");
             let memberPicture = localStorage.getItem("memberPicture");
     
-            let test = document.getElementById("memberName");
-            // document.getElementById("memberName").textContent = memberName;
-            console.log(test)
+            document.getElementById("memberName").textContent = memberName;
             document.getElementById("memberEmail").textContent = memberEmail;
     
             let picturePlace = document.getElementById("memberEmail");
             picturePlace.setAttribute("src", memberPicture);
     
-        </script>
+        </script> -->
 
 </body>
 
