@@ -11,7 +11,13 @@ function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the app know the current login status of the person.
     // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
     if (response.status === 'connected') {
-        // 如果已經 Logged into app 跟 Facebook，跳轉到 login.html
+        // 如果已經 Logged into app 跟 Facebook(狀態為 connected 時)，執行以下動作
+
+        // 存所有要存的資料在 localStorage，以供未來 profile page 使用
+        console.log('Good to see you, ' + response.name + '.');
+        memberName = response.name;
+        localStorage.setItem("memberName", memberName);
+
         uid = response.authResponse.userID;
         accessToken = response.authResponse.accessToken;
         localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
@@ -19,20 +25,25 @@ function statusChangeCallback(response) {
         console.log(uid);
         console.log(accessToken);
         alert("yeah! 我們拿到了！");
-        testAPI();
-        window.location = "login.html";
-        return; // 結束這裡～
+        // testAPI();
 
-    } else {
+        // 跳轉到 login.html，show 出 profile
+        window.location = "login.html";
+        return; // 強制將流程結束～
+
+    } else {  // 如果狀態不是已經 Logged into app 跟 Facebook(狀態不是 connected 時)，執行以下動作
+
         console.log("123");
-        // The person is not logged into your app or we are unable to tell.
-        FB.login(function (response) { // 用「登入」對話方塊將用戶登入
-            if (response.authResponse) {
+        // 跳出「登入」對話方塊提供用戶登入臉書
+        FB.login(function (response) { 
+            if (response.authResponse) { // users 乖乖登入臉書時
                 console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function (response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                });
                 
+                // 存所有要存的資料在 localStorage，以供未來 profile page 使用
+                console.log('Successful login for: ' + response.name);
+                memberName = response.name;
+                localStorage.setItem("memberName", memberName);
+
                 uid = response.authResponse.userID;
                 accessToken = response.authResponse.accessToken;
                 localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
@@ -40,16 +51,16 @@ function statusChangeCallback(response) {
                 console.log(uid);
                 console.log(accessToken);
                 alert("yeah! 我們拿到了！");
-                testAPI();
+                // testAPI();
                 window.location = "login.html";
-                return; // 結束這裡～
+                return; // 強制將流程結束～
 
-            } else {
+            } else { // users 臨時不想登入了，可能點了「取消」或是其他行為時
                 window.location = "index.html";
                 alert("You cancelled login or did not fully authorize!");
             }
             // Handle the response object, like in statusChangeCallback() in our demo code.
-        }, { scope: 'public_profile,email' });// 要求 users 授權
+        }, { scope: 'public_profile,email' });// 要求 users 授權個人照片跟 email
     }
 }
 
