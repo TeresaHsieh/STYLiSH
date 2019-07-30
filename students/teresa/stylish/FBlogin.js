@@ -9,7 +9,7 @@ function statusChangeCallback(response) {
         let accessToken = response.authResponse.accessToken;
         testAPI();
         window.location = "login.html";
-        return;
+        return; // 結束這裡～
 
     } else {
         console.log("123");
@@ -20,6 +20,8 @@ function statusChangeCallback(response) {
                 FB.api('/me', function (response) {
                     console.log('Good to see you, ' + response.name + '.');
                 });
+                window.location = "login.html";
+                return; // 結束這裡～
             } else {
                 window.location = "index.html";
                 alert("You cancelled login or did not fully authorize!");
