@@ -42,6 +42,22 @@
         }(document, 'script', 'facebook-jssdk'));
 
     </script>
+    <script src="./index.js"></script>
+    <script src="./FBlogin.js"></script>
+
+    <script>
+        // 將存在 localStorage 裡的資料取下來、嵌入 HTML
+        let memberName = localStorage.getItem("memberName");
+        let memberEmail = localStorage.getItem("memberEmail");
+        let memberPicture = localStorage.getItem("memberPicture");
+
+        document.getElementById("memberName").textContent = memberName;
+        document.getElementById("memberEmail").textContent = memberEmail;
+
+        let picturePlace = document.getElementById("memberEmail");
+        picturePlace.setAttribute("src", memberPicture);
+
+    </script>
 
 
 
@@ -70,7 +86,8 @@
                         width="44"></a>
                 <div id="cart-qty" class="qty">0</div>
             </div>
-            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44" onclick="checkLoginState()">
+            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"
+                    onclick="checkLoginState()">
             </div>
         </div>
     </header>
@@ -118,7 +135,7 @@
         <img class="memberPics"></img>
         <div class="PersonalData">
             <div class="memberName" id="memberName"></div>
-            <div class="memberEmail"></div>
+            <div class="memberEmail" id="memberEmail"></div>
         </div>
 
     </div>
@@ -178,14 +195,6 @@
 
     </div>
 
-
-    <script src="./index.js"></script>
-    <script src="./FBlogin.js"></script>
-    <script>
-        document.getElementById("memberName").textContent = memberName;
-        console.log(document.getElementById("memberName")) ;
-        console.log(memberName);
-    </script>
 </body>
 
 
