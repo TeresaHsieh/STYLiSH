@@ -46,11 +46,16 @@ function statusChangeCallback(response) {
                 localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將資料存在 localStorage
                 console.log(uid);
                 console.log(accessToken);
-                alert("yeah! 我們拿到了！");
+
 
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
                 CallScopeAPI();
+
+                
+                alert("yeah! 我們拿到了！");
+
+                
                 
                 window.location = "login.html";
                 return; // 強制將流程結束～
