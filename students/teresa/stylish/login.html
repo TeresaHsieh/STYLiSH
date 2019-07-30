@@ -10,7 +10,8 @@
 </head>
 
 <body>
-
+    <script src="./index.js"></script>
+    <script src="./FBlogin.js"></script>
 
     <!-- FB Login Starts -->
     <script>
@@ -42,9 +43,11 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
+
+        let test = document.getElementById("mobilesearch");
+        console.log(test);
+
     </script>
-    <script src="./index.js"></script>
-    <script src="./FBlogin.js"></script>
 
 
     <header class="main-header">
@@ -85,15 +88,15 @@
             <a href="index.html"><img src="./images/logo.png" class="mobilelogo" id="mobilelogo"></a>
 
 
-           <!-- 未點擊之前會先隱藏的欄位 -->
-           <div class="mobilesearchbox" id="mobilesearchbox"
-           style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
-           <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
-               class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
-           <!-- <img type="submit" src="./images/search.png" class="search" height="18" width="18"
-               id="secondmobilesearch" onclick="mobilereadSearch()"></img> -->
-           <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
-       </div>
+            <!-- 未點擊之前會先隱藏的欄位 -->
+            <div class="mobilesearchbox" id="mobilesearchbox"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                    class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
+                <img type="submit" src="./images/search.png" class="search" height="18" width="18"
+                    id="secondmobilesearch" onclick="mobilereadSearch()"></img>
+                <button class="closebtn" height="40" width="40" id="closebtn"> X </button>
+            </div>
 
 
             <img src="./images/search.png" class="mobilesearch" id="mobilesearch" height="44" width="44"></img>
@@ -119,7 +122,8 @@
 
     <div class="ProfileBody">
         <div class="memberProfile">
-            <img class="memberPics" id="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" width="300px"></img>
+            <img class="memberPics" id="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg"
+                width="300px"></img>
             <div class="PersonalData">
                 <div class="memberData">Stylish 會員資訊</div>
                 <div class="member-divideLine"></div>
@@ -127,7 +131,7 @@
                 <div class="memberEmail" id="memberEmail"></div>
                 <button class="signOut" onclick="FBlogOut()">登出帳戶</button>
             </div>
-         </div>
+        </div>
 
     </div>
 
@@ -177,7 +181,8 @@
             <p class="mobiletopl">|</p>
         </div>
         <div class="memberdescription">
-            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30" onclick="checkLoginState()">
+            <img src="./images/member-mobile.png" alt="member" class="mobilemember" height="30" width="30"
+                onclick="checkLoginState()">
             <p class="mobilemember" onclick="checkLoginState()">會員</p>
         </div>
 
@@ -186,18 +191,18 @@
 
 
     <script>
-            // 將存在 localStorage 裡的資料取下來、嵌入 HTML
-            let memberName = localStorage.getItem("memberName");
-            let memberEmail = localStorage.getItem("memberEmail");
-            let memberPicture = localStorage.getItem("memberPicture");
-    
-            document.getElementById("memberName").textContent = memberName;
-            document.getElementById("memberEmail").textContent = memberEmail;
-    
-            let picturePlace = document.getElementById("memberPics");
-            picturePlace.setAttribute("src", memberPicture);
-    
-        </script>
+        // 將存在 localStorage 裡的資料取下來、嵌入 HTML
+        let memberName = localStorage.getItem("memberName");
+        let memberEmail = localStorage.getItem("memberEmail");
+        let memberPicture = localStorage.getItem("memberPicture");
+
+        document.getElementById("memberName").textContent = memberName;
+        document.getElementById("memberEmail").textContent = memberEmail;
+
+        let picturePlace = document.getElementById("memberPics");
+        picturePlace.setAttribute("src", memberPicture);
+
+    </script>
 
 </body>
 

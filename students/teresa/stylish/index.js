@@ -219,17 +219,17 @@ let mobilesearchbtnHide = document.getElementById("closebtn");
 let mobilesearchbtnShow = document.getElementById("mobilesearch");
 let logo = document.getElementById("mobilelogo");
 
-mobilesearchbtnShow.addEventListener('click', () => {
-    mobilesearchdiv.style.display = "block";
-    logo.hidden = true;
-    mobilesearchbtnShow.style.display = "none";
-});
+// mobilesearchbtnShow.addEventListener('click', () => {
+//     mobilesearchdiv.style.display = "block";
+//     logo.hidden = true;
+//     mobilesearchbtnShow.style.display = "none";
+// });
 
-mobilesearchbtnHide.addEventListener('click', () => {
-    mobilesearchdiv.style.display = "none";
-    logo.hidden = false;
-    mobilesearchbtnShow.style.display = "block";
-});
+// mobilesearchbtnHide.addEventListener('click', () => {
+//     mobilesearchdiv.style.display = "none";
+//     logo.hidden = false;
+//     mobilesearchbtnShow.style.display = "block";
+// });
 
 
 //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
