@@ -119,7 +119,7 @@
 
     <div class="ProfileBody">
         <div class="memberProfile">
-            <img class="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" width="300px"></img>
+            <img class="memberPics" id="memberPics" src="./images/angela-bailey-jlo7Bf4tUoY-unsplash.jpg" width="300px"></img>
             <div class="PersonalData">
                 <div class="memberData">Stylish 會員資訊</div>
                 <div class="member-divideLine"></div>
@@ -196,7 +196,7 @@
             document.getElementById("memberName").textContent = memberName;
             document.getElementById("memberEmail").textContent = memberEmail;
     
-            let picturePlace = document.getElementById("memberEmail");
+            let picturePlace = document.getElementById("memberPics");
             picturePlace.setAttribute("src", memberPicture);
     
         </script>
