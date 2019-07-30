@@ -15,18 +15,18 @@ function statusChangeCallback(response) {
         也代表之前已經儲存我們要的資料在 localStorage 裡面了，所以可以直接跳轉 login.html */
 
         // 存所有要存的資料在 localStorage，以供未來 profile page 使用
-            // console.log('Good to see you, ' + response.name + '.');
-            // memberName = response.name;
-            // localStorage.setItem("memberName", memberName);
+        // console.log('Good to see you, ' + response.name + '.');
+        // memberName = response.name;
+        // localStorage.setItem("memberName", memberName);
 
-            // uid = response.authResponse.userID;
-            // accessToken = response.authResponse.accessToken;
-            // localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
-            // localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將 accessToken 存在 localStorage
-            // console.log(uid);
-            // console.log(accessToken);
-            // alert("yeah! 我們拿到了！");
-        
+        // uid = response.authResponse.userID;
+        // accessToken = response.authResponse.accessToken;
+        // localStorage.setItem("memberUID", response.authResponse.userID); // 將 userID 存在 localStorage
+        // localStorage.setItem("memberaccessToken", response.authResponse.accessToken); // 將 accessToken 存在 localStorage
+        // console.log(uid);
+        // console.log(accessToken);
+        // alert("yeah! 我們拿到了！");
+
 
         // 跳轉到 login.html，show 出 profile
         window.location = "login.html";
@@ -36,10 +36,10 @@ function statusChangeCallback(response) {
 
         console.log("123");
         // 跳出「登入」對話方塊提供用戶登入臉書
-        FB.login(function (response) { 
+        FB.login(function (response) {
             if (response.authResponse) { // users 乖乖登入臉書時
                 console.log('Welcome!  Fetching your information.... ');
-                
+
                 uid = response.authResponse.userID;
                 accessToken = response.authResponse.accessToken;
                 localStorage.setItem("memberUID", response.authResponse.userID); // 將資料存在 localStorage
@@ -51,12 +51,16 @@ function statusChangeCallback(response) {
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
                 CallScopeAPI();
+                localStorage.setItem("memberName", memberName);
+                localStorage.setItem("memberEmail", memberEmail);
+                localStorage.setItem("memberPicture", memberPicture);
+
 
 
                 alert("yeah! 我們拿到了！");
 
-                
-                
+
+
                 // window.location = "login.html";
                 return; // 強制將流程結束～
 
@@ -82,12 +86,11 @@ function testAPI() {
 }
 
 function CallScopeAPI() {
-    FB.api('/me', function (response) {
+    FB.api('/me?fields=id,name,email,picture.width(300)', function (response) {
         console.log(response);
         console.log('Successful login for: ' + response.name);
         memberName = response.name;
         memberEmail = response.email;
-        localStorage.setItem("memberName", memberName);
-        localStorage.setItem("memberEmail", memberEmail);
+        memberPicture = response.picture;
     });
 }
