@@ -52,12 +52,12 @@ function statusChangeCallback(response) {
                 以供未來 profile page 使用 */
                 CallScopeAPI();
 
-                
+
                 alert("yeah! 我們拿到了！");
 
                 
                 
-                window.location = "login.html";
+                // window.location = "login.html";
                 return; // 強制將流程結束～
 
             } else { // users 臨時不想登入了，可能點了「取消」或是其他行為時
