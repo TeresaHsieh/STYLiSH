@@ -51,9 +51,9 @@ function statusChangeCallback(response) {
                 /* 拿到 token 跟 userId 後，call FB.API 去存所有要存的資料進 localStorage，
                 以供未來 profile page 使用 */
                 CallScopeAPI();
-                localStorage.setItem("memberName", memberName);
-                localStorage.setItem("memberEmail", memberEmail);
-                localStorage.setItem("memberPicture", memberPicture);
+                localStorage.setItem("memberName", response.name);
+                localStorage.setItem("memberEmail", response.email);
+                localStorage.setItem("memberPicture", response.picture);
 
 
 
