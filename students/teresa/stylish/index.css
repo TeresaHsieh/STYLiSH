@@ -85,14 +85,13 @@ header li {
 display: inline-block;
 }
 
-.lady {
-color: #8b572a;
-}
-
+.lady,
 .man,
 .kit {
 color: #3f3a3a;
+cursor: pointer;
 }
+
 
 .lady,
 .man,
@@ -128,33 +127,86 @@ color: #3f3a3a;
   flex-direction: row;
   position: absolute;
   right: 50px;
-  margin-right: 15px;
+  /* margin-right: 15px; */
 }
 
 .searchbox {
   display:flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
+  top: 5px;
+  margin-right: 10px;
 }
 
 .searchtyping {
 align-self:left;
 color: black;
-border: 0px;
+border: 0px transparent;
+position: absolute;
+top: 10px;
+left: 10px;
+
+}
+
+#secondmobilesearch {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+}
+
+#mobilesearchtyping {
+  position: absolute;
+  top: 8px;
+  right: 10px;
 }
 
 .search {
 align-self:right;
-margin-left: 30px;
+position: absolute;
+top: 4px;
+right: 10px;
 }
 
 .closebtn{
-  align-self:right;
+  position: absolute;
+  right: -30px;
+  top: -5px;
   margin-left: 20px;
 }
 
+.CartAndQTY {
+  position: relative;
+  left: 10px;
+  right: 10px;
+
+}
+
+
 .bag {
-  margin-left: 42px;
+  /* margin-left: 42px; */
+  position: absolute;
+}
+
+
+.mobileQTY.mobileQTY {
+  display: inline-block;
+  /* align-self: right; */
+  text-align: center;
+  background-color: #8b572a;
+  font-weight: bold;
+  border-radius: 50%;
+  color: #ffffff;
+  opacity: 0.8;
+  font-size: 0.4em;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  position: absolute;
+  top: 15px;
+  left: 12px; 
 }
 
 .qty {
@@ -174,10 +226,20 @@ margin-left: 30px;
   margin-top: 15px; */
   margin: 0;
   margin-right: 0;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.memberDiv {
+  margin-left: 20px;
+  margin-top: 2px;
+  cursor: pointer;
 }
 
 .member {
-  margin-left: 42px;
+  margin-left: 50px;
+  
   }
 
 
@@ -290,6 +352,10 @@ margin-left: 30px;
 
 }  
 
+.productsDIV {
+  cursor: pointer;
+}
+
 .pic-container {
   display: grid;
   /* 放四個物件在同一欄，因此會有四個 auto */
@@ -334,10 +400,9 @@ margin-left: 30px;
 .pic {
   /* background-color: lightgoldenrodyellow; */
   width: 360px;
-  /* height: 480px; */
-  /* margin-left: 40px; */
-  /* margin-right: 40px ; */
   text-align: center;
+  margin-bottom: 10px;
+  /* cursor: pointer; */
 }
 
 .hextrial {
@@ -353,6 +418,11 @@ margin-left: 30px;
 .color {
   width: 24px ;
   height: 24px;
+  margin-bottom: 10px;
+  border-color: lightgrey;
+  border-style: solid;
+  border: 0px solid #ffffff;
+  box-shadow: 0px 0px 1px #bbbbbb;
 }
 /* 
 .color1 {
@@ -564,11 +634,13 @@ footer li {
 
 .mobilesearchbox {
   align-items: center;
+  position: relative;
+  margin-top: 30px;
 }
 
 .mobilesearch {
   position: absolute;
-  right: 15px;
+  right: 25px;
 }
 
 .mobilemain-navdiv {
@@ -628,6 +700,7 @@ letter-spacing: normal;
 text-align: center;
 padding: 0px;
 flex-grow: 500;
+cursor: pointer;
 }
 
 
@@ -910,6 +983,7 @@ align-self: center;
   display:flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
 }
 
 .cartdescription {

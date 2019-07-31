@@ -7,7 +7,7 @@ let API = "https://api.appworks-school.tw/api/1.0"
 function apiurl(type) {
 
     let theurl = API + "/products/" + type
-    console.log(theurl)
+    
     ajax(theurl, render);
     pagingType = type;
 
@@ -16,7 +16,40 @@ function apiurl(type) {
     while (allproducts.firstChild) {
         allproducts.removeChild(allproducts.firstChild);
     }
+
+    //清空前一次的顏色設定（如果上次有點過任何一個類別）
+    document.getElementById("women").style.color = "#3f3a3a";
+    document.getElementById("men").style.color = "#3f3a3a";
+    document.getElementById("accessories").style.color = "#3f3a3a";
+
+    document.getElementById(type).style.color = "#8b572a";
+    
 }
+
+function changeLadyColor(){
+    document.getElementById("lady").style.color = "#ffffff";
+    document.getElementById("man").style.color = "#828282";
+    document.getElementById("kit").style.color = "#828282";
+}
+
+function changeManColor() {
+    document.getElementById("lady").style.color = "#828282";
+    document.getElementById("man").style.color = "#ffffff";
+    document.getElementById("kit").style.color = "#828282";
+}
+
+function changeKitColor() {
+    document.getElementById("lady").style.color = "#828282";
+    document.getElementById("man").style.color = "#828282";
+    document.getElementById("kit").style.color = "#ffffff";
+}
+
+
+// 手機版它頁跳轉到「女裝」、「男裝」、「配件」頁面
+function GoToLadyPage(){
+    window.location = "index.html/?tag=women";
+}
+
 
 
 // Marketing Campaigns
@@ -39,7 +72,6 @@ let poetryArray;
 let bannerPics = picArray
 // let bannerPics = "https://api.appworks-school.tw" + picArray
 let bannerPicsLen = bannerPics.length;
-console.log(bannerPicsLen);
 let index = 0
 
 
@@ -59,7 +91,7 @@ function bannerrender(data) {
         // marketing campaign 內文字
         let marketpoetry = document.createElement("div");
         let poemgurl = items[i].story;
-        console.log(poemgurl.length);
+        
         marketpoetry.setAttribute("src", poemgurl);
         marketpoetry.setAttribute("style", "poetry");
         // marketingCampaignDiv.appendChild(marketingpics);
@@ -71,7 +103,7 @@ function bannerrender(data) {
 }
 
 function slideShow() {
-    console.log(poetryArray[index].replace(/\r\n/g, "<br/>"))
+    
     document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' style='width:100%' ><span class=poetry> " + poetryArray[index].replace(/\r\n/g, "<br/>") + " </span>";
     index += 1;
     if (index > bannerPicsLen - 1) {
@@ -104,7 +136,7 @@ function ajax(src, callback) {
     }
     xhr.open("GET", src);
     xhr.send();
-    console.log("request sent to the server");
+    
 }
 
 function render(data) {
@@ -154,6 +186,7 @@ function render(data) {
 
         allproducts.appendChild(products);
         products.appendChild(pics);
+        products.setAttribute("class", "productsDIV");
         products.appendChild(allcolors);
         products.appendChild(productsname);
         products.appendChild(productsprice);
@@ -180,9 +213,9 @@ function readSearch() {
 
     if (usersSearch != "") {
 
-        console.log(usersSearch)
+        
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
-        console.log(searchtheurl);
+        
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
 
         // Remove all child elements of a DOM node
@@ -199,9 +232,9 @@ function mobilereadSearch() {
 
     if (usersSearch != "") {
 
-        console.log(usersSearch)
+        
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
-        console.log(searchtheurl);
+        
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
 
         // Remove all child elements of a DOM node
@@ -243,7 +276,7 @@ let pagingType = "";
 
 function pagingapi(type, paging) {
     let pagingurl = API + "/products/" + type + "?paging=" + pagingNumber;
-    console.log(pagingurl);
+    
     ajax(pagingurl, render);
     window.removeEventListener("scroll", addEventhandle);
 }
@@ -255,7 +288,6 @@ function doSomething() {
     // genral-container 跑完了，可以開始 call ajax
     let rectBottom = generalContainer.getBoundingClientRect().bottom;
 
-    console.log(rectBottom, window.innerHeight, pagingNumber);
 
     if ((rectBottom <= (window.innerHeight || document.body.clientHeight)) && pagingNumber > 0) {
         pagingapi(pagingType, pagingNumber);
@@ -278,7 +310,7 @@ function addEventhandle() {
 function clickToGetDetail(id) {
     window.location = "product.html?id=" + id; // 跳轉到自己的頁面
     let productUrl = API + "/products/details?id=" + id;
-    console.log(productUrl);
+    
     ajax(productUrl, productrender);
 
 }
@@ -291,12 +323,12 @@ function addUpQTY() {
     let totalQTY = productArray.length;
     // for (let i = 0; i < productArray.length; i += 1){
     //     totalQTY += productArray[i].qty;
-    //     console.log(totalQTY);
+    //     
     // } 
     AllObject.list = productArray
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把更新存回 localStorage
 
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
-    document.querySelectorAll(".qty")[1].textContent = totalQTY;
+    document.querySelectorAll(".qty")[1].textContent = totalQTY;    
 }

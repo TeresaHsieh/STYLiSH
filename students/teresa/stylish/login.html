@@ -2,6 +2,16 @@
 <html>
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144865201-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144865201-1');
+    </script>
+
     <meta charset="utf-8">
     <title>Profile Page</title>
     <link rel="stylesheet" href="./index.css">
@@ -43,7 +53,7 @@
         }(document, 'script', 'facebook-jssdk'));
 
 
-        
+
 
     </script>
 
@@ -52,11 +62,11 @@
         <div><a href="index.html"><img src="./images/logo.png" class="logo"></a></div>
         <div>
             <ul class="main-nav">
-                <li class="lady" id="lady" onclick="apiurl('women')">女裝</li>
+                <li class="lady" id="women" onclick="apiurl('women')">女裝</li>
                 <li class="topl">｜</li>
-                <li class="man" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="man" id="men" onclick="apiurl('men')">男裝</a></li>
                 <li class="topl">｜</li>
-                <li class="kit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+                <li class="kit" id="accessories" onclick="apiurl('accessories')">配件</a></li>
             </ul>
         </div>
         <div class="functionbar">
@@ -65,15 +75,18 @@
                     style=" border: solid 1px #979797 ;border-radius:30px; width:214px;height:40px; ">
                     <input type="text" placeholder="Search.." class="searchtyping" name="searchtyping"
                         id="searchtyping"> </input>
-                    <img type="submit" src="./images/search.png" class="search" height="44" width="44" id="search"
+                    <img type="submit" src="./images/search.png" class="search" height="30" width="30" id="search"
                         onclick="readSearch()"></img>
                 </div>
             </div>
-            <div><a href="ShoppingCart.html"><img src="./images/cart.png" class="bag" alt="shopping-cart" height="44"
-                        width="44"></a>
-                <div id="cart-qty" class="qty">0</div>
-            </div>
-            <div><img src="./images/member.png" alt="member" class="member" height="44" width="44"
+            <a href="ShoppingCart.html">
+                <div class="CartAndQTY">
+                    <img src="./images/cart.png" class="bag" alt="shopping-cart" height="44" width="44">
+                    <div id="cart-qty" class="qty">0</div>
+                </div>
+            </a>
+            <div class="memberDiv">
+                <img src="./images/member.png" alt="member" class="member" height="44" width="44"
                     onclick="checkLoginState()">
             </div>
         </div>
@@ -85,11 +98,10 @@
 
             <a href="index.html"><img src="./images/logo.png" class="mobilelogo" id="mobilelogo"></a>
 
-
             <!-- 未點擊之前會先隱藏的欄位 -->
             <div class="mobilesearchbox" id="mobilesearchbox"
-                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:60px; ">
-                <input type="text" placeholder="Search..." style="width: 70%; height: 50px; border: transparent"
+                style=" border: solid 1px #979797 ;border-radius:30px; width:70%;height:40px; ">
+                <input type="text" placeholder="Search..." style="width: 70%; height: 20px; border: transparent"
                     class="searchtyping" name="searchtyping" id="mobilesearchtyping"></input>
                 <img type="submit" src="./images/search.png" class="search" height="18" width="18"
                     id="secondmobilesearch" onclick="mobilereadSearch()"></img>
@@ -169,12 +181,13 @@
 
     </footer>
     <div class="fixedbar">
-        <div class="cartdescription">
-            <a href="ShoppingCart.html"><img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart"
-                    height="30" width="30"></a>
-            <div id="cart-qty" class="qty">0</div>
-            <p class="mobilecart">購物車</p>
-        </div>
+        <a href="ShoppingCart.html">
+            <div class="cartdescription">
+                <img src="./images/cart-mobile.png" class="mobilebag" alt="shopping-cart" height="30" width="30">
+                <div id="cart-qty" class="qty mobileQTY">0</div>
+                <p class="mobilecart">購物車</p>
+            </div>
+        </a>
         <div>
             <p class="mobiletopl">|</p>
         </div>
@@ -201,7 +214,7 @@
         picturePlace.setAttribute("src", memberPicture);
 
 
-        
+
 
 
 
