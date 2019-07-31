@@ -65,7 +65,15 @@ function FBlogOut(){
     FB.getLoginStatus(function (response) {
         
         FB.logout(function(response) {
-            // Person is now logged out
+            window.location = "index.html";
+            alert("Sign Out Successfully!");
+            // 登出時，把存在 localStorage 裡面的個人資料清空
+            localStorage.removeItem("memberUID"); 
+            localStorage.removeItem("number");
+            localStorage.removeItem("memberEmail"); 
+            localStorage.removeItem("memberPicture"); 
+            localStorage.removeItem("memberName"); 
+            localStorage.removeItem("memberAccessToken");  
          });
     });
     
