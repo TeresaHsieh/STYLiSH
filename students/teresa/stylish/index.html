@@ -267,7 +267,10 @@
 
 </html>
 <script>
-    // 開啟頁面後會先跑出所有產品
+    /* 開啟頁面的第一時間，先確認網址後方是否有 queryString，如果有的話，是什麼。
+    如果結尾為 index.html，代表這是首頁，應該要 load 出所以的產品（女裝＋男裝＋配件）。
+    但如果後面有 queryString，則判斷是 tag=XXX，並且只去 render XXX 的產品資訊
+    （這種狀況發生於在其他頁面時，點擊女裝、男裝、配件按鈕，跳回首頁去 render 只想看到的特定資料） */
 
     window.addEventListener("load", function (){CheckQueryString()});
 
