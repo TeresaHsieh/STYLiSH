@@ -195,6 +195,7 @@ body {
 }
 
 .BuyerInfoInput,
+
 .tpfield {
   width: 60%;
   height: 35px;
@@ -203,7 +204,6 @@ body {
   border-radius: 5px;
   /* box-sizing: border-box; */
 }
-
 
 /* confirm to pay-part ================*/
 
@@ -388,6 +388,7 @@ body {
     .totalCost {
         width: 60%;
     }
+
 }
 
 .thankYouPage {
@@ -463,4 +464,5 @@ body {
     .thankyou-pic {
         width: 100%;
     }
+
 }

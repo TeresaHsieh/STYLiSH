@@ -224,7 +224,7 @@ function render(data) {
 function readSearch() {
     let usersSearch = document.getElementById("searchtyping").value; // 抓 users 在欄位裡面輸入了什麼
 
-    if (usersSearch != "") {
+    if (usersSearch != "") { 
 
 
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
@@ -236,9 +236,10 @@ function readSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
-    }
-}
 
+    }
+
+}
 
 function mobilereadSearch() {
     let usersSearch = document.getElementById("mobilesearchtyping").value; // 抓 users 在欄位裡面輸入了什麼
@@ -255,6 +256,7 @@ function mobilereadSearch() {
         while (allproducts.firstChild) {
             allproducts.removeChild(allproducts.firstChild);
         }
+
     }
 }
 
@@ -328,9 +330,12 @@ function clickToGetDetail(id) {
 
 }
 
+
 // Add UP QTY in Cart
 
+
 function addUpQTY() {
+
     let AllObject = JSON.parse(localStorage.getItem("shoppingStatus"))
     let productArray = JSON.parse(localStorage.getItem("shoppingStatus")).list || [];
     let totalQTY = productArray.length;
@@ -342,6 +347,8 @@ function addUpQTY() {
     localStorage.setItem("shoppingStatus", JSON.stringify(AllObject));// 把更新存回 localStorage
 
 
+
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
     document.querySelectorAll(".qty")[1].textContent = totalQTY;
 }
+
