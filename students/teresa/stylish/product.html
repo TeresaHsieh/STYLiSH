@@ -58,11 +58,11 @@
         <div><a href="index.html"><img src="./images/logo.png" class="logo"></a></div>
         <div>
             <ul class="main-nav">
-                <li class="lady" id="women" onclick="apiurl('women')">女裝</li>
+                <li class="lady" id="women"  onclick="GoToOtherPage('women')">女裝</li>
                 <li class="topl">｜</li>
-                <li class="man" id="men" onclick="apiurl('men')">男裝</a></li>
+                <li class="man" id="men"  onclick="GoToOtherPage('men')">男裝</a></li>
                 <li class="topl">｜</li>
-                <li class="kit" id="accessories" onclick="apiurl('accessories')">配件</a></li>
+                <li class="kit" id="accessories"  onclick="GoToOtherPage('accessories')">配件</a></li>
             </ul>
         </div>
         <div class="functionbar">
@@ -111,11 +111,12 @@
         </div>
         <div class="mobilemain-navdiv">
             <ul class="mobilemain-nav">
-                <li class="mobilelady" id="lady" onclick="apiurl('women')" onclick="GoToLadyPage()">女裝</li>
+                <li class="mobilelady" id="mobilewomen"  onclick="GoToOtherPage('women')">女裝</li>
+                <!-- onclick="apiurl('women')" -->
                 <li class="mobiletopl">｜</li>
-                <li class="mobileman" id="man" onclick="apiurl('men')">男裝</a></li>
+                <li class="mobileman" id="mobilemen"  onclick="GoToOtherPage('men')">男裝</a></li>
                 <li class="mobiletopl">｜</li>
-                <li class="mobilekit" id="kit" onclick="apiurl('accessories')">配件</a></li>
+                <li class="mobilekit" id="mobileaccessories"  onclick="GoToOtherPage('accessories')">配件</a></li>
             </ul>
         </div>
     </header>

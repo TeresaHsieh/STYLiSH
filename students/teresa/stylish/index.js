@@ -4,10 +4,10 @@
 // 女裝範例為：https://api.appworks-school.tw/api/1.0/products/woman
 let API = "https://api.appworks-school.tw/api/1.0"
 
+
 function apiurl(type) {
 
-    let theurl = API + "/products/" + type
-    
+    let theurl = API + "/products/" + type;
     ajax(theurl, render);
     pagingType = type;
 
@@ -23,31 +23,44 @@ function apiurl(type) {
     document.getElementById("accessories").style.color = "#3f3a3a";
 
     document.getElementById(type).style.color = "#8b572a";
-    
+
 }
 
-function changeLadyColor(){
-    document.getElementById("lady").style.color = "#ffffff";
-    document.getElementById("man").style.color = "#828282";
-    document.getElementById("kit").style.color = "#828282";
+function changeLadyColor() {
+    document.getElementById("mobilewomen").style.color = "#ffffff";
+    document.getElementById("mobilemen").style.color = "#828282";
+    document.getElementById("mobileaccessories").style.color = "#828282";
 }
 
 function changeManColor() {
-    document.getElementById("lady").style.color = "#828282";
-    document.getElementById("man").style.color = "#ffffff";
-    document.getElementById("kit").style.color = "#828282";
+    document.getElementById("mobilewomen").style.color = "#828282";
+    document.getElementById("mobilemen").style.color = "#ffffff";
+    document.getElementById("mobileaccessories").style.color = "#828282";
 }
 
 function changeKitColor() {
-    document.getElementById("lady").style.color = "#828282";
-    document.getElementById("man").style.color = "#828282";
-    document.getElementById("kit").style.color = "#ffffff";
+    document.getElementById("mobilewomen").style.color = "#828282";
+    document.getElementById("mobilemen").style.color = "#828282";
+    document.getElementById("mobileaccessories").style.color = "#ffffff";
 }
 
 
-// 手機版它頁跳轉到「女裝」、「男裝」、「配件」頁面
-function GoToLadyPage(){
-    window.location = "index.html/?tag=women";
+// 除了首頁外，它頁跳轉到「女裝」、「男裝」、「配件」頁面
+function GoToOtherPage(type) {
+    switch (type) {
+        case "women":
+            window.location = "index.html?tag=women";
+            break;
+        case "men":
+            window.location = "index.html?tag=men";
+            break;
+        case "accessories":
+            window.location = "index.html?tag=accessories";
+            break;
+        default:
+            alert("沒有符合的條件");
+    }
+
 }
 
 
@@ -91,7 +104,7 @@ function bannerrender(data) {
         // marketing campaign 內文字
         let marketpoetry = document.createElement("div");
         let poemgurl = items[i].story;
-        
+
         marketpoetry.setAttribute("src", poemgurl);
         marketpoetry.setAttribute("style", "poetry");
         // marketingCampaignDiv.appendChild(marketingpics);
@@ -103,7 +116,7 @@ function bannerrender(data) {
 }
 
 function slideShow() {
-    
+
     document.getElementById("bannerPic").innerHTML = "<img src='" + bannerPics[index] + "' style='width:100%' ><span class=poetry> " + poetryArray[index].replace(/\r\n/g, "<br/>") + " </span>";
     index += 1;
     if (index > bannerPicsLen - 1) {
@@ -136,7 +149,7 @@ function ajax(src, callback) {
     }
     xhr.open("GET", src);
     xhr.send();
-    
+
 }
 
 function render(data) {
@@ -213,9 +226,9 @@ function readSearch() {
 
     if (usersSearch != "") {
 
-        
+
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
-        
+
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
 
         // Remove all child elements of a DOM node
@@ -232,9 +245,9 @@ function mobilereadSearch() {
 
     if (usersSearch != "") {
 
-        
+
         let searchtheurl = API + "/products/search?keyword=" + usersSearch // 套進 api 公式，創造出新的 URL
-        
+
         ajax(searchtheurl, render)  // 用新的 URL 跑 ajax
 
         // Remove all child elements of a DOM node
@@ -276,7 +289,7 @@ let pagingType = "";
 
 function pagingapi(type, paging) {
     let pagingurl = API + "/products/" + type + "?paging=" + pagingNumber;
-    
+
     ajax(pagingurl, render);
     window.removeEventListener("scroll", addEventhandle);
 }
@@ -310,7 +323,7 @@ function addEventhandle() {
 function clickToGetDetail(id) {
     window.location = "product.html?id=" + id; // 跳轉到自己的頁面
     let productUrl = API + "/products/details?id=" + id;
-    
+
     ajax(productUrl, productrender);
 
 }
@@ -330,5 +343,5 @@ function addUpQTY() {
 
 
     document.querySelectorAll(".qty")[0].textContent = totalQTY;
-    document.querySelectorAll(".qty")[1].textContent = totalQTY;    
+    document.querySelectorAll(".qty")[1].textContent = totalQTY;
 }

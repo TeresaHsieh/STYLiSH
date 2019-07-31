@@ -524,7 +524,7 @@ function SendPrimeAndOrderAjax(src) {
     };
     xhttp.open("POST", src);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.setRequestHeader("Authorization", "Bearer");
+    xhttp.setRequestHeader("Authorization", "Bearer " + Access_Token);
 
 
     console.log(CheckOutDetail);

@@ -117,11 +117,11 @@
         </div>
         <div class="mobilemain-navdiv">
             <ul class="mobilemain-nav">
-                <li class="mobilelady" id="lady" onclick="apiurl('women'); changeLadyColor()">女裝</li>
+                <li class="mobilelady" id="mobilewomen" onclick="apiurl('women'); changeLadyColor()">女裝</li>
                 <li class="mobiletopl">｜</li>
-                <li class="mobileman" id="man" onclick="apiurl('men'); changeManColor()">男裝</a></li>
+                <li class="mobileman" id="mobilemen" onclick="apiurl('men'); changeManColor()">男裝</a></li>
                 <li class="mobiletopl">｜</li>
-                <li class="mobilekit" id="kit" onclick="apiurl('accessories'); changeKitColor()">配件</a></li>
+                <li class="mobilekit" id="mobileaccessories"  onclick="apiurl('accessories'); changeKitColor()">配件</a></li>
             </ul>
         </div>
     </header>
@@ -268,7 +268,30 @@
 </html>
 <script>
     // 開啟頁面後會先跑出所有產品
-    window.addEventListener('load', function () { apiurl("all") });
+
+    window.addEventListener("load", function (){CheckQueryString()});
+
+    function CheckQueryString (){
+        let urlParams = new URLSearchParams(window.location.search);
+        let tagWord = urlParams.get("tag");
+        console.log(tagWord);
+
+        if (tagWord == "women"){
+            apiurl("women");
+
+        }else if (tagWord == "men"){
+            apiurl("men");
+        
+        }else if (tagWord == "accessories"){
+            apiurl("accessories");
+        
+        }else if (tagWord !== ""){ // 如果沒有 querystring 的話，就等於直接導到首頁
+            apiurl("all");
+        }
+       
+    }
+
+    // window.addEventListener('load', function () { apiurl("all") });
     window.addEventListener("load", function () { marketing() });
     window.addEventListener("load", function () { addUpQTY() });
 
