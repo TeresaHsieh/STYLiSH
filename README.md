@@ -4,7 +4,8 @@ An ecommerce website of clothing provided best shopping experiences for users.
 
 Get started: https://teresahsieh.github.io/STYLiSH
 
-![](https://i.imgur.com/eQskXfU.jpg)
+<!-- ![](https://i.imgur.com/eQskXfU.jpg) -->
+<img src="https://i.imgur.com/eQskXfU.jpg" width="600">
 
 ## Technologies
 
@@ -30,4 +31,5 @@ Get started: https://teresahsieh.github.io/STYLiSH
 
 **4. Thank You Page**
 
-![](https://i.imgur.com/cEaUXGV.jpg)
+<!-- ![](https://i.imgur.com/cEaUXGV.jpg) -->
+<img src="https://i.imgur.com/cEaUXGV.jpg" width="600">
