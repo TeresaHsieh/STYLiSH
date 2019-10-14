@@ -4,7 +4,7 @@ An ecommerce website of clothing provided best shopping experiences for users.
 
 Get started: https://teresahsieh.github.io/STYLiSH
 
-<img src="https://i.imgur.com/5eVky14.png" width="600">
+![](https://i.imgur.com/eQskXfU.jpg)
 
 ## Technologies
 
@@ -18,7 +18,7 @@ Get started: https://teresahsieh.github.io/STYLiSH
 
 **1. Landing Page(With Infinite Scroll Paging)**
 
-![](https://i.imgur.com/vdpK23A.gif)
+![](https://i.imgur.com/RBOGuDw.gif)
 
 **2. Products' Detail Page**
 
