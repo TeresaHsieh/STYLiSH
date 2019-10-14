@@ -18,7 +18,7 @@ Get started: https://teresahsieh.github.io/STYLiSH
 
 **1. Landing Page(With Infinite Scroll Paging)**
 
-<img src="https://i.imgur.com/RBOGuDw.gif">
+![](https://i.imgur.com/RBOGuDw.gif)
 
 **2. Products' Detail Page**
 
